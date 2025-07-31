@@ -212,7 +212,6 @@ const intersectObjects = [];
 const intersectObjectsNames = [
   "Basket",
   "Behance",
-  "Speakers",
   "Chair",
   "CV",
   "Dribbble",
@@ -222,6 +221,8 @@ const intersectObjectsNames = [
   "PC",
   "Phone",
   "PictureFrame",
+  "Speakers",
+  "Switch",
 ];
 
 // Loading screen and loading manager
@@ -312,6 +313,37 @@ scene.add(sun);
 
 const light = new THREE.AmbientLight(0x242424, 2.7);
 scene.add(light);
+
+const mainLight = new THREE.RectAreaLight(0xffffff, 0.6, 5); // (color, intensity, distance)
+mainLight.position.set(0, 4, 2); // X, Y, Z coordinates
+mainLight.rotation.x = -Math.PI / 2; // tilt it downward
+mainLight.visible = false; // start hidden (dark mode OFF)
+scene.add(mainLight);
+
+/*const spotLight = new THREE.SpotLight(0xdea728, 1, 1); // (color, intensity, distance)
+spotLight.position.set(0, 2, 0); // X, Y, Z coordinates
+spotLight.angle = Math.PI / 15;      // Narrow cone
+spotLight.penumbra = 1;           // Slight softness
+spotLight.distance = 20;
+spotLight.visible = true; // start hidden (dark mode OFF)
+scene.add(spotLight);
+
+const spotlighttarget = new THREE.Object3D();
+spotlighttarget.position.set(-1.5, 0, -1.3); // Directly below the light
+scene.add(spotlighttarget);
+
+spotLight.target = spotlighttarget;*/
+
+const pointLight = new THREE.PointLight(0xdea728, 1, 2); // (color, intensity, distance)
+pointLight.position.set(-1.2, 0.7, 0.2); // X, Y, Z coordinates
+pointLight.visible = false; // start hidden (dark mode OFF)
+scene.add(pointLight);
+
+const pointlighttarget = new THREE.Object3D();
+pointlighttarget.position.set(-3, 0, -1.3); // Directly below the light
+scene.add(pointlighttarget);
+
+pointLight.target = pointlighttarget;
 
 // Camera Stuff
 // See: https://threejs.org/docs/?q=orth#api/en/cameras/OrthographicCamera
@@ -773,9 +805,23 @@ if (objectName === "Speakers") {
   return;
 }
 
-// 3️⃣ Toggle theme when clicking the "Lamp"
 if (objectName === "Lamp") {
-  toggleTheme();
+    toggleTheme();
+  if (pointLight.visible) {
+    pointLight.visible = false;
+  } else {
+    pointLight.visible = true;
+  }
+  return;
+}
+
+// 3️⃣ Toggle theme when clicking the "Switch"
+if (objectName === "Switch") {
+  if (mainLight.visible) {
+    mainLight.visible = false;
+  } else {
+    mainLight.visible = true;
+  }
   return;
 }
 
