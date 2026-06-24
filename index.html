@@ -18,25 +18,36 @@
       sizes="180x180"
       href="./media/apple-touch-icon.png"
     />
-    <meta name="language" content="English" />
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="/media/landing.webp" />
     <link rel="manifest" href="./media/site.webmanifest" />
+
+    <!-- ── Primary meta ──────────────────────────────────────── -->
+    <meta name="description"    content="Product Designer with 5+ years in SaaS, Gamification &amp; Immersive Tech. Explore my interactive 3D portfolio!" />
+    <meta name="author"         content="Muhamad Andri Saputro" />
+    <meta name="language"       content="English" />
+
+    <!-- ── Open Graph (LinkedIn, Facebook, WhatsApp) ─────────── -->
+    <meta property="og:type"        content="website" />
+    <meta property="og:url"         content="https://masscity-desk.netlify.app/" />
+    <meta property="og:site_name"   content="MassCity's Desk" />
+    <meta property="og:title"       content="MassCity's Desk" />
+    <meta property="og:description" content="Product Designer with 5+ years in SaaS, Gamification &amp; Immersive Tech. Explore my interactive 3D portfolio!" />
+    <meta property="og:image"       content="https://masscity-desk.netlify.app/media/og-preview.png" />
+    <meta property="og:image:width"  content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale"      content="en_US" />
+
+    <!-- ── Twitter / X Card ──────────────────────────────────── -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:url"         content="https://masscity-desk.netlify.app/" />
+    <meta name="twitter:title"       content="MassCity's Desk" />
+    <meta name="twitter:description" content="Product Designer with 5+ years in SaaS, Gamification &amp; Immersive Tech. Explore my interactive 3D portfolio!" />
+    <meta name="twitter:image"       content="https://masscity-desk.netlify.app/media/og-preview.png" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link 
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" 
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,500&display=swap"
       rel="stylesheet">
-
-    <meta
-      property="og:description"
-      content="Welcome to my desk, feel free to look around and learn more about me!"
-    />
-    <meta
-      name="description"
-      content="Welcome to my desk, feel free to look around and learn more about me!"
-    />
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body class="light-theme">
@@ -44,125 +55,146 @@
       <canvas id="experience-canvas"></canvas>
     </div>
 
-    <div class="tutorial-overlay">
-  <p>Rotate: Hold left click</p>
-  <p>Move: Hold right click</p>
-  <p>Zoom in/out: Scroll up/down</p>
-  <p>Interact: Left click</p>
-  </div>
+    <!-- Nav guide tooltip (shown by ? button) -->
+    <div class="tutorial-overlay hidden" id="tutorialOverlay">
+      <!-- Desktop controls -->
+      <div class="tutorial-desktop">
+        <p>Rotate: Hold left click</p>
+        <p>Move: Hold right click</p>
+        <p>Zoom in/out: Scroll up/down</p>
+        <p>Interact: Left click</p>
+      </div>
+      <!-- Mobile controls -->
+      <div class="tutorial-mobile">
+        <p>Rotate: One-finger drag</p>
+        <p>Pan: Two-finger drag</p>
+        <p>Zoom: Pinch in/out</p>
+        <p>Interact: Tap</p>
+      </div>
+    </div>
 
     
     <!-- Loading Screen -->
     <div class="loading-screen" id="loadingScreen">
-      <div class="dynamic-message" id="dynamicMessage">Now Loading</div> <!-- dynamic text on top -->
-      <button class="enter-button">Enter</button> <!-- button below -->
+      <div class="loading-monitor-content">
+
+        <!-- Phase 1: visible while loading -->
+        <div class="loading-phase-1" id="loadingPhase1">
+          <div class="dynamic-message" id="dynamicMessage">Loading</div>
+          <div class="loading-progress-bar">
+            <div class="loading-progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+
+        <!-- Phase 2: revealed after loading completes -->
+        <div class="loading-phase-2" id="loadingPhase2">
+          <p class="loading-name">Muhamad Andri Saputro</p>
+          <p class="loading-role">Product Designer · Visual Designer · UI/UX</p>
+          <div class="loading-divider"></div>
+        </div>
+
+        <!-- Phase 3: shown if 3D scene fails to load -->
+        <div class="loading-phase-error" id="loadingPhaseError">
+          <p class="loading-error-msg">Scene couldn't load</p>
+          <p class="loading-error-sub">Try refreshing — or explore the work directly.</p>
+          <div class="loading-error-actions">
+            <button class="loading-error-btn loading-error-btn--primary" onclick="location.reload()">Refresh</button>
+            <a class="loading-error-btn" href="Portfolio.html">View Case Studies →</a>
+          </div>
+        </div>
+
+        <button class="enter-button">Enter</button>
+      </div>
       <div class="instructions"></div>
     </div>
 
-    <!-- Theme Toggle -->
-    <div class="theme-mode-toggle-button">
-      <svg
-        width="80"
-        height="80"
-        viewBox="0 0 80 80"
-        class="first-icon"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect x="25" y="25" width="30" height="30" fill="white" />
-        <rect
-          width="4"
-          height="19"
-          transform="matrix(-1 0 0 1 42 0)"
-          fill="white"
-        />
-        <rect
-          width="4"
-          height="19"
-          transform="matrix(-1 0 0 1 42 61)"
-          fill="white"
-        />
-        <rect
-          width="4"
-          height="19"
-          transform="matrix(0 -1 -1 0 80 42)"
-          fill="white"
-        />
-        <rect
-          width="4"
-          height="14"
-          transform="matrix(0.707107 -0.707107 -0.707107 -0.707107 18.8994 22.728)"
-          fill="white"
-        />
-        <rect
-          width="4"
-          height="14"
-          transform="matrix(0.719888 0.69409 -0.719888 0.69409 19.0786 59.0491)"
-          fill="white"
-        />
-        <rect
-          width="4"
-          height="14"
-          transform="matrix(0.707107 0.707107 0.707107 -0.707107 58 19.8994)"
-          fill="white"
-        />
-        <rect
-          width="4"
-          height="14"
-          transform="matrix(0.719888 -0.69409 0.719888 0.69409 58.1792 61.7764)"
-          fill="white"
-        />
-        <rect
-          width="4"
-          height="19"
-          transform="matrix(0 -1 -1 0 19 42)"
-          fill="white"
-        />
-      </svg>
+    <!-- ── Intro brand flash ───────────────────────────────────── -->
+    <div id="introBrand">MassCity's Desk</div>
 
-      <svg
-        width="46"
-        height="46"
-        viewBox="0 0 46 46"
-        class="second-icon"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
-          d="M26.8333 0H46V46H0V26.8333H26.8333V0ZM34 12H41.6667V19.6667H34V12ZM33.2222 26.8333H40.8889V34.5H33.2222V26.8333ZM23 33.2222H15.3333V40.8889H23V33.2222Z"
-          fill="white"
-        />
-      </svg>
+
+    <!-- ── HUD Links Dropdown (pops above HUD bar) ─────────────── -->
+    <div class="hud-dropdown" id="hudDropdown">
+      <button class="hud-dropdown-item" data-mesh="Behance" data-href="https://www.behance.net/muhamadsaputro1">
+        Visit Behance Page
+      </button>
+      <button class="hud-dropdown-item" data-mesh="IG" data-href="https://www.instagram.com/mass_city/">
+        Visit Instagram
+      </button>
+      <button class="hud-dropdown-item" data-mesh="Dribbble" data-href="https://dribbble.com/masscity">
+        Visit Dribbble
+      </button>
+      <button class="hud-dropdown-item" data-mesh="Linkedin" data-href="https://www.linkedin.com/in/masscity/">
+        Visit LinkedIn
+      </button>
+      <div class="hud-dropdown-divider"></div>
+      <button class="hud-dropdown-item" data-mesh="PictureFrame" data-action="gallery">
+        Gallery
+      </button>
+      <button class="hud-dropdown-item" data-mesh="Phone" data-href="https://mail.google.com/mail/?view=cm&fs=1&to=andri.saputro98@gmail.com&su=I+Found+Your+Website!">
+        Contact Me
+        <span class="hud-otw">· Open to work</span>
+      </button>
     </div>
 
-    <div class="audio-toggle-button">
-      <svg
-        width="102"
-        height="69"
-        viewBox="0 0 102 69"
-        class="first-icon-two"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect y="17" width="24" height="37" fill="white" />
-        <rect x="39" width="24" height="69" fill="white" />
-        <rect x="78" y="12" width="24" height="42" fill="white" />
-      </svg>
+    <!-- ── HUD Bar ────────────────────────────────────────────── -->
+    <div class="hud-bar" id="hudBar">
 
-      <svg
-        width="102"
-        height="24"
-        viewBox="0 0 102 24"
-        class="second-icon-two"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect width="24" height="24" fill="white" />
-        <rect x="39" width="24" height="24" fill="white" />
-        <rect x="78" width="24" height="24" fill="white" />
-      </svg>
+      <!-- Sound toggle -->
+      <button class="hud-btn hud-btn--icon audio-toggle-button" id="hudSoundBtn" title="Toggle sound">
+        <!-- Sound ON icon -->
+        <svg width="18" height="14" viewBox="0 0 102 69" class="first-icon-two" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect y="17" width="24" height="37" fill="currentColor"/>
+          <rect x="39" width="24" height="69" fill="currentColor"/>
+          <rect x="78" y="12" width="24" height="42" fill="currentColor"/>
+        </svg>
+        <!-- Sound OFF icon -->
+        <svg width="18" height="14" viewBox="0 0 102 24" class="second-icon-two" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:none">
+          <rect width="24" height="24" fill="currentColor"/>
+          <rect x="39" width="24" height="24" fill="currentColor"/>
+          <rect x="78" width="24" height="24" fill="currentColor"/>
+        </svg>
+      </button>
+
+      <!-- Light toggle -->
+      <button class="hud-btn hud-btn--icon theme-mode-toggle-button" id="hudLightBtn" title="Toggle light">
+        <!-- Light ON icon (sun) -->
+        <svg width="18" height="18" viewBox="0 0 80 80" class="first-icon" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="25" y="25" width="30" height="30" fill="currentColor"/>
+          <rect width="4" height="19" transform="matrix(-1 0 0 1 42 0)" fill="currentColor"/>
+          <rect width="4" height="19" transform="matrix(-1 0 0 1 42 61)" fill="currentColor"/>
+          <rect width="4" height="19" transform="matrix(0 -1 -1 0 80 42)" fill="currentColor"/>
+          <rect width="4" height="14" transform="matrix(0.707107 -0.707107 -0.707107 -0.707107 18.8994 22.728)" fill="currentColor"/>
+          <rect width="4" height="14" transform="matrix(0.719888 0.69409 -0.719888 0.69409 19.0786 59.0491)" fill="currentColor"/>
+          <rect width="4" height="14" transform="matrix(0.707107 0.707107 0.707107 -0.707107 58 19.8994)" fill="currentColor"/>
+          <rect width="4" height="14" transform="matrix(0.719888 -0.69409 0.719888 0.69409 58.1792 61.7764)" fill="currentColor"/>
+          <rect width="4" height="19" transform="matrix(0 -1 -1 0 19 42)" fill="currentColor"/>
+        </svg>
+        <!-- Light OFF icon (moon) -->
+        <svg width="18" height="18" viewBox="0 0 46 46" class="second-icon" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:none">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M26.8333 0H46V46H0V26.8333H26.8333V0ZM34 12H41.6667V19.6667H34V12ZM33.2222 26.8333H40.8889V34.5H33.2222V26.8333ZM23 33.2222H15.3333V40.8889H23V33.2222Z" fill="currentColor"/>
+        </svg>
+      </button>
+
+      <div class="hud-divider"></div>
+
+      <!-- View Portfolio -->
+      <button class="hud-btn hud-btn--cta" id="viewPortfolioBtn">View Portfolio</button>
+
+      <!-- View Resume -->
+      <button class="hud-btn hud-btn--cta hud-btn--resume" id="viewResumeBtn">View Resume</button>
+
+      <!-- Links dropdown trigger -->
+      <button class="hud-btn hud-btn--icon hud-btn--links" id="hudLinksBtn" title="Links & Gallery">
+        <svg width="11" height="7" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 6L5.5 1.5L10 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <div class="hud-divider"></div>
+
+      <!-- Controls help -->
+      <button class="hud-btn hud-btn--help" id="hudHelpBtn" title="Controls">?</button>
+
     </div>
 
     <!-- Pop-up Modals -->
@@ -178,7 +210,7 @@
 
                     <!-- Image Gallery for Projects -->
         <div class="modal-image-container hidden">
-          <img id="modalImage" src="" alt="Project Image">
+          <img id="modalImage" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Project Image">
           <button id="prevImage" class="gallery-btn">⟨</button>
           <button id="nextImage" class="gallery-btn">⟩</button>
         </div>
@@ -210,6 +242,64 @@
             >
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- ── Page curtain transition ──────────────────────────────── -->
+    <div class="curtain" id="curtain"></div>
+
+    <!-- ── Hover label ───────────────────────────────────────────── -->
+    <div class="hover-label" id="hoverLabel">
+      <span class="hover-label-dot"></span>
+      <span class="hover-label-text" id="hoverLabelText"></span>
+    </div>
+
+
+    <!-- ── Backdrop blur (sits between 3D scene and Screen UI) ──── -->
+    <div class="screen-backdrop" id="screenBackdrop"></div>
+
+    <!-- ── Screen UI (opens when PC/Monitor is clicked) ─────────── -->
+    <div class="screen-ui" id="screenUI">
+
+      <!-- ── Top bar ───────────────────────────────────────── -->
+      <header class="su-topbar" id="suTopbar">
+        <!-- Site-level nav: always visible in header -->
+        <div class="su-sitenav" id="suSiteNav">
+          <button class="su-sitenav-btn" data-section="portfolio">Portfolio</button>
+          <div class="su-sitenav-dropdown">
+            <button class="su-sitenav-btn su-sitenav-btn--dropdown" data-section="project">Project <span class="su-dropdown-arrow">▾</span></button>
+            <div class="su-sitenav-dropdown__menu" id="suProjectMenu"></div>
+          </div>
+          <button class="su-sitenav-btn su-sitenav-btn--resume" data-section="resume">Resume</button>
+          <a class="su-sitenav-btn su-sitenav-btn--contact" href="mailto:andri.saputro98@gmail.com">Contact</a>
+        </div>
+        <!-- Project tabs: shown only when viewing a project -->
+        <nav class="su-nav" id="suNav"></nav>
+        <div class="su-topbar-actions">
+          <a class="su-cv-btn" id="suCvBtn" href="#" target="_blank">Download CV</a>
+          <button class="su-back-btn" id="screenBackBtn">← Back to Room</button>
+        </div>
+      </header>
+
+      <!-- ── Project iframe ─────────────────────────────────── -->
+      <iframe class="su-frame" id="suFrame" src="" frameborder="0" allowtransparency="true" allowfullscreen></iframe>
+
+      <!-- ── Sorry popup (WIP projects) ─────────────────────── -->
+      <div id="sorryOverlay" class="sorry-overlay hidden">
+        <div class="sorry-panel">
+          <div class="sorry-titlebar">
+            <span class="sorry-dot" style="background:#c4956a"></span>
+            <span class="sorry-dot" style="background:#d4c48c"></span>
+            <span class="sorry-dot" style="background:#a3b88c"></span>
+            <span class="sorry-label">sorry.txt</span>
+          </div>
+          <div class="sorry-body">
+            <h2 class="sorry-title">Sorry</h2>
+            <p class="sorry-desc">Full work currently still work in progress to make it full. Check my PDF format Portfolio <a href="https://drive.google.com/file/d/1gSBHp5xk_0T4R7v_0hZoqLNOEgP_BQn3/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="sorry-link">Here</a></p>
+          </div>
+          <img src="media/Sorry.png" alt="Sorry" class="sorry-img" />
+        </div>
+        <span class="sorry-hint">Click anywhere to close</span>
       </div>
     </div>
 

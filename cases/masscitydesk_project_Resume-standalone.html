@@ -1,0 +1,834 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Andri Saputro · Resume</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Recoleta:wght@500;600;700&family=DM+Serif+Display&family=Caprasimo&family=Sniglet:wght@400;800&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  html, body, #root { margin: 0; min-height: 100vh; background: linear-gradient(180deg, oklch(0.96 0.025 75) 0%, oklch(0.92 0.04 65) 100%); color: oklch(0.28 0.04 50); font-family: "Plus Jakarta Sans", system-ui, sans-serif; transition: background 0.4s, color 0.4s; }
+  html[data-theme="dark"], html[data-theme="dark"] body, html[data-theme="dark"] #root { background: linear-gradient(180deg, oklch(0.22 0.025 50) 0%, oklch(0.16 0.03 45) 100%); color: oklch(0.94 0.02 80); }
+  * { box-sizing: border-box; }
+  body { overflow-x: hidden; }
+  .reveal { transform: translateY(44px); transition: transform 0.75s cubic-bezier(0.16,1,0.3,1); }
+  .reveal.in { transform: none; }
+  .glass-hover { transition: transform 0.25s cubic-bezier(.2,.8,.2,1), border-color 0.25s, background 0.25s, box-shadow 0.25s; transform-style: preserve-3d; will-change: transform; }
+  .glass-hover:hover { border-color: rgba(255, 252, 240, 0.85); background: rgba(255, 250, 235, 0.42); transform: translateY(-3px); box-shadow: 0 28px 50px -20px rgba(60,30,15,0.45), inset 0 1px 0 rgba(255,255,255,0.7); }
+  .glass::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(280px circle at var(--mx, 50%) var(--my, 50%), rgba(255,250,230,0.25), transparent 60%); opacity: 0; transition: opacity 0.3s; border-radius: inherit; }
+  .glass:hover::before { opacity: 1; }
+  ::selection { background: oklch(0.88 0.13 95 / 0.6); color: oklch(0.28 0.04 55); }
+  @keyframes mote { 0%,100% { transform: translateY(0) translateX(0); opacity: 0.4; } 50% { transform: translateY(-30px) translateX(15px); opacity: 0.9; } }
+  body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 100; opacity: 0.06; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>"); }
+  ::-webkit-scrollbar { width: 12px; height: 12px; }
+  ::-webkit-scrollbar-track { background: oklch(0.88 0.03 75); }
+  ::-webkit-scrollbar-thumb { background: oklch(0.70 0.10 70); border-radius: 999px; border: 2px solid oklch(0.88 0.03 75); }
+  ::-webkit-scrollbar-thumb:hover { background: oklch(0.45 0.06 60); }
+  @media (max-width: 768px) {
+    .rsp-main-resume { grid-template-columns: 1fr !important; padding-top: 80px !important; padding-left: 16px !important; padding-right: 16px !important; }
+    .rsp-nav-links   { display: none !important; }
+    .rsp-three-col   { grid-template-columns: 1fr !important; }
+    .rsp-two-col     { grid-template-columns: 1fr !important; }
+  }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script>
+  if (new URLSearchParams(location.search).has('embed')) {
+    document.documentElement.classList.add('embed-mode');
+    try { localStorage.setItem('resume-theme', 'light'); } catch(e) {}
+    function clearBg() {
+      document.documentElement.style.background = 'transparent';
+      document.body.style.background = 'transparent';
+    }
+    clearBg();
+    new MutationObserver(clearBg).observe(document.body, { attributes: true, attributeFilter: ['style'] });
+    function removeTopbar(root) { root.querySelectorAll('header').forEach(function(el){ el.remove(); }); }
+    var domObserver = new MutationObserver(function(){ removeTopbar(document); });
+    document.addEventListener('DOMContentLoaded', function() {
+      removeTopbar(document);
+      domObserver.observe(document.body, { childList: true, subtree: true });
+    });
+  }
+</script>
+<style>
+  html.embed-mode header { display: none !important; }
+  html.embed-mode main { padding-top: 32px !important; }
+  html.embed-mode, html.embed-mode body, html.embed-mode #root { background: transparent !important; }
+  html.embed-mode img[src*='room-background'] { display: none !important; }
+  html.embed-mode div[style*='position: fixed'][style*='z-index: 0'] { display: none !important; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+// ─── TWEAKS PANEL ─────────────────────────────────────────────────────────────
+
+const __TWEAKS_STYLE = `
+  .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;
+    max-height:calc(100vh - 32px);display:flex;flex-direction:column;
+    background:rgba(250,249,247,.78);color:#29261b;
+    -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+    border:.5px solid rgba(255,255,255,.6);border-radius:14px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);
+    font:11.5px/1.4 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
+  .twk-hd{display:flex;align-items:center;justify-content:space-between;
+    padding:10px 8px 10px 14px;cursor:move;user-select:none}
+  .twk-hd b{font-size:12px;font-weight:600;letter-spacing:.01em}
+  .twk-x{appearance:none;border:0;background:transparent;color:rgba(41,38,27,.55);
+    width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px;line-height:1}
+  .twk-x:hover{background:rgba(0,0,0,.06);color:#29261b}
+  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;
+    overflow-y:auto;overflow-x:hidden;min-height:0;
+    scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.15) transparent}
+  .twk-row{display:flex;flex-direction:column;gap:5px}
+  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+  .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;color:rgba(41,38,27,.72)}
+  .twk-lbl>span:first-child{font-weight:500}
+  .twk-val{color:rgba(41,38,27,.5);font-variant-numeric:tabular-nums}
+  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:rgba(41,38,27,.45);padding:10px 0 0}
+  .twk-sect:first-child{padding-top:0}
+  .twk-field{appearance:none;width:100%;height:26px;padding:0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;
+    background:rgba(255,255,255,.6);color:inherit;font:inherit;outline:none}
+  .twk-field:focus{border-color:rgba(0,0,0,.25);background:rgba(255,255,255,.85)}
+  select.twk-field{padding-right:22px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(0,0,0,.5)' d='M0 0h10L5 6z'/></svg>");
+    background-repeat:no-repeat;background-position:right 8px center}
+  .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:4px;margin:6px 0;
+    border-radius:999px;background:rgba(0,0,0,.12);outline:none}
+  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+    width:14px;height:14px;border-radius:50%;background:#fff;
+    border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;
+    background:rgba(0,0,0,.15);transition:background .15s;cursor:default;padding:0}
+  .twk-toggle[data-on="1"]{background:#34c759}
+  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;
+    background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+  .twk-toggle[data-on="1"] i{transform:translateX(14px)}
+`;
+
+function useTweaks(defaults) {
+  const [values, setValues] = React.useState(defaults);
+  const setTweak = React.useCallback((keyOrEdits, val) => {
+    const edits = typeof keyOrEdits === 'object' && keyOrEdits !== null
+      ? keyOrEdits : { [keyOrEdits]: val };
+    setValues((prev) => ({ ...prev, ...edits }));
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits }, '*');
+  }, []);
+  return [values, setTweak];
+}
+
+function TweaksPanel({ title = 'Tweaks', children }) {
+  const [open, setOpen] = React.useState(false);
+  const dragRef = React.useRef(null);
+  const offsetRef = React.useRef({ x: 16, y: 16 });
+  const PAD = 16;
+
+  const clampToViewport = React.useCallback(() => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const w = panel.offsetWidth, h = panel.offsetHeight;
+    const maxRight = Math.max(PAD, window.innerWidth - w - PAD);
+    const maxBottom = Math.max(PAD, window.innerHeight - h - PAD);
+    offsetRef.current = {
+      x: Math.min(maxRight, Math.max(PAD, offsetRef.current.x)),
+      y: Math.min(maxBottom, Math.max(PAD, offsetRef.current.y)),
+    };
+    panel.style.right = offsetRef.current.x + 'px';
+    panel.style.bottom = offsetRef.current.y + 'px';
+  }, []);
+
+  React.useEffect(() => {
+    if (!open) return;
+    clampToViewport();
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(clampToViewport) : null;
+    if (ro) { ro.observe(document.documentElement); return () => ro.disconnect(); }
+    window.addEventListener('resize', clampToViewport);
+    return () => window.removeEventListener('resize', clampToViewport);
+  }, [open, clampToViewport]);
+
+  React.useEffect(() => {
+    const onMsg = (e) => {
+      const t = e?.data?.type;
+      if (t === '__activate_edit_mode') setOpen(true);
+      else if (t === '__deactivate_edit_mode') setOpen(false);
+    };
+    window.addEventListener('message', onMsg);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+
+  const dismiss = () => {
+    setOpen(false);
+    window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
+  };
+
+  const onDragStart = (e) => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const r = panel.getBoundingClientRect();
+    const sx = e.clientX, sy = e.clientY;
+    const startRight = window.innerWidth - r.right;
+    const startBottom = window.innerHeight - r.bottom;
+    const move = (ev) => {
+      offsetRef.current = { x: startRight - (ev.clientX - sx), y: startBottom - (ev.clientY - sy) };
+      clampToViewport();
+    };
+    const up = () => {
+      window.removeEventListener('mousemove', move);
+      window.removeEventListener('mouseup', up);
+    };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+  };
+
+  if (!open) return null;
+  return (
+    <>
+      <style>{__TWEAKS_STYLE}</style>
+      <div ref={dragRef} className="twk-panel" style={{ right: offsetRef.current.x, bottom: offsetRef.current.y }}>
+        <div className="twk-hd" onMouseDown={onDragStart}>
+          <b>{title}</b>
+          <button className="twk-x" aria-label="Close tweaks" onMouseDown={(e) => e.stopPropagation()} onClick={dismiss}>✕</button>
+        </div>
+        <div className="twk-body">{children}</div>
+      </div>
+    </>
+  );
+}
+
+function TweakSection({ label }) {
+  return <div className="twk-sect">{label}</div>;
+}
+
+function TweakRow({ label, value, children, inline = false }) {
+  return (
+    <div className={inline ? 'twk-row twk-row-h' : 'twk-row'}>
+      <div className="twk-lbl">
+        <span>{label}</span>
+        {value != null && <span className="twk-val">{value}</span>}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function TweakSlider({ label, value, min = 0, max = 100, step = 1, unit = '', onChange }) {
+  return (
+    <TweakRow label={label} value={`${value}${unit}`}>
+      <input type="range" className="twk-slider" min={min} max={max} step={step}
+             value={value} onChange={(e) => onChange(Number(e.target.value))} />
+    </TweakRow>
+  );
+}
+
+function TweakToggle({ label, value, onChange }) {
+  return (
+    <div className="twk-row twk-row-h">
+      <div className="twk-lbl"><span>{label}</span></div>
+      <button type="button" className="twk-toggle" data-on={value ? '1' : '0'}
+              role="switch" aria-checked={!!value}
+              onClick={() => onChange(!value)}><i /></button>
+    </div>
+  );
+}
+
+function TweakSelect({ label, value, options, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <select className="twk-field" value={value} onChange={(e) => onChange(e.target.value)}>
+        {options.map((o) => {
+          const v = typeof o === 'object' ? o.value : o;
+          const l = typeof o === 'object' ? o.label : o;
+          return <option key={v} value={v}>{l}</option>;
+        })}
+      </select>
+    </TweakRow>
+  );
+}
+
+// ─── RESUME-SHARED: tokens, hooks, primitives ─────────────────────────────────
+
+const RT_LIGHT = {
+  bg0: 'oklch(0.96 0.025 75)',
+  bg1: 'oklch(0.92 0.04 65)',
+  glassFill: 'rgba(255, 250, 238, 0.55)',
+  glassBorder: 'rgba(110, 75, 45, 0.28)',
+  glassBorderHi: 'rgba(110, 75, 45, 0.42)',
+  cream: 'oklch(0.97 0.025 85)',
+  ink: 'oklch(0.28 0.04 50)',
+  ink2: 'oklch(0.44 0.035 55)',
+  ink3: 'oklch(0.60 0.025 55)',
+  accent: 'oklch(0.72 0.16 45)',
+  accentDeep: 'oklch(0.52 0.13 42)',
+  yellow: 'oklch(0.86 0.085 92)',
+  green: 'oklch(0.80 0.06 145)',
+  pink: 'oklch(0.78 0.075 38)',
+  innerFill: 'rgba(255, 248, 232, 0.6)',
+  fontUI: '"Plus Jakarta Sans", system-ui, sans-serif',
+};
+
+const RT_DARK = {
+  bg0: 'oklch(0.22 0.025 50)',
+  bg1: 'oklch(0.16 0.03 45)',
+  glassFill: 'rgba(60, 42, 28, 0.55)',
+  glassBorder: 'rgba(255, 235, 200, 0.18)',
+  glassBorderHi: 'rgba(255, 235, 200, 0.30)',
+  cream: 'oklch(0.30 0.03 50)',
+  ink: 'oklch(0.94 0.02 80)',
+  ink2: 'oklch(0.78 0.025 75)',
+  ink3: 'oklch(0.62 0.025 70)',
+  accent: 'oklch(0.78 0.16 50)',
+  accentDeep: 'oklch(0.85 0.14 55)',
+  yellow: 'oklch(0.72 0.10 92)',
+  green: 'oklch(0.68 0.07 145)',
+  pink: 'oklch(0.66 0.08 38)',
+  innerFill: 'rgba(40, 28, 18, 0.55)',
+  fontUI: '"Plus Jakarta Sans", system-ui, sans-serif',
+};
+
+const RT = { ...RT_LIGHT };
+
+function applyTheme(mode) {
+  const src = mode === 'dark' ? RT_DARK : RT_LIGHT;
+  Object.keys(src).forEach(k => { RT[k] = src[k]; });
+  document.documentElement.dataset.theme = mode;
+  document.body.style.background = `linear-gradient(180deg, ${src.bg0} 0%, ${src.bg1} 100%)`;
+  document.body.style.color = src.ink;
+}
+
+const { useEffect, useRef, useState } = React;
+
+function useReveal(delay = 0) {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current; if (!el) return;
+    // Pre-set the CSS transition-delay so the visual animation starts after `delay` ms
+    if (delay) el.style.transitionDelay = delay + 'ms';
+    const fallback = setTimeout(() => el.classList.add('in'), 700 + delay);
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((x) => {
+        if (x.isIntersecting || x.intersectionRatio > 0) {
+          clearTimeout(fallback);
+          x.target.classList.add('in');
+          io.unobserve(x.target);
+        }
+      }),
+      { threshold: 0.05, rootMargin: '0px 0px -10% 0px' }
+    );
+    io.observe(el);
+    return () => { clearTimeout(fallback); io.disconnect(); };
+  }, []);
+  return ref;
+}
+
+function Magnetic({ children, strength = 0.3, style = {}, ...rest }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current; if (!el) return;
+    const onMove = (e) => {
+      const r = el.getBoundingClientRect();
+      const cx = r.left + r.width/2, cy = r.top + r.height/2;
+      el.style.transform = `translate(${(e.clientX - cx) * strength}px, ${(e.clientY - cy) * strength}px)`;
+    };
+    const reset = () => { el.style.transform = ''; };
+    const parent = el.parentElement;
+    parent.addEventListener('mousemove', onMove); parent.addEventListener('mouseleave', reset);
+    return () => { parent.removeEventListener('mousemove', onMove); parent.removeEventListener('mouseleave', reset); };
+  }, [strength]);
+  return <span ref={ref} style={{ display: 'inline-block', transition: 'transform 0.25s cubic-bezier(.2,.8,.2,1)', ...style }} {...rest}>{children}</span>;
+}
+
+function LiveClock() {
+  const [now, setNow] = useState(new Date());
+  useEffect(() => { const t = setInterval(() => setNow(new Date()), 1000); return () => clearInterval(t); }, []);
+  const jakarta = new Date(now.getTime() + (now.getTimezoneOffset() + 420) * 60000);
+  const hh = String(jakarta.getHours()).padStart(2, '0');
+  const mm = String(jakarta.getMinutes()).padStart(2, '0');
+  return (
+    <span style={{ fontFamily: RT.fontUI, fontSize: 13, fontWeight: 600, color: RT.ink, display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+      <span style={{ width: 8, height: 8, borderRadius: '50%', background: RT.green, boxShadow: '0 0 10px ' + RT.green }} />
+      Jakarta · {hh}:{mm}
+    </span>
+  );
+}
+
+function CursorSpotlight() {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current; if (!el) return;
+    const move = (e) => { el.style.setProperty('--sx', e.clientX + 'px'); el.style.setProperty('--sy', e.clientY + 'px'); };
+    window.addEventListener('mousemove', move);
+    return () => window.removeEventListener('mousemove', move);
+  }, []);
+  return <div ref={ref} style={{
+    position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 1,
+    background: `radial-gradient(420px circle at var(--sx,50%) var(--sy,50%), oklch(0.95 0.10 90 / 0.18), transparent 60%)`,
+  }} />;
+}
+
+function Kicker({ children, style = {} }) {
+  return <span style={{ fontFamily: RT.fontUI, fontSize: 12, fontWeight: 700, color: RT.accentDeep, letterSpacing: 1.2, textTransform: 'uppercase', ...style }}>{children}</span>;
+}
+
+function useTheme() {
+  const [mode, setMode] = useState(() => {
+    try { return localStorage.getItem('resume-theme') || 'light'; } catch { return 'light'; }
+  });
+  applyTheme(mode);
+  useEffect(() => {
+    try { localStorage.setItem('resume-theme', mode); } catch {}
+  }, [mode]);
+  const toggle = () => setMode(m => m === 'light' ? 'dark' : 'light');
+  return [mode, toggle];
+}
+
+// ─── RESUME APP ───────────────────────────────────────────────────────────────
+
+const TWEAK_DEFAULTS_V2 = /*EDITMODE-BEGIN*/{
+  "displayFont": "Fraunces",
+  "bodyFont": "Jakarta",
+  "panelWidth": 1080,
+  "showRoomBackdrop": true
+}/*EDITMODE-END*/;
+
+const FONT_STACKS_V2 = {
+  Recoleta: '"Recoleta", "Fraunces", Cooper, Georgia, serif',
+  "DM Serif": '"DM Serif Display", "PP Editorial", Georgia, serif',
+  Caprasimo: '"Caprasimo", "Cooper", Georgia, serif',
+  Sniglet: '"Sniglet", "Quicksand", system-ui, sans-serif',
+  Fraunces: '"Fraunces", Georgia, serif',
+};
+const BODY_STACKS_V2 = {
+  Quicksand: '"Quicksand", "Nunito", system-ui, sans-serif',
+  Nunito: '"Nunito", "Quicksand", system-ui, sans-serif',
+  Jakarta: '"Plus Jakarta Sans", system-ui, sans-serif',
+};
+
+const PROJECTS = {
+  parachute: { title: 'Mobile MR Parachute', sub: 'Indonesian Air Force Academy · 2023', tag: 'VR · Simulation', accent: 'oklch(0.78 0.10 145)', href: 'Case-Parachute-standalone.html', logo: 'Logo_Mobile_Parachute_Mix_Reality.png' },
+  vlux:      { title: 'Lighting Kungfu', sub: 'UE5 precision lighting desktop app', tag: 'SaaS · Tool', accent: 'oklch(0.82 0.10 240)', href: 'sorry', logo: 'Logo_LightingKungfu.svg' },
+  edutech:   { title: 'GTU URC', sub: 'Multiple SaaS platforms', tag: 'SaaS · Game', accent: 'oklch(0.85 0.07 25)', href: 'sorry', logo: 'Logo_URC.png' },
+  pataland:  { title: 'Pataland', sub: 'Brand & product UI', tag: 'SaaS · Game', accent: 'oklch(0.88 0.13 95)', href: 'sorry', logo: 'Logo_PataLand2024.png' },
+  metaverse: { title: 'Techpol Metaverse', sub: 'Internal social product', tag: 'SaaS · Game', accent: 'oklch(0.70 0.10 70)', href: 'sorry', logo: 'Logo_Techpolitan.png' },
+};
+
+function ProjectThumb({ p, size = 56 }) {
+  return (
+    <span title={p.title} style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: size, height: size, borderRadius: 12, background: p.logo ? 'transparent' : p.accent, border: p.logo ? 'none' : `2px solid ${RT.ink}`, boxShadow: p.logo ? 'none' : '0 2.5px 0 ' + RT.ink, fontFamily: '"Fraunces", Georgia, serif', fontSize: size * 0.42, fontWeight: 700, color: RT.ink, flexShrink: 0, overflow: 'hidden' }}>
+      {p.logo ? <img src={p.logo} alt={p.title} style={{ width: '100%', height: '100%', objectFit: 'contain' }} /> : p.title.split(' ').map(w => w[0]).slice(0, 2).join('')}
+    </span>
+  );
+}
+
+function ResumeRoom({ theme = 'light' }) {
+  const isDark = theme === 'dark';
+  return (
+    <div style={{ position: 'fixed', inset: 0, zIndex: 0, overflow: 'hidden', filter: isDark ? 'brightness(0.45) saturate(0.7) hue-rotate(-8deg)' : 'none', transition: 'filter 0.4s' }}>
+      <img src="assets/room-background.png" alt="" aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
+      <div style={{ position: 'absolute', top: '-15%', right: '-10%', width: 700, height: 700, borderRadius: '50%', background: 'radial-gradient(circle, oklch(0.95 0.10 90 / 0.35), transparent 65%)', mixBlendMode: 'screen' }} />
+      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center, transparent 55%, rgba(80,50,30,0.22) 100%)' }} />
+      {[...Array(14)].map((_, i) => (
+        <div key={i} style={{
+          position: 'absolute', left: `${(i * 73 + 7) % 100}%`, top: `${(i * 47 + 13) % 100}%`,
+          width: 5, height: 5, borderRadius: '50%',
+          background: 'oklch(0.96 0.06 90 / 0.6)', boxShadow: '0 0 8px oklch(0.96 0.06 90)',
+          animation: `mote ${8 + (i % 5)}s ease-in-out ${i * 0.4}s infinite`,
+        }} />
+      ))}
+    </div>
+  );
+}
+
+function TopBar({ fontUI, theme, toggleTheme }) {
+  const isDark = theme === 'dark';
+  return (
+    <header style={{ position: 'fixed', top: 16, left: 16, right: 16, zIndex: 30, padding: '12px 18px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backdropFilter: 'blur(20px) saturate(140%)', WebkitBackdropFilter: 'blur(20px) saturate(140%)', background: RT.glassFill, border: `2px solid ${RT.glassBorder}`, borderRadius: 18, boxShadow: '0 10px 30px -12px rgba(40,25,10,0.30)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <Magnetic strength={0.18}>
+          <button style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '9px 16px', borderRadius: 999, background: RT.innerFill, border: `2px solid ${RT.ink}`, color: RT.ink, fontFamily: fontUI, fontSize: 13, fontWeight: 700, cursor: 'pointer', boxShadow: '0 3px 0 ' + RT.ink }}>
+            <span style={{ fontSize: 14 }}>←</span> Back to room
+          </button>
+        </Magnetic>
+        <Magnetic strength={0.22}>
+          <button onClick={toggleTheme} aria-label="Toggle dark mode" style={{
+            width: 40, height: 40, borderRadius: '50%',
+            background: isDark ? RT.ink : RT.yellow,
+            border: `2px solid ${RT.ink}`, color: isDark ? RT.yellow : RT.ink,
+            cursor: 'pointer', boxShadow: '0 3px 0 ' + RT.ink,
+            display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+            transition: 'background 0.3s, color 0.3s',
+            fontSize: 16,
+          }}>
+            {isDark ? (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            ) : (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            )}
+          </button>
+        </Magnetic>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+        <LiveClock />
+        <div className="rsp-nav-links" style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+          <span style={{ width: 1.5, height: 18, background: RT.glassBorderHi }} />
+          {[
+            { label: 'About',   href: 'Portfolio-standalone.html#profile' },
+            { label: 'Work',    href: 'Portfolio-standalone.html' },
+            { label: 'Resume',  href: 'masscitydesk_project_Resume-standalone.html' },
+            { label: 'Contact', href: 'mailto:andri.saputro98@gmail.com' },
+          ].map(({ label, href }) => (
+            <a key={label} href={href} style={{ fontFamily: fontUI, fontSize: 13, fontWeight: label === 'Resume' ? 700 : 500, color: label === 'Resume' ? RT.accentDeep : RT.ink2, textDecoration: 'none' }}>{label}</a>
+          ))}
+        </div>
+        <Magnetic>
+          <a href="https://drive.google.com/file/d/1fS43JA80asxhomSJ7bch0yvdm1agD7Sk/view?usp=drive_link" target="_blank" rel="noopener noreferrer" style={{ padding: '9px 18px', borderRadius: 999, background: RT.accent, border: `2px solid ${RT.ink}`, color: '#5D4A3C', fontFamily: fontUI, fontSize: 13, fontWeight: 700, cursor: 'pointer', boxShadow: '0 3px 0 ' + RT.ink, textDecoration: 'none', display: 'inline-block' }}>Download Resume ↓</a>
+        </Magnetic>
+      </div>
+    </header>
+  );
+}
+
+function WindowCard({ title, children, padding = 28, hoverable = false, accent = RT.accent, style = {} }) {
+  return (
+    <div className={hoverable ? 'glass glass-hover' : 'glass'} style={{
+      position: 'relative',
+      background: 'rgba(255, 250, 238, 0.55)',
+      backdropFilter: 'blur(22px) saturate(150%)',
+      WebkitBackdropFilter: 'blur(22px) saturate(150%)',
+      border: `2px solid ${RT.glassBorder}`,
+      borderRadius: 22,
+      overflow: 'hidden',
+      boxShadow: '0 24px 48px -20px rgba(60,40,20,0.30), inset 0 1px 0 rgba(255,255,255,0.7)',
+      ...style,
+    }}>
+      {title && (
+        <div style={{ padding: '11px 16px', borderBottom: `2px solid ${RT.glassBorder}`, background: 'rgba(255,250,238,0.4)', display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ width: 10, height: 10, borderRadius: '50%', background: accent, border: `1.5px solid ${RT.ink}` }} />
+          <span style={{ width: 10, height: 10, borderRadius: '50%', background: RT.yellow, border: `1.5px solid ${RT.ink}` }} />
+          <span style={{ width: 10, height: 10, borderRadius: '50%', background: RT.green, border: `1.5px solid ${RT.ink}` }} />
+          <span style={{ marginLeft: 8, fontFamily: RT.fontUI, fontSize: 11.5, fontWeight: 700, color: RT.ink2, letterSpacing: 0.5, textTransform: 'uppercase' }}>{title}</span>
+        </div>
+      )}
+      <div style={{ padding }}>{children}</div>
+    </div>
+  );
+}
+
+function Sidebar({ fontDisplay, fontUI }) {
+  const ref = useReveal(0);
+  return (
+    <aside ref={ref} className="reveal" style={{ alignSelf: 'start' }}>
+      <div style={{ position: 'sticky', top: 72 }}>
+      <WindowCard title="profile.card" padding={0} accent={RT.accent}>
+        {/* Profile photo — 3:4 portrait ratio, fully responsive */}
+        <div style={{ aspectRatio: '3 / 4', borderBottom: `2px solid ${RT.glassBorder}`, overflow: 'hidden' }}>
+          <img src="profile-photo.jpg" alt="M Andri Saputro"
+            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: '50% 0%', display: 'block' }} />
+        </div>
+        <div style={{ padding: '20px 22px 22px' }}>
+          <h2 style={{ margin: 0, fontFamily: fontDisplay, fontSize: 28, fontWeight: 700, color: RT.ink, lineHeight: 1.05, letterSpacing: -0.5 }}>Andri Saputro</h2>
+          <div style={{ marginTop: 5, fontFamily: fontUI, fontSize: 13, fontWeight: 600, color: RT.ink2 }}>Product Design · Visual Design · UI/UX</div>
+          {/* Status badges */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 10 }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '5px 10px', borderRadius: 999, background: RT.green, border: `2px solid ${RT.ink}`, fontFamily: fontUI, fontSize: 11, fontWeight: 700, color: RT.ink, boxShadow: '0 2px 0 ' + RT.ink }}>
+              <span style={{ width: 7, height: 7, borderRadius: '50%', background: RT.ink }} />
+              Open to work
+            </div>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '5px 10px', borderRadius: 999, background: RT.yellow, border: `2px solid ${RT.ink}`, fontFamily: fontUI, fontSize: 11, fontWeight: 700, color: RT.ink, boxShadow: '0 2px 0 ' + RT.ink }}>
+              ✈ Open to Relocate
+            </div>
+          </div>
+          <hr style={{ border: 'none', borderTop: `2px dashed ${RT.glassBorder}`, margin: '18px 0' }} />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {[
+              ['Location', 'Jakarta, ID'],
+              ['Experience', '5+ years'],
+              ['Languages', 'ID · EN'],
+              ['Education', 'Telkom University'],
+              ['Industry', 'SaaS · Game · VR · CMS'],
+            ].map(([k, v]) => (
+              <div key={k} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 8 }}>
+                <span style={{ fontFamily: fontUI, fontSize: 11, fontWeight: 700, color: RT.ink3, textTransform: 'uppercase', letterSpacing: 0.8, flexShrink: 0 }}>{k}</span>
+                <span style={{ fontFamily: fontUI, fontSize: 12.5, fontWeight: 600, color: RT.ink, textAlign: 'right' }}>{v}</span>
+              </div>
+            ))}
+          </div>
+          <a href="https://drive.google.com/file/d/1gSBHp5xk_0T4R7v_0hZoqLNOEgP_BQn3/view?usp=sharing" target="_blank" rel="noopener noreferrer"
+            style={{ marginTop: 16, display: 'block', width: '100%', padding: '11px 14px', borderRadius: 12, background: RT.accent, border: `2px solid ${RT.ink}`, color: 'white', fontFamily: fontUI, fontSize: 13, fontWeight: 700, cursor: 'pointer', boxShadow: '0 3px 0 ' + RT.ink, textDecoration: 'none', textAlign: 'center', boxSizing: 'border-box' }}>
+            Download Portfolio ↓
+          </a>
+        </div>
+      </WindowCard>
+      </div>
+    </aside>
+  );
+}
+
+function Hero({ fontDisplay, fontUI }) {
+  const ref = useReveal(240);
+  return (
+    <section ref={ref} className="reveal">
+      <WindowCard title="resume.txt" padding={36} accent={RT.accent} style={{ background: 'rgba(255, 250, 238, 0.80)' }}>
+        <h1 style={{ margin: '14px 0 0', fontFamily: fontDisplay, fontSize: 'clamp(40px, 5.6vw, 64px)', lineHeight: 1.18, fontWeight: 700, color: RT.ink, letterSpacing: -1.2 }}>
+          Design <span style={{ color: RT.accent, fontStyle: 'italic' }}>endless</span> system for your product.
+        </h1>
+        <p style={{ marginTop: 28, maxWidth: 580, fontFamily: fontUI, fontSize: 15.5, fontWeight: 500, lineHeight: 1.65, color: RT.ink2 }}>
+          I'm Andri — 5 years turning product vision into shipped software across SaaS, VR, and Metaverse. I architect design systems, lead the teams who build them, and make sure every pixel carries business weight.
+        </p>
+      </WindowCard>
+    </section>
+  );
+}
+
+function CaseStudies({ fontDisplay, fontUI }) {
+  const ref = useReveal(360);
+  const studies = [
+    { p: PROJECTS.parachute, label: 'VR Parachute Sim',  tags: 'VR · Simulation',          headline: 'Mixed Reality Parachute Simulator to increase efficiency',  body: 'Appointed to lead the software design team in developing a military-grade parachute simulator for the Indonesian Air Force Academy.', metric: '500M IDR', metricLabel: 'saved per flight' },
+    { p: PROJECTS.vlux,      label: 'Lighting Kungfu',   tags: 'Product · UI/UX', headline: 'One integrated product ecosystem', body: 'Shipped across desktop, mobile, digital signage, and VR, not as parallel products, but as a connected system. Multi-platform, cross-platform, name it, I\'ve done them all.', metric: 'Integrated', metricLabel: 'multiple platforms' },
+    { p: PROJECTS.pataland,  label: 'PataLand',          tags: 'Lead · Product',         headline: 'From all-in-one design force to leading a team',               body: 'Built from scratch, learn from no-one, thrive with projects. That end-to-end ownership gave me a ground-level understanding of product development.', metric: 'CDO', metricLabel: 'more than designing' },
+  ];
+  return (
+    <section ref={ref} className="reveal" style={{ marginTop: 16 }}>
+      <h2 style={{ marginBottom: 12, padding: '0 4px', fontFamily: fontDisplay, fontSize: 38, fontWeight: 700, color: '#F8F1E0', letterSpacing: -1 }}>Highlights</h2>
+      <div className="rsp-three-col" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
+        {studies.map(({ p, label, tags, headline, body, metric, metricLabel }) => (
+          <a key={label} href={p.href === 'sorry' ? undefined : p.href} onClick={p.href === 'sorry' ? (e) => { e.preventDefault(); window.parent.postMessage({ type: 'openSorryModal' }, '*'); } : undefined} className="glass glass-hover" style={{
+            display: 'flex', flexDirection: 'column', textDecoration: 'none', position: 'relative',
+            background: 'rgba(255,250,238,0.55)',
+            backdropFilter: 'blur(22px) saturate(150%)', WebkitBackdropFilter: 'blur(22px) saturate(150%)',
+            border: `2px solid ${RT.glassBorder}`, borderRadius: 18, overflow: 'hidden',
+            boxShadow: '0 18px 36px -18px rgba(60,40,20,0.30), inset 0 1px 0 rgba(255,255,255,0.7)',
+          }}>
+            <div style={{ aspectRatio: '16 / 9', background: `linear-gradient(135deg, ${p.accent}, oklch(from ${p.accent} calc(l - 0.12) c h))`, borderBottom: `2px solid ${RT.glassBorder}`, position: 'relative', display: 'flex', alignItems: 'flex-end', padding: 14, flexShrink: 0 }}>
+              <span style={{ position: 'absolute', top: 12, left: 12, padding: '4px 9px', borderRadius: 999, background: 'rgba(255,250,235,0.85)', border: `1.5px solid ${RT.ink}`, fontFamily: fontUI, fontSize: 10, fontWeight: 700, color: RT.ink, letterSpacing: 0.5, textTransform: 'uppercase' }}>{tags}</span>
+              <div style={{ fontFamily: fontDisplay, fontSize: 38, fontWeight: 700, color: RT.ink, lineHeight: 1, letterSpacing: -1 }}>{metric}<div style={{ fontFamily: fontUI, fontSize: 11, fontWeight: 700, color: RT.ink2, marginTop: 4, letterSpacing: 0.5, textTransform: 'uppercase' }}>{metricLabel}</div></div>
+            </div>
+            <div style={{ padding: '16px 18px 18px', display: 'flex', flexDirection: 'column', flex: 1 }}>
+              <div style={{ fontFamily: fontDisplay, fontSize: 18, fontWeight: 700, color: RT.ink, lineHeight: 1.2 }}>{headline}</div>
+              <p style={{ margin: '8px 0 0', fontFamily: fontUI, fontSize: 13, fontWeight: 500, color: RT.ink2, lineHeight: 1.55 }}>{body}</p>
+              <div style={{ marginTop: 'auto', paddingTop: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: `1.5px solid ${RT.glassBorder}` }}>
+                <span style={{ fontFamily: fontUI, fontSize: 11.5, fontWeight: 700, color: RT.accentDeep, textTransform: 'uppercase', letterSpacing: 1 }}>{label}</span>
+                <span style={{ fontFamily: fontDisplay, fontSize: 18, fontWeight: 700, color: RT.ink }}>↗</span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ExperienceFull({ co, role, place, period, color, badgeColor, badgeLabel, summary, projects, quote, quoteAttr, logo, fontDisplay, fontUI, delay = 0 }) {
+  const ref = useReveal(delay);
+  return (
+    <div ref={ref} className="reveal" style={{ marginTop: 12 }}>
+      <WindowCard padding={0} accent={color}>
+        <div style={{ padding: 28 }}>
+          {badgeLabel && (
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 12px', borderRadius: 999, background: badgeColor, border: `2px solid ${RT.ink}`, fontFamily: fontUI, fontSize: 11, fontWeight: 800, color: RT.ink, boxShadow: '0 2.5px 0 ' + RT.ink, letterSpacing: 0.5, textTransform: 'uppercase', whiteSpace: 'nowrap', marginBottom: 16 }}>
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: RT.ink }} />
+              {badgeLabel}
+            </div>
+          )}
+          <div style={{ display: 'flex', alignItems: 'flex-end', gap: 14, flexWrap: 'wrap' }}>
+            <div style={{ width: 56, height: 56, borderRadius: 14, background: logo ? 'transparent' : color, border: logo ? 'none' : `2px solid ${RT.ink}`, boxShadow: logo ? 'none' : '0 3px 0 ' + RT.ink, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: fontDisplay, fontSize: 24, fontWeight: 700, color: RT.ink, overflow: 'hidden', flexShrink: 0 }}>
+              {logo ? <img src={logo} alt={co} style={{ width: '100%', height: '100%', objectFit: 'contain' }} /> : co[0]}
+            </div>
+            <div>
+              <h3 style={{ margin: 0, fontFamily: fontDisplay, fontSize: 30, fontWeight: 700, color: RT.ink, letterSpacing: -0.5, lineHeight: 1.1 }}>{co}</h3>
+              <div style={{ fontFamily: fontUI, fontSize: 14, fontWeight: 600, color: RT.ink2, marginTop: 4 }}>{role}</div>
+            </div>
+            <div style={{ marginLeft: 'auto', fontFamily: fontUI, fontSize: 13, fontWeight: 700, color: RT.ink2, whiteSpace: 'nowrap' }}>{place} · {period}</div>
+          </div>
+          <p style={{ marginTop: 18, fontFamily: fontUI, fontSize: 14.5, fontWeight: 500, lineHeight: 1.65, color: RT.ink2, maxWidth: 720 }}>{summary}</p>
+          {projects && projects.length > 0 && (
+            <div style={{ marginTop: 20 }}>
+              <span style={{ fontFamily: fontUI, fontSize: 12, fontWeight: 700, color: RT.ink2 }}>Projects</span>
+              <div style={{ display: 'flex', gap: 10, marginTop: 10, flexWrap: 'wrap' }}>
+                {projects.map(p => (
+                  <a key={p.title} href={p.href === 'sorry' ? undefined : p.href} onClick={p.href === 'sorry' ? (e) => { e.preventDefault(); window.parent.postMessage({ type: 'openSorryModal' }, '*'); } : undefined} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px 8px 8px', borderRadius: 14, background: 'rgba(255,250,235,0.6)', border: `1.5px solid ${RT.glassBorder}`, textDecoration: 'none', cursor: 'pointer' }}>
+                    <ProjectThumb p={p} size={36} />
+                    <div style={{ minWidth: 0 }}>
+                      <div style={{ fontFamily: fontDisplay, fontSize: 14, fontWeight: 700, color: RT.ink, lineHeight: 1.1 }}>{p.title}</div>
+                      <div style={{ fontFamily: fontUI, fontSize: 11, fontWeight: 600, color: RT.ink3, marginTop: 2 }}>{p.tag}</div>
+                    </div>
+                    <span style={{ marginLeft: 'auto', fontFamily: fontDisplay, fontSize: 14, fontWeight: 700, color: RT.ink2 }}>↗</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+          {quote && (
+            <div style={{ marginTop: 22, padding: '16px 18px', borderRadius: 14, background: `oklch(from ${color} l c h / 0.15)`, border: `1.5px solid ${RT.glassBorder}` }}>
+              <div style={{ fontFamily: fontDisplay, fontSize: 15, fontStyle: 'italic', color: RT.ink, lineHeight: 1.5 }}>"{quote}"</div>
+              <div style={{ fontFamily: fontUI, fontSize: 11.5, fontWeight: 700, color: RT.ink3, marginTop: 8, letterSpacing: 0.5, textTransform: 'uppercase' }}>— {quoteAttr}</div>
+            </div>
+          )}
+        </div>
+      </WindowCard>
+    </div>
+  );
+}
+
+function Experience({ fontDisplay, fontUI }) {
+  const ref = useReveal(0);
+  return (
+    <section ref={ref} className="reveal" style={{ marginTop: 32 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 14, padding: '0 4px', flexWrap: 'wrap', gap: 20, rowGap: 18 }}>
+        <div>
+          <h2 style={{ margin: 0, fontFamily: fontDisplay, fontSize: 38, fontWeight: 700, color: '#F8F1E0', letterSpacing: -1, lineHeight: 1.2 }}>Where I've <span style={{ color: RT.accent, fontStyle: 'italic' }}>built</span></h2>
+        </div>
+      </div>
+      <ExperienceFull fontDisplay={fontDisplay} fontUI={fontUI}
+        delay={0}
+        co="Cube Studio" role="Founder · Product Designer · CDO"
+        place="Bandung" period="2021 — Now"
+        color={RT.green} logo="Logo_CubeStudio.svg"
+        summary="Started as a Founder, became a multi-purpose creative force. I worked as Chief Design Officer and Product Designer, handling assets, guiding the team, and shaping project solutions whether it is SaaS tools, VR simulation, or any other multimedia software for national and international clients. I kept an eye on user needs, turned them into clear visuals and presentations, and jumped in as a UI/UX, Visual Designer, or whatever project needed to keep workflows smooth. On top of that, I managed the design team, balanced workloads, and curated the company's social media posts to keep everything fresh and engaging."
+        projects={[PROJECTS.parachute, PROJECTS.vlux, PROJECTS.edutech]} />
+      <ExperienceFull fontDisplay={fontDisplay} fontUI={fontUI}
+        delay={120}
+        co="Paradimensi" role="Lead Designer · Product Designer"
+        place="Jakarta" period="Nov '23 — Oct '24"
+        color={RT.yellow} logo="Logo_Paradimensi.png"
+        summary="Started as a Product Designer before eventually appointed as Design Lead. Developing a music-themed Metaverse, a world where artist could be in one place with their fans. I initiated ideas for the product development, features, story and visuals before distribute the executions to other design team members, connecting them to the right stakeholders and make sure everything is aligned with company's vision. My favorite part is designing each character's persona and branding on social media and crafting O2O immersive experience to my users. Company's websites and social medias are under my department which I also handled."
+        projects={[PROJECTS.pataland]} />
+      <ExperienceFull fontDisplay={fontDisplay} fontUI={fontUI}
+        delay={240}
+        co="Techpolitan" role="Business Dev · Project Manager"
+        place="Jakarta" period="Nov '22 — Oct '23"
+        color={RT.pink} logo="Logo_Techpolitan.png"
+        summary="Led Techpolitan's Metaverse development and managing team's priorities and stakeholder's expectations while actively developing the Metaverse as a 3D designer. Also, since Metaverse is still a new thing at the time, I must keep the information updated to everyone and selecting which features and business schemes would work in my project. Learnt management's side of a project in this company, searching for a workaround for every team's blocker by connecting them to the right person or propose alternatives to the higher-ups."
+        projects={[PROJECTS.metaverse]} />
+    </section>
+  );
+}
+
+function HowIWork({ fontDisplay, fontUI }) {
+  const ref = useReveal(60);
+  const principles = [
+    { icon: '🎯', title: 'Know the Target Audience', body: 'The center of my product is always the market, the segment, the user. Their behavior is my foundation to design, their problem is my goal to solve.' },
+    { icon: '🧩', title: 'Modularity is Continuity', body: 'Creating modular, reusable design keeps efficiency high and connects features to each other endlessly.' },
+    { icon: '🔭', title: 'Exploit Every Space Possible', body: 'A platform, a room, a user\'s headspace — if I see potential space to fill, I fill it with my audience\'s desire.' },
+  ];
+  return (
+    <section ref={ref} className="reveal" style={{ marginTop: 32 }}>
+      <WindowCard title="how_i_work.md" padding={28}>
+        <h2 style={{ margin: 0, fontFamily: fontDisplay, fontSize: 30, fontWeight: 700, color: RT.ink, letterSpacing: -0.8 }}>How I work</h2>
+        <div className="rsp-three-col" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18, marginTop: 18 }}>
+          {principles.map(({ icon, title, body }) => (
+            <div key={title}>
+              <div style={{ fontSize: 24, marginBottom: 6 }}>{icon}</div>
+              <h4 style={{ margin: '0 0 8px', fontFamily: fontDisplay, fontSize: 19, fontWeight: 700, color: RT.ink, letterSpacing: -0.3 }}>{title}</h4>
+              <p style={{ margin: 0, fontFamily: fontUI, fontSize: 13.5, fontWeight: 500, color: RT.ink2, lineHeight: 1.6 }}>{body}</p>
+            </div>
+          ))}
+        </div>
+        <div style={{ marginTop: 22, paddingTop: 16, borderTop: `2px dashed ${RT.glassBorder}`, display: 'flex', alignItems: 'baseline', gap: 12, flexWrap: 'wrap' }}>
+          <span style={{ fontFamily: fontUI, fontSize: 11, fontWeight: 700, color: RT.ink3, textTransform: 'uppercase', letterSpacing: 1 }}>Software</span>
+          <span style={{ fontFamily: fontUI, fontSize: 12.5, fontWeight: 600, color: RT.ink2 }}>Figma · Blender · Unreal 5 · Unity · Photoshop · Illustrator · Notion</span>
+        </div>
+      </WindowCard>
+    </section>
+  );
+}
+
+
+function Contact({ fontDisplay, fontUI }) {
+  const ref = useReveal(80);
+  return (
+    <section ref={ref} className="reveal" style={{ marginTop: 32 }}>
+      <WindowCard padding={32}>
+        <div className="rsp-two-col" style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: 28, alignItems: 'center' }}>
+          <div>
+            <Kicker>let's work together</Kicker>
+            <h2 style={{ margin: '10px 0 0', fontFamily: fontDisplay, fontSize: 'clamp(30px, 4vw, 44px)', fontWeight: 700, color: RT.ink, lineHeight: 1.1, letterSpacing: -1 }}>
+              See you in your <span style={{ color: RT.accentDeep, fontStyle: 'italic' }}>next project</span>.
+            </h2>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {[
+              ['Email', 'andri.saputro98@gmail.com', RT.yellow, 'mailto:andri.saputro98@gmail.com'],
+              ['LinkedIn', 'linkedin.com/in/masscity', 'oklch(0.75 0.10 240)', 'https://www.linkedin.com/in/masscity/'],
+            ].map(([k, v, c, href]) => (
+              <div key={k}>
+                <Magnetic strength={0.13} style={{ display: 'block', width: '100%' }}>
+                  <a href={href} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '11px 15px', borderRadius: 12, background: c, border: `2px solid ${RT.ink}`, textDecoration: 'none', boxShadow: '0 2.5px 0 ' + RT.ink }}>
+                    <div style={{ minWidth: 0 }}>
+                      <div style={{ fontFamily: fontUI, fontSize: 10.5, fontWeight: 700, color: RT.ink2, textTransform: 'uppercase', letterSpacing: 1 }}>{k}</div>
+                      <div style={{ fontFamily: fontUI, fontSize: 13.5, fontWeight: 600, color: RT.ink, marginTop: 2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{v}</div>
+                    </div>
+                    <span style={{ fontFamily: fontDisplay, fontSize: 20, fontWeight: 700, color: RT.ink }}>↗</span>
+                  </a>
+                </Magnetic>
+              </div>
+            ))}
+          </div>
+        </div>
+      </WindowCard>
+    </section>
+  );
+}
+
+
+function ResumeApp() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS_V2);
+  const [theme, toggleTheme] = useTheme();
+  const fontDisplay = FONT_STACKS_V2[t.displayFont] || FONT_STACKS_V2["Fraunces"];
+  const fontUI = BODY_STACKS_V2[t.bodyFont] || BODY_STACKS_V2.Jakarta;
+  return (
+    <div style={{ minHeight: '100vh', position: 'relative' }}>
+      {t.showRoomBackdrop && theme === 'light' && <ResumeRoom theme={theme} />}
+      {theme === 'dark' && (
+        <div style={{ position: 'fixed', inset: 0, zIndex: 0, overflow: 'hidden', pointerEvents: 'none' }}>
+          <div style={{ position: 'absolute', top: '-15%', right: '-10%', width: 700, height: 700, borderRadius: '50%', background: `radial-gradient(circle, ${RT.accent} 0%, transparent 65%)`, opacity: 0.18, filter: 'blur(40px)' }} />
+          <div style={{ position: 'absolute', bottom: '-20%', left: '-15%', width: 600, height: 600, borderRadius: '50%', background: `radial-gradient(circle, ${RT.yellow} 0%, transparent 65%)`, opacity: 0.10, filter: 'blur(40px)' }} />
+        </div>
+      )}
+      <CursorSpotlight />
+      <div style={{ position: 'relative', zIndex: 2 }}>
+        <TopBar fontUI={fontUI} theme={theme} toggleTheme={toggleTheme} />
+        <main className="rsp-main-resume" style={{ maxWidth: t.panelWidth, margin: '0 auto', padding: '110px 24px 60px', display: 'grid', gridTemplateColumns: '300px 1fr', gap: 18, alignItems: 'start' }}>
+          <Sidebar fontDisplay={fontDisplay} fontUI={fontUI} />
+          <div style={{ alignSelf: 'start' }}>
+            <Hero fontDisplay={fontDisplay} fontUI={fontUI} />
+            <CaseStudies fontDisplay={fontDisplay} fontUI={fontUI} />
+            <Experience fontDisplay={fontDisplay} fontUI={fontUI} />
+            <HowIWork fontDisplay={fontDisplay} fontUI={fontUI} />
+            <Contact fontDisplay={fontDisplay} fontUI={fontUI} />
+            <footer style={{ marginTop: 30, padding: '18px 6px', display: 'flex', justifyContent: 'space-between', fontFamily: fontUI, fontWeight: 600, fontSize: 11.5, color: RT.ink2 }}>
+              <span>© 2026 Andri Saputro</span>
+              <span>resume · cozy edition</span>
+            </footer>
+          </div>
+        </main>
+      </div>
+
+      <TweaksPanel title="Tweaks">
+        <TweakSection label="Typography" />
+        <TweakSelect label="Display font" value={t.displayFont}
+          options={['Recoleta','DM Serif','Caprasimo','Sniglet','Fraunces']}
+          onChange={(v) => setTweak('displayFont', v)} />
+        <TweakSelect label="Body font" value={t.bodyFont}
+          options={['Quicksand','Nunito','Jakarta']}
+          onChange={(v) => setTweak('bodyFont', v)} />
+        <TweakSection label="Layout" />
+        <TweakSlider label="Page width" value={t.panelWidth} min={900} max={1280} step={20} unit="px"
+          onChange={(v) => setTweak('panelWidth', v)} />
+        <TweakToggle label="Show room backdrop" value={t.showRoomBackdrop}
+          onChange={(v) => setTweak('showRoomBackdrop', v)} />
+      </TweaksPanel>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<ResumeApp />);
+</script>
+</body>
+</html>

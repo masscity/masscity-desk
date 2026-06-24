@@ -18,12 +18,7 @@
   --default-bg: var(--pastel-blue);
 }
 
-.dynamic-message {
-  color: white;
-  font-size: 32px;
-  margin-bottom: 24px;
-  text-align: center;
-}
+/* .dynamic-message styles are inside .loading-monitor-content below */
 
 /* Experience */
 #experience {
@@ -38,6 +33,8 @@
 #experience-canvas {
   width: 100%;
   height: 100%;
+  /* Soften the overall look: less saturated, slightly lifted, lower contrast */
+  filter: saturate(0.85) brightness(1.05) contrast(0.95);
 }
 
 /* Utilities */
@@ -67,42 +64,181 @@
   z-index: 1000;
 }
 
-.loading-text {
+/* ── Loading Monitor Content ─────────────────────────────────── */
+/* Positioned to align with the monitor screen in landing2.webp  */
+.loading-monitor-content {
   position: absolute;
-  top: 40%;
+  top: 47%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #fff;
-  font-size: 36px;
+  width: 21vw;
+  min-width: 255px;
+  max-width: 330px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  text-align: center;
 }
 
-.dynamic-message{
-  position: absolute;
-  top: 36%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.loading-name {
   color: #ffffff;
-  font-size: 42px;
+  font-size: 1.35vw;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.6);
+  white-space: nowrap;
+}
+
+.loading-role {
+  color: rgba(255,255,255,0.8);
+  font-size: 0.62vw;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.loading-divider {
+  width: 70%;
+  height: 1px;
+  background: rgba(255,255,255,0.25);
+  margin: 2px 0;
+}
+
+/* Phase 1 — loading word + bar wrapper */
+.loading-phase-1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Phase 3 — error state, hidden until GLB load fails */
+.loading-phase-error {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  text-align: center;
+}
+
+.loading-phase-error.visible {
+  display: flex;
+}
+
+.loading-error-msg {
+  color: #ffffff;
+  font-size: 1.1vw;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.6);
+}
+
+.loading-error-sub {
+  color: rgba(255,255,255,0.6);
+  font-size: 0.75vw;
+  line-height: 1.4;
+  margin-bottom: 4px;
+}
+
+.loading-error-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.loading-error-btn {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.65vw;
+  font-weight: 500;
+  letter-spacing: 1px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  border: 1.5px solid rgba(255,255,255,0.5);
+  color: #ffffff;
+  background: transparent;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.loading-error-btn--primary {
+  background: rgba(255,255,255,0.15);
+}
+
+.loading-error-btn:hover {
+  background: rgba(255,255,255,0.22);
+  border-color: rgba(255,255,255,0.8);
+}
+
+/* Phase 2 — name + role + divider, hidden until load complete */
+.loading-phase-2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+  overflow: hidden;
+  height: 0;
+  opacity: 0;
+}
+
+/* Loading word — same style as the name */
+.dynamic-message {
+  color: #ffffff;
+  font-size: 1.35vw;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.6);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.loading-progress-bar {
+  width: 80%;
+  height: 2px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 2px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.loading-progress-fill {
+  height: 100%;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.3s ease;
 }
 
 .enter-button {
-  position: absolute;
-  top: 48%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   color: #ffffff;
-  font-size: 32px;
+  font-size: 1.1vw;
   background: transparent;
-  border: 3px solid white;
-  padding: 8px 60px;
+  border: 2px solid rgba(255,255,255,0.8);
+  padding: 6px 36px;
   opacity: 0;
-  border-radius: 20px; /* 👈 Rounded corners */
+  border-radius: 20px;
+  letter-spacing: 2px;
+  margin-top: 2px;
+  white-space: nowrap;
 }
 
 .enter-button:hover {
   cursor: pointer;
-  background-color: #ffffff;
-  color: black;
+  background-color: rgba(255,255,255,0.15);
+  border-color: #ffffff;
+}
+
+/* Legacy class kept for safety */
+.loading-text {
+  display: none;
 }
 
 .instructions {
@@ -126,7 +262,7 @@
   left: 20px;
   background: rgba(0, 0, 0, 0.5);
   color: white;
-  font-family: Arial, sans-serif;
+  font-family: 'Outfit', sans-serif;
   font-size: 14px;
   padding: 10px 15px;
   border-radius: 8px;
@@ -135,166 +271,157 @@
   user-select: none;
 }
 
-/* Modal */
+/* ── Modal backdrop ─────────────────────────────────────────── */
 .modal-bg-overlay {
-  z-index: 750;
-  height: 100%;
-  width: 100%;
-  background-color: #31313159;
   position: fixed;
-  top: 0;
-  left: 0;
-  overflow: hidden;
+  inset: 0;
+  z-index: 750;
+  background: rgba(30, 18, 8, 0.42);
+  backdrop-filter: blur(14px) saturate(70%);
+  -webkit-backdrop-filter: blur(14px) saturate(70%);
 }
 
+/* ── Modal container ─────────────────────────────────────────── */
 .modal {
-  z-index: 999;
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 100%;
-  max-width: 500px;
-  background-color: var(--default-bg);
-  border: 4px solid #fff;
-  color: #fff;
-  transition: background 0.4s ease-in;
-  transition-delay: 0.1s;
+  z-index: 999;
+  width: calc(100% - 48px);
+  max-width: 520px;
+  background: rgba(255, 248, 232, 0.75);
+  backdrop-filter: blur(32px) saturate(120%);
+  -webkit-backdrop-filter: blur(32px) saturate(120%);
+  border: 1.5px solid rgba(140, 90, 45, 0.22);
+  border-radius: 20px;
+  box-shadow: 0 24px 64px rgba(60, 30, 8, 0.22), inset 0 1px 0 rgba(255,255,255,0.70);
+  color: #3d2a18;
+  overflow: hidden;
+  font-family: 'Outfit', sans-serif;
 }
 
 .modal-wrapper {
-  padding: 12px;
+  padding: 20px;
 }
 
+/* ── Header ─────────────────────────────────────────────────── */
 .modal-header {
   width: 100%;
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: space-between;
-  padding-bottom: 12px;
-  border-bottom: 2px solid #fff;
-  margin-bottom: 12px;
-}
-
-.modal-exit-button {
-  background: transparent;
-  border: 2px solid #fff;
-  color: #fff;
-  padding: 0px 14px;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.modal-exit-button:hover {
-  background: #fff;
-  border: 2px solid #fff;
-  color: var(--default-bg);
-  padding: 0px 14px;
-  cursor: pointer;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(140, 90, 45, 0.15);
+  margin-bottom: 16px;
 }
 
 .modal-title {
-  font-size: 32px;
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #3d2a18;
+  letter-spacing: -0.3px;
+  line-height: 1.2;
 }
 
+.modal-exit-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(140, 90, 45, 0.10);
+  border: 1px solid rgba(140, 90, 45, 0.22);
+  color: rgba(61, 42, 24, 0.55);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'Outfit', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+.modal-exit-button:hover {
+  background: rgba(140, 90, 45, 0.20);
+  color: #3d2a18;
+}
+
+/* ── Content ─────────────────────────────────────────────────── */
 .modal-content-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
 }
 
 .modal-project-description {
-  font-size: 18px;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: rgba(61, 42, 24, 0.72);
+  white-space: pre-line;
+  font-family: 'Outfit', sans-serif;
 }
 
 .modal-project-visit-button {
-  background: #fff;
-  border: 2px solid #fff;
-  color: var(--default-bg);
-  padding: 8px 0px;
-  cursor: pointer;
-  font-size: 18px;
+  display: block;
+  padding: 10px 0;
+  border-radius: 999px;
+  background: rgba(140, 90, 45, 0.10);
+  border: 1.5px solid rgba(140, 90, 45, 0.28);
+  color: #7a4520;
+  font-size: 13px;
   font-weight: 600;
+  font-family: 'Outfit', sans-serif;
   text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s;
+}
+.modal-project-visit-button:hover {
+  background: rgba(140, 90, 45, 0.20);
+  border-color: rgba(140, 90, 45, 0.45);
+}
+
+/* ── Gallery image ───────────────────────────────────────────── */
+.modal-image-container {
+  position: relative;
   text-align: center;
 }
 
-.modal-project-visit-button:hover {
-  background: var(--default-bg);
-  border: 2px solid #fff;
-  color: #fff;
-  cursor: pointer;
-}
-
-.modal-image-container {
-    position: relative;
-    text-align: center;
-}
-
-.modal-image-container button {
-  background: none;           /* remove default background */
-  border: none;               /* remove border */
-  color: white;               /* arrow color */
-  font-size: 5rem;            /* arrow size */
-  cursor: pointer;
-  padding: 10px;
-  transition: transform 0.2s;
-}
-
 #modalImage {
-    max-width: 100%;
-    max-height: 60vh;
+  max-width: 100%;
+  max-height: 55vh;
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto;
 }
+
 .gallery-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 248, 232, 0.80);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(140, 90, 45, 0.22);
+  color: #3d2a18;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
 }
-#prevImage { left: 10px; }
-#nextImage { right: 10px; }
+.gallery-btn:hover { background: rgba(255, 248, 232, 0.98); }
+#prevImage { left: 8px; }
+#nextImage { right: 8px; }
 
 /* Toggle Theme Button */
-.theme-mode-toggle-button {
-  z-index: 500;
-  position: absolute;
-  top: 32px;
-  right: 32px;
-  background: var(--default-bg);
-  height: 48px;
-  width: 48px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 3px solid white;
-  padding: 8px;
-  cursor: pointer;
-  transition: background 0.4s ease-in;
-  transition-delay: 0.1s;
-}
-
-/* Toggle Audio Button */
-.audio-toggle-button {
-  z-index: 500;
-  position: absolute;
-  top: 32px;
-  right: 96px;
-  background: var(--default-bg);
-  height: 48px;
-  width: 48px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 3px solid rgb(255, 255, 255);
-  padding: 8px;
-  cursor: pointer;
-  transition: background 0.4s ease-in;
-  transition-delay: 0.1s;
-}
+/* Old standalone toggle buttons removed from HTML — no hide rule needed */
 
 .second-icon,
 .second-icon-two {
@@ -318,6 +445,647 @@
 
 @media (max-width: 396px) {
   .modal-title {
-    font-size: 26px;
+    font-size: 18px;
   }
+}
+
+/* (loading identity + progress bar styles are now inside .loading-monitor-content section above) */
+
+/* Mobile controls — hide on desktop, show on mobile */
+.mobile-control {
+  display: none;
+}
+
+/* ── Loading screen responsive scaling ───────────────────────── */
+@media (max-width: 1200px) {
+  .loading-name  { font-size: 16px; }
+  .loading-role  { font-size: 8px; letter-spacing: 2px; }
+  .dynamic-message { font-size: 12px; }
+  .enter-button  { font-size: 13px; padding: 5px 28px; }
+  .loading-monitor-content { width: 260px; top: 53%; }
+}
+
+@media (max-width: 900px) {
+  .loading-name  { font-size: 14px; }
+  .loading-role  { font-size: 7px; }
+  .dynamic-message { font-size: 11px; }
+  .enter-button  { font-size: 12px; padding: 4px 22px; }
+  .loading-monitor-content { width: 220px; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   CURTAIN TRANSITION
+   ══════════════════════════════════════════════════════════════ */
+
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 500;           /* above everything */
+  background: #0a0a0a;
+  transform: translateY(100%); /* starts below screen — hidden */
+  pointer-events: none;
+}
+
+/* ── Screen backdrop ─────────────────────────────────────────── */
+.screen-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 290;           /* just below screen-ui (300) */
+  background: rgba(10, 8, 6, 0.55);
+  backdrop-filter: blur(12px) saturate(80%);
+  -webkit-backdrop-filter: blur(12px) saturate(80%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.screen-backdrop.open {
+  opacity: 1;
+  pointer-events: none; /* backdrop is visual only — clicks pass to screen-ui */
+}
+
+/* ── HUD Bar ─────────────────────────────────────────────────── */
+.hud-bar {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  background: rgba(15, 12, 8, 0.55);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.hud-bar.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Base HUD button */
+.hud-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 38px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+  white-space: nowrap;
+}
+.hud-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+.hud-btn svg { flex-shrink: 0; }
+
+/* Icon-only buttons (sound, light, ?) */
+.hud-btn--icon { padding: 0; width: 38px; font-size: 15px; font-weight: 700; }
+
+/* CTA buttons */
+.hud-btn--cta {
+  color: #fff;
+  font-weight: 600;
+  font-size: 13.5px;
+  letter-spacing: 0.01em;
+}
+.hud-btn--resume { color: rgba(255, 220, 150, 0.9); }
+.hud-btn--resume:hover { color: rgba(255, 230, 170, 1); background: rgba(255,200,80,0.1); }
+
+/* Help button */
+.hud-btn--help {
+  padding: 0;
+  width: 38px;
+  font-size: 15px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.4);
+}
+
+/* Links trigger — rotates chevron when open */
+.hud-btn--links { color: rgba(255,255,255,0.5); }
+.hud-btn--links.active { color: #fff; background: rgba(255,255,255,0.12); }
+.hud-btn--links.active svg { transform: rotate(180deg); }
+.hud-btn--links svg { transition: transform 0.25s cubic-bezier(.2,.8,.2,1); }
+
+/* ── HUD Links Dropdown ───────────────────────────────────────── */
+.hud-dropdown {
+  position: fixed;
+  bottom: calc(32px + 52px + 10px);   /* hud bottom + hud height + gap */
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  z-index: 201;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 6px;
+  background: rgba(15, 12, 8, 0.70);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  min-width: 200px;
+}
+.hud-dropdown.open {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateX(-50%) translateY(0);
+}
+
+.hud-dropdown-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.65);
+  font-family: 'Outfit', sans-serif;
+  font-size: 13.5px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+}
+.hud-dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.10);
+  color: #fff;
+}
+
+.hud-dropdown-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.10);
+  margin: 3px 6px;
+}
+
+/* Divider */
+.hud-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(255,255,255,0.15);
+  margin: 0 4px;
+  flex-shrink: 0;
+}
+
+/* ── Hide HUD + scene elements when overlay is open ──────────── */
+.scene-hidden {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity 0.3s ease !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   HOVER LABEL
+   ══════════════════════════════════════════════════════════════ */
+
+.hover-label {
+  position: fixed;
+  z-index: 200;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px 7px 10px;
+  background: rgba(10, 10, 10, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  color: #fff;
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-50%) scale(0.8) translateY(6px);
+  transform-origin: bottom center;
+}
+
+.hover-label-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #7ee8a2;
+  flex-shrink: 0;
+  box-shadow: 0 0 6px #7ee8a2;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SCREEN UI — Project viewer (Figma design)
+   ══════════════════════════════════════════════════════════════ */
+
+.screen-ui {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  font-family: 'Outfit', sans-serif;
+  background: transparent;
+  color: #1a1a1a;
+}
+
+.screen-ui.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ── Top Bar ──────────────────────────────────────────────── */
+.su-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  height: 56px;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  background: rgba(20, 15, 10, 0.45);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* ── Site-level nav (About / Work / Resume / Contact) ──────── */
+.su-sitenav {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.su-sitenav-btn {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: none;
+  background: transparent;
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.6);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+.su-sitenav-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+.su-sitenav-btn--dropdown:hover { background: transparent; color: rgba(255,255,255,0.55); }
+.su-sitenav-btn.active { background: rgba(255,255,255,0.18); color: #fff; font-weight: 600; }
+
+/* Resume link — warm amber tint */
+.su-sitenav-btn--resume { color: rgba(255, 220, 160, 0.7); }
+.su-sitenav-btn--resume:hover { color: rgba(255, 220, 160, 1); background: rgba(255,200,100,0.1); }
+.su-sitenav-btn--resume.active { background: rgba(255,200,100,0.18); color: rgba(255,220,160,1); }
+
+/* Contact link — same as default but treated as anchor */
+.su-sitenav-btn--contact { color: rgba(255,255,255,0.6); }
+
+/* Project dropdown — click-to-toggle, same pattern as HUD dropdown */
+.su-sitenav-dropdown { position: relative; }
+.su-sitenav-btn--dropdown .su-dropdown-arrow { font-size: 10px; margin-left: 2px; transition: transform 0.25s; display: inline-block; }
+.su-sitenav-dropdown.open .su-dropdown-arrow { transform: rotate(180deg); }
+.su-sitenav-dropdown__menu {
+  position: absolute; top: calc(100% + 8px); left: 0; min-width: 200px;
+  background: rgba(28,22,16,0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 6px 0;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.4); z-index: 50;
+  opacity: 0; pointer-events: none; transform: translateY(-6px);
+  transition: opacity 0.2s, transform 0.2s;
+}
+.su-sitenav-dropdown.open .su-sitenav-dropdown__menu { opacity: 1; pointer-events: all; transform: translateY(0); }
+.su-sitenav-dropdown__item {
+  display: block; width: 100%; padding: 8px 16px; border: none; background: transparent;
+  font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 500;
+  color: rgba(255,255,255,0.7); cursor: pointer; text-align: left; transition: background 0.15s, color 0.15s;
+}
+.su-sitenav-dropdown__item:hover { background: rgba(255,255,255,0.1); color: #fff; }
+.su-sitenav-dropdown__item.active { color: #fff; font-weight: 600; }
+
+/* Thin divider between site nav and project tabs */
+.su-sitenav + .su-nav:not(:empty) {
+  border-left: 1px solid rgba(255,255,255,0.15);
+  margin-left: 8px;
+  padding-left: 8px;
+}
+
+.su-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.su-nav-btn {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: none;
+  background: transparent;
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.55);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+.su-nav-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+.su-nav-btn.active {
+  background: rgba(255,255,255,0.18);
+  color: #fff;
+}
+
+/* Resume tab — slightly warmer tint to distinguish it */
+.su-nav-btn--resume { color: rgba(255, 220, 160, 0.7); }
+.su-nav-btn--resume:hover { color: rgba(255, 220, 160, 1); background: rgba(255,200,100,0.1); }
+.su-nav-btn--resume.active { background: rgba(255,200,100,0.18); color: rgba(255,220,160,1); }
+
+.su-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.su-cv-btn {
+  padding: 7px 16px;
+  border-radius: 20px;
+  border: 1.5px solid rgba(255,255,255,0.35);
+  background: transparent;
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.25s, color 0.25s, border-color 0.25s, filter 0.25s;
+}
+.su-cv-btn:hover { filter: brightness(1.15); }
+
+.su-back-btn {
+  padding: 7px 16px;
+  border-radius: 20px;
+  border: none;
+  background: rgba(255,255,255,0.15);
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.su-back-btn:hover { background: rgba(255,255,255,0.25); }
+
+/* ── Project iframe ───────────────────────────────────────── */
+.su-frame {
+  flex: 1;
+  width: 100%;
+  border: none;
+  display: block;
+  background: transparent;
+  color-scheme: normal;
+}
+
+/* Tutorial overlay — show desktop/mobile variants correctly */
+.tutorial-mobile { display: none; }
+
+/* ── Open to work inline label ───────────────────────────────── */
+.hud-otw {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11.5px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.30);
+  pointer-events: none;
+  user-select: none;
+  margin-left: 4px;
+}
+
+/* ── Intro brand flash ───────────────────────────────────────── */
+#introBrand {
+  position: fixed;
+  top: 26px;
+  left: 30px;
+  z-index: 200;
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(40px, 5.6vw, 64px);
+  color: oklch(0.28 0.04 50);
+  letter-spacing: -1.2px;
+  line-height: 1.1;
+  pointer-events: none;
+  opacity: 0;
+  user-select: none;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   MOBILE — Tablet  ≤ 768px
+   ══════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* Loading screen border thinner on mobile */
+  .loading-screen { border-width: 6px; }
+
+  /* Reposition loading content to screen center
+     (monitor image background won't align on mobile) */
+  .loading-monitor-content {
+    top: 50%;
+    width: 76%;
+    min-width: 0;
+    max-width: 300px;
+  }
+  .loading-name    { font-size: 20px; }
+  .loading-role    { font-size: 8px; letter-spacing: 1.5px; }
+  .dynamic-message { font-size: 16px; }
+  .enter-button    { font-size: 13px; padding: 7px 28px; }
+
+  /* Modal */
+  .modal {
+    width: calc(100% - 24px);
+    max-width: none;
+  }
+  .modal-title               { font-size: 20px; }
+  .modal-project-description { font-size: 14px; }
+
+  /* HUD Bar — tighten spacing, cap width so it never overflows */
+  .hud-bar {
+    bottom: 24px;
+    gap: 2px;
+    padding: 5px 6px;
+    max-width: calc(100vw - 32px);
+  }
+  .hud-btn            { height: 34px; padding: 0 10px; font-size: 12px; }
+  .hud-btn--icon      { width: 34px; padding: 0; }
+  .hud-btn--cta       { font-size: 12px; padding: 0 10px; }
+  .hud-btn--help      { width: 34px; font-size: 13px; }
+  .hud-divider        { margin: 0 2px; }
+
+  /* Iframe — ensure touch-scrolling works on iOS */
+  .su-frame { -webkit-overflow-scrolling: touch; }
+
+  /* Screen UI topbar — tighter padding, nav scrolls horizontally */
+  .su-topbar {
+    padding: 0 16px;
+    height: 52px;
+    gap: 6px;
+    flex-wrap: nowrap;
+  }
+  .su-sitenav { gap: 0; }
+  .su-sitenav-btn { padding: 5px 9px; font-size: 12px; flex-shrink: 0; }
+  .su-nav {
+    overflow-x: auto;
+    flex-shrink: 1;
+    min-width: 0;
+    scrollbar-width: none;       /* Firefox */
+    -ms-overflow-style: none;    /* IE */
+  }
+  .su-nav::-webkit-scrollbar { display: none; }
+  .su-nav-btn {
+    padding: 5px 10px;
+    font-size: 12px;
+    flex-shrink: 0;              /* prevent nav buttons from squishing */
+  }
+  .su-topbar-actions  { gap: 6px; flex-shrink: 0; }
+  .su-cv-btn,
+  .su-back-btn        { padding: 6px 12px; font-size: 12px; white-space: nowrap; }
+
+  /* Tutorial overlay — switch to touch instructions */
+  .tutorial-overlay   { font-size: 12px; padding: 8px 12px; bottom: 16px; left: 16px; }
+  .tutorial-desktop   { display: none; }
+  .tutorial-mobile    { display: block; }
+
+  /* Hover label irrelevant on touch — hide it */
+  .hover-label        { display: none; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   REDUCED MOTION
+   ══════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  /* Kill all CSS transitions and animations */
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  /* Progress bar: instant fill, no transition */
+  .loading-progress-fill {
+    transition: none;
+  }
+
+  /* HUD entrance: skip slide-in, just appear */
+  .hud-bar.visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   MOBILE — Phone portrait  ≤ 480px
+   ══════════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+
+  /* Loading — bump content higher, it tends to sit behind the monitor */
+  .loading-monitor-content { top: 46%; width: 80%; }
+  .loading-name    { font-size: 17px; }
+  .loading-role    { font-size: 7px; }
+  .dynamic-message { font-size: 14px; }
+
+  /* HUD — shrink icon/help buttons a touch more */
+  .hud-bar { bottom: 20px; }
+  .hud-btn--cta          { font-size: 11px; padding: 0 8px; height: 30px; }
+  .hud-btn--icon,
+  .hud-btn--help         { width: 30px; height: 30px; }
+
+  /* Screen UI topbar — hide Download + Contact on very small screens */
+  .su-cv-btn              { display: none; }
+  .su-sitenav-btn--contact { display: none; }
+  .su-sitenav-btn         { padding: 4px 7px; font-size: 11px; }
+  .su-topbar              { padding: 0 12px; height: 48px; }
+  .su-back-btn            { padding: 5px 10px; font-size: 11px; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SORRY MODAL (WIP project popup)
+   ══════════════════════════════════════════════════════════════ */
+.sorry-overlay {
+  position: absolute; inset: 0; z-index: 50;
+  background: rgba(20, 15, 8, 0.55);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  animation: sorryFadeIn 0.3s ease both;
+}
+.sorry-overlay.hidden { display: none; }
+@keyframes sorryFadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes sorryBounceIn {
+  0%   { transform: scale(0.85) translateY(30px); opacity: 0; }
+  60%  { transform: scale(1.03) translateY(-4px); opacity: 1; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+.sorry-panel {
+  width: 380px; max-width: 90vw;
+  background: rgba(255, 250, 238, 0.95);
+  border: 2px solid rgba(110, 75, 45, 0.28);
+  border-radius: 22px; overflow: hidden;
+  box-shadow: 0 24px 48px -20px rgba(60,40,20,0.30), inset 0 1px 0 rgba(255,255,255,0.7);
+  animation: sorryBounceIn 0.4s cubic-bezier(.2,1.1,.3,1) both 0.05s;
+}
+.sorry-titlebar {
+  padding: 11px 16px;
+  border-bottom: 2px solid rgba(110, 75, 45, 0.28);
+  background: rgba(255,250,238,0.4);
+  display: flex; align-items: center; gap: 8px;
+}
+.sorry-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  border: 1.5px solid oklch(0.28 0.04 50);
+}
+.sorry-label {
+  margin-left: 8px;
+  font-family: 'Outfit', sans-serif; font-size: 11.5px; font-weight: 700;
+  color: oklch(0.44 0.035 55); letter-spacing: 0.5px; text-transform: uppercase;
+}
+.sorry-body { padding: 28px 28px 20px; text-align: center; }
+.sorry-title {
+  margin: 0;
+  font-family: 'Outfit', sans-serif; font-size: 32px; font-weight: 700;
+  color: oklch(0.28 0.04 50); letter-spacing: -1px;
+}
+.sorry-desc {
+  margin: 14px 0 0;
+  font-family: 'Outfit', sans-serif; font-size: 14.5px; font-weight: 500;
+  color: oklch(0.44 0.035 55); line-height: 1.6;
+}
+.sorry-link {
+  color: oklch(0.72 0.16 45); font-weight: 700; text-decoration: underline;
+}
+.sorry-img { width: 100%; display: block; }
+.sorry-hint {
+  margin-top: 12px;
+  font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 600;
+  color: rgba(255,248,232,0.7); letter-spacing: 0.3px;
 }

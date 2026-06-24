@@ -1,0 +1,742 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Andri Saputro · Work</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  html, body, #root { margin: 0; height: 100vh; overflow: hidden; background: linear-gradient(180deg, oklch(0.96 0.025 75) 0%, oklch(0.92 0.04 65) 100%); color: oklch(0.28 0.04 50); font-family: "Plus Jakarta Sans", system-ui, sans-serif; transition: background 0.4s, color 0.4s; }
+  html[data-theme="dark"], html[data-theme="dark"] body, html[data-theme="dark"] #root { background: linear-gradient(180deg, oklch(0.22 0.025 50) 0%, oklch(0.16 0.03 45) 100%); color: oklch(0.94 0.02 80); }
+  * { box-sizing: border-box; }
+  body { overflow-x: hidden; }
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s cubic-bezier(.2,.8,.2,1), transform 0.8s cubic-bezier(.2,.8,.2,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  .glass-hover { transition: transform 0.25s cubic-bezier(.2,.8,.2,1), border-color 0.25s, background 0.25s, box-shadow 0.25s; transform-style: preserve-3d; }
+  .glass-hover:hover { will-change: transform; }
+  .sidebar-item:not(.sidebar-active):hover { background: rgba(255,250,235,0.25); }
+  .glass-hover:hover { transform: translateY(-4px); box-shadow: 0 30px 50px -20px rgba(40,25,10,0.50), inset 0 1px 0 rgba(255,255,255,0.7); }
+  .glass::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(280px circle at var(--mx, 50%) var(--my, 50%), rgba(255,250,230,0.25), transparent 60%); opacity: 0; transition: opacity 0.3s; border-radius: inherit; }
+  .glass:hover::before { opacity: 1; }
+  ::selection { background: oklch(0.72 0.16 45 / 0.35); color: oklch(0.28 0.04 50); }
+  @keyframes mote { 0%,100% { transform: translateY(0) translateX(0); opacity: 0.4; } 50% { transform: translateY(-30px) translateX(15px); opacity: 0.9; } }
+  body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 100; opacity: 0.06; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>"); }
+  ::-webkit-scrollbar { width: 12px; height: 12px; }
+  ::-webkit-scrollbar-track { background: oklch(0.88 0.03 75); }
+  ::-webkit-scrollbar-thumb { background: oklch(0.72 0.16 45); border-radius: 999px; border: 2px solid oklch(0.88 0.03 75); }
+  html[data-theme="dark"] ::-webkit-scrollbar-track { background: oklch(0.22 0.025 50); }
+  html[data-theme="dark"] ::-webkit-scrollbar-thumb { background: oklch(0.78 0.16 50); border-color: oklch(0.22 0.025 50); }
+  @media (max-width: 768px) {
+    .rsp-main           { padding-top: 80px !important; padding-left: 16px !important; padding-right: 16px !important; padding-bottom: 40px !important; }
+    .rsp-body-cols      { grid-template-columns: 1fr !important; }
+    .rsp-nav-links      { display: none !important; }
+    .rsp-project-sidebar{ position: static !important; max-height: none !important; }
+    .rsp-info-panel     { position: static !important; }
+  }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<script>
+  if (new URLSearchParams(location.search).has('embed')) {
+    document.documentElement.classList.add('embed-mode');
+    try { localStorage.setItem('resume-theme', 'light'); } catch(e) {}
+    function clearBg() {
+      document.documentElement.style.background = 'transparent';
+      if (document.body) document.body.style.background = 'transparent';
+    }
+    clearBg();
+    new MutationObserver(clearBg).observe(document.body, { attributes: true, attributeFilter: ['style'] });
+    function removeTopbar(root) { root.querySelectorAll('header').forEach(function(el){ el.remove(); }); }
+    var domObserver = new MutationObserver(function(){ removeTopbar(document); });
+    document.addEventListener('DOMContentLoaded', function() {
+      removeTopbar(document);
+      domObserver.observe(document.body, { childList: true, subtree: true });
+    });
+  }
+</script>
+<style>
+  html.embed-mode header { display: none !important; }
+  html.embed-mode main { padding-top: 32px !important; }
+  html.embed-mode, html.embed-mode body, html.embed-mode #root { background: transparent !important; }
+  html.embed-mode img[src*='room-background'] { display: none !important; }
+  html.embed-mode div[style*='position: fixed'][style*='z-index: 0'] { display: none !important; }
+  /* Panel-less text → cream white; glass panel text → dark */
+  html.embed-mode h1, html.embed-mode h2, html.embed-mode h3, html.embed-mode h4,
+  html.embed-mode p, html.embed-mode li { color: rgba(255, 248, 232, 0.95) !important; }
+  html.embed-mode .glass h1, html.embed-mode .glass h2, html.embed-mode .glass h3,
+  html.embed-mode .glass h4, html.embed-mode .glass p, html.embed-mode .glass li {
+    color: oklch(0.28 0.04 50) !important;
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+// ─── RESUME-SHARED: tokens, hooks, primitives ─────────────────────────────────
+
+const RT_LIGHT = {
+  bg0: 'oklch(0.96 0.025 75)',
+  bg1: 'oklch(0.92 0.04 65)',
+  glass: 'rgba(255, 248, 232, 0.30)',
+  glassFill: 'rgba(255, 250, 238, 0.55)',
+  glassBorder: 'rgba(110, 75, 45, 0.28)',
+  glassBorderHi: 'rgba(110, 75, 45, 0.42)',
+  cream: 'oklch(0.97 0.025 85)',
+  ink: 'oklch(0.28 0.04 50)',
+  ink2: 'oklch(0.44 0.035 55)',
+  ink3: 'oklch(0.60 0.025 55)',
+  accent: 'oklch(0.72 0.16 45)',
+  accentDeep: 'oklch(0.52 0.13 42)',
+  yellow: 'oklch(0.86 0.085 92)',
+  green: 'oklch(0.80 0.06 145)',
+  pink: 'oklch(0.78 0.075 38)',
+  wall: 'oklch(0.82 0.04 70)',
+  wood: 'oklch(0.78 0.06 75)',
+  innerFill: 'rgba(255, 248, 232, 0.6)',
+  innerBorder: 'rgba(110, 75, 45, 0.22)',
+  fontDisplay: '"Fraunces", Georgia, serif',
+  fontUI: '"Plus Jakarta Sans", system-ui, sans-serif',
+  fontLabel: '"Plus Jakarta Sans", system-ui, sans-serif',
+};
+
+const RT_DARK = {
+  bg0: 'oklch(0.22 0.025 50)',
+  bg1: 'oklch(0.16 0.03 45)',
+  glass: 'rgba(50, 35, 22, 0.30)',
+  glassFill: 'rgba(60, 42, 28, 0.55)',
+  glassBorder: 'rgba(255, 235, 200, 0.18)',
+  glassBorderHi: 'rgba(255, 235, 200, 0.30)',
+  cream: 'oklch(0.30 0.03 50)',
+  ink: 'oklch(0.94 0.02 80)',
+  ink2: 'oklch(0.78 0.025 75)',
+  ink3: 'oklch(0.62 0.025 70)',
+  accent: 'oklch(0.78 0.16 50)',
+  accentDeep: 'oklch(0.85 0.14 55)',
+  yellow: 'oklch(0.72 0.10 92)',
+  green: 'oklch(0.68 0.07 145)',
+  pink: 'oklch(0.66 0.08 38)',
+  wall: 'oklch(0.30 0.03 50)',
+  wood: 'oklch(0.32 0.04 55)',
+  innerFill: 'rgba(40, 28, 18, 0.55)',
+  innerBorder: 'rgba(255, 235, 200, 0.16)',
+  fontDisplay: '"Fraunces", Georgia, serif',
+  fontUI: '"Plus Jakarta Sans", system-ui, sans-serif',
+  fontLabel: '"Plus Jakarta Sans", system-ui, sans-serif',
+};
+
+const RT = { ...RT_LIGHT };
+
+function applyTheme(mode) {
+  const src = mode === 'dark' ? RT_DARK : RT_LIGHT;
+  Object.keys(src).forEach(k => { RT[k] = src[k]; });
+  document.documentElement.dataset.theme = mode;
+  document.body.style.background = `linear-gradient(180deg, ${src.bg0} 0%, ${src.bg1} 100%)`;
+  document.body.style.color = src.ink;
+}
+
+const { useEffect, useRef, useState, useMemo } = React;
+
+function useReveal() {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current; if (!el) return;
+    const fallback = setTimeout(() => el.classList.add('in'), 600);
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((x) => {
+        if (x.isIntersecting || x.intersectionRatio > 0) {
+          x.target.classList.add('in');
+          io.unobserve(x.target);
+        }
+      }),
+      { threshold: 0.05, rootMargin: '0px 0px -10% 0px' }
+    );
+    io.observe(el);
+    return () => { clearTimeout(fallback); io.disconnect(); };
+  }, []);
+  return ref;
+}
+
+function Magnetic({ children, strength = 0.3, style = {}, ...rest }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current; if (!el) return;
+    const onMove = (e) => {
+      const r = el.getBoundingClientRect();
+      const cx = r.left + r.width/2, cy = r.top + r.height/2;
+      el.style.transform = `translate(${(e.clientX - cx) * strength}px, ${(e.clientY - cy) * strength}px)`;
+    };
+    const reset = () => { el.style.transform = ''; };
+    const parent = el.parentElement;
+    parent.addEventListener('mousemove', onMove); parent.addEventListener('mouseleave', reset);
+    return () => { parent.removeEventListener('mousemove', onMove); parent.removeEventListener('mouseleave', reset); };
+  }, [strength]);
+  return <span ref={ref} style={{ display: 'inline-block', transition: 'transform 0.25s cubic-bezier(.2,.8,.2,1)', ...style }} {...rest}>{children}</span>;
+}
+
+function LiveClock() {
+  const [now, setNow] = useState(new Date());
+  useEffect(() => { const t = setInterval(() => setNow(new Date()), 1000); return () => clearInterval(t); }, []);
+  const jakarta = new Date(now.getTime() + (now.getTimezoneOffset() + 420) * 60000);
+  const hh = String(jakarta.getHours()).padStart(2, '0');
+  const mm = String(jakarta.getMinutes()).padStart(2, '0');
+  return (
+    <span style={{ fontFamily: RT.fontUI, fontSize: 13, fontWeight: 600, color: RT.ink, display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+      <span style={{ width: 8, height: 8, borderRadius: '50%', background: RT.green, boxShadow: '0 0 10px ' + RT.green }} />
+      Jakarta · {hh}:{mm}
+    </span>
+  );
+}
+
+function CursorSpotlight() {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current; if (!el) return;
+    const move = (e) => { el.style.setProperty('--sx', e.clientX + 'px'); el.style.setProperty('--sy', e.clientY + 'px'); };
+    window.addEventListener('mousemove', move);
+    return () => window.removeEventListener('mousemove', move);
+  }, []);
+  return <div ref={ref} style={{
+    position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 1,
+    background: `radial-gradient(420px circle at var(--sx,50%) var(--sy,50%), oklch(0.95 0.10 90 / 0.18), transparent 60%)`,
+  }} />;
+}
+
+function Kicker({ children, style = {} }) {
+  return <span style={{ fontFamily: RT.fontUI, fontSize: 12, fontWeight: 700, color: RT.accentDeep, letterSpacing: 1.2, textTransform: 'uppercase', ...style }}>{children}</span>;
+}
+
+function useTheme() {
+  const [mode, setMode] = useState(() => {
+    try { return localStorage.getItem('resume-theme') || 'light'; } catch { return 'light'; }
+  });
+  applyTheme(mode);
+  useEffect(() => {
+    try { localStorage.setItem('resume-theme', mode); } catch {}
+  }, [mode]);
+  const toggle = () => setMode(m => m === 'light' ? 'dark' : 'light');
+  return [mode, toggle];
+}
+
+function SiteTopBar({ fontUI, theme, toggleTheme, current = 'Resume' }) {
+  const isDark = theme === 'dark';
+  return (
+    <header style={{ position: 'fixed', top: 16, left: 16, right: 16, zIndex: 30, padding: '12px 18px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backdropFilter: 'blur(20px) saturate(140%)', WebkitBackdropFilter: 'blur(20px) saturate(140%)', background: RT.glassFill, border: `2px solid ${RT.glassBorder}`, borderRadius: 18, boxShadow: '0 10px 30px -12px rgba(40,25,10,0.30)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <Magnetic strength={0.18}>
+          <a href="Wireframes.html" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '9px 16px', borderRadius: 999, background: RT.innerFill, border: `2px solid ${RT.ink}`, color: RT.ink, fontFamily: fontUI, fontSize: 13, fontWeight: 700, cursor: 'pointer', boxShadow: '0 3px 0 ' + RT.ink, textDecoration: 'none' }}>
+            <span style={{ fontSize: 14 }}>←</span> Back to room
+          </a>
+        </Magnetic>
+        <Magnetic strength={0.22}>
+          <button onClick={toggleTheme} aria-label="Toggle dark mode" title={isDark ? 'Switch to light' : 'Switch to dark'} style={{
+            width: 40, height: 40, borderRadius: '50%',
+            background: isDark ? RT.ink : RT.yellow,
+            border: `2px solid ${RT.ink}`,
+            color: isDark ? RT.yellow : RT.ink,
+            cursor: 'pointer', boxShadow: '0 3px 0 ' + RT.ink,
+            display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+            transition: 'background 0.3s, color 0.3s, transform 0.3s',
+          }}>
+            {isDark ? (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            ) : (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            )}
+          </button>
+        </Magnetic>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+        <LiveClock />
+        <div className="rsp-nav-links" style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+          <span style={{ width: 1.5, height: 18, background: RT.glassBorderHi }} />
+          {[
+            { label: 'About',   href: 'Portfolio-standalone.html#profile' },
+            { label: 'Work',    href: 'Portfolio-standalone.html' },
+            { label: 'Resume',  href: 'masscitydesk_project_Resume-standalone.html' },
+            { label: 'Contact', href: 'mailto:andri.saputro98@gmail.com' },
+          ].map(({ label, href }) => (
+            <a key={label} href={href} style={{ fontFamily: fontUI, fontSize: 13, fontWeight: label === current ? 700 : 500, color: label === current ? RT.accentDeep : RT.ink2, textDecoration: 'none' }}>{label}</a>
+          ))}
+        </div>
+        <Magnetic>
+          <a href="https://drive.google.com/file/d/1gSBHp5xk_0T4R7v_0hZoqLNOEgP_BQn3/view?usp=sharing" target="_blank" rel="noopener noreferrer" style={{ padding: '9px 18px', borderRadius: 999, background: RT.accent, border: `2px solid ${RT.ink}`, color: 'white', fontFamily: fontUI, fontSize: 13, fontWeight: 700, cursor: 'pointer', boxShadow: '0 3px 0 ' + RT.ink, textDecoration: 'none', display: 'inline-block' }}>Download Portfolio ↓</a>
+        </Magnetic>
+      </div>
+    </header>
+  );
+}
+
+function SiteRoom({ theme = 'light' }) {
+  const isDark = theme === 'dark';
+  return (
+    <div style={{ position: 'fixed', inset: 0, zIndex: 0, overflow: 'hidden', filter: isDark ? 'brightness(0.45) saturate(0.7) hue-rotate(-8deg)' : 'none', transition: 'filter 0.4s' }}>
+      <img src="assets/room-background.png" alt="" aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
+      <div style={{ position: 'absolute', top: '-15%', right: '-10%', width: 700, height: 700, borderRadius: '50%', background: 'radial-gradient(circle, oklch(0.95 0.10 90 / 0.35), transparent 65%)', mixBlendMode: 'screen' }} />
+      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center, transparent 55%, rgba(80,50,30,0.22) 100%)' }} />
+      {[...Array(14)].map((_, i) => (
+        <div key={i} style={{
+          position: 'absolute', left: `${(i * 73 + 7) % 100}%`, top: `${(i * 47 + 13) % 100}%`,
+          width: 5, height: 5, borderRadius: '50%',
+          background: 'oklch(0.96 0.06 90 / 0.6)', boxShadow: '0 0 8px oklch(0.96 0.06 90)',
+          animation: `mote ${8 + (i % 5)}s ease-in-out ${i * 0.4}s infinite`,
+        }} />
+      ))}
+    </div>
+  );
+}
+
+function DarkAmbient() {
+  return (
+    <div style={{ position: 'fixed', inset: 0, zIndex: 0, overflow: 'hidden', pointerEvents: 'none' }}>
+      <div style={{ position: 'absolute', top: '-15%', right: '-10%', width: 700, height: 700, borderRadius: '50%', background: `radial-gradient(circle, ${RT.accent} 0%, transparent 65%)`, opacity: 0.18, filter: 'blur(40px)' }} />
+      <div style={{ position: 'absolute', bottom: '-20%', left: '-15%', width: 600, height: 600, borderRadius: '50%', background: `radial-gradient(circle, ${RT.yellow} 0%, transparent 65%)`, opacity: 0.10, filter: 'blur(40px)' }} />
+    </div>
+  );
+}
+
+function WindowCard({ title, children, padding = 28, hoverable = false, accent = RT.accent, style = {} }) {
+  return (
+    <div className={hoverable ? 'glass glass-hover' : 'glass'} style={{
+      position: 'relative',
+      background: RT.glassFill,
+      backdropFilter: 'blur(22px) saturate(150%)',
+      WebkitBackdropFilter: 'blur(22px) saturate(150%)',
+      border: `2px solid ${RT.glassBorder}`,
+      borderRadius: 22,
+      overflow: 'hidden',
+      boxShadow: '0 18px 36px -16px rgba(40,25,10,0.32), inset 0 1px 0 rgba(255,255,255,0.5)',
+      ...style,
+    }}>
+      {title && (
+        <div style={{ padding: '11px 16px', borderBottom: `2px solid ${RT.glassBorder}`, background: RT.innerFill, display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ width: 10, height: 10, borderRadius: '50%', background: accent, border: `1.5px solid ${RT.ink}` }} />
+          <span style={{ width: 10, height: 10, borderRadius: '50%', background: RT.yellow, border: `1.5px solid ${RT.ink}` }} />
+          <span style={{ width: 10, height: 10, borderRadius: '50%', background: RT.green, border: `1.5px solid ${RT.ink}` }} />
+          <span style={{ marginLeft: 8, fontFamily: RT.fontUI, fontSize: 11.5, fontWeight: 700, color: RT.ink2, letterSpacing: 0.5, textTransform: 'uppercase' }}>{title}</span>
+        </div>
+      )}
+      <div style={{ padding }}>{children}</div>
+    </div>
+  );
+}
+
+// ─── PORTFOLIO DATA ───────────────────────────────────────────────────────────
+
+const PORTFOLIO_PROJECTS = [
+  {
+    slug: 'pataland',
+    title: 'PataLand',
+    heroImg: 'FloatingDreamsWPP.png',
+    client: 'In-house (Paradimensi)',
+    tagline: 'SaaS · Web · Game',
+    platform: 'Web Desktop · Web Mobile · VR',
+    features: ['Multiplayer', 'CrossPlatform', 'Character Customization', 'UGC'],
+    role: 'Product Designer · Lead Design · Visual Designer · Game Designer',
+    period: '2022 — 2024',
+    studio: 'Cube Studio',
+    discipline: ['Metaverse', 'Social', 'Entertainment', 'Cross-platform'],
+    cover: 'oklch(0.72 0.06 145)',
+    coverDeep: 'oklch(0.48 0.08 140)',
+    summary: 'A web-based cross-platform Metaverse for artist and their fans to gather, chill, and playing around with unique avatar!',
+    metric: '836',
+    metricLabel: 'Registered accounts',
+    href: 'Case-Pataland.html',
+    featured: true,
+  },
+  {
+    slug: 'parachute',
+    title: 'Mobile Parachute MR',
+    heroImg: 'CN235_Interior.png',
+    client: 'UpTrans Teknologi, Bandung Simulator Group',
+    tagline: 'Simulation · Desktop App',
+    platform: 'VR · Desktop App',
+    features: ['IoT', 'Real Time Simulation', 'Custom Scenarios'],
+    role: '3D Designer · Lead Design · Game Tester',
+    period: '2025',
+    studio: 'UpTrans Teknologi',
+    discipline: ['3D', 'VR', 'Mixed Reality', 'Simulation'],
+    cover: 'oklch(0.80 0.06 145)',
+    coverDeep: 'oklch(0.55 0.08 145)',
+    summary: 'Real time parachute simulator with customizable scenarios controlled with real jumping equipment in VR world.',
+    metric: '500M+',
+    metricLabel: 'Rupiah saved per training flight',
+    href: 'Case-Parachute-standalone.html',
+    featured: false,
+  },
+  {
+    slug: 'vlux',
+    title: 'Lighting Kungfu',
+    heroImg: 'LightingKungfuSplash.png',
+    client: 'Cube Studio (in-house product)',
+    tagline: 'SaaS · Simulation · Desktop App',
+    platform: 'Desktop App · VR',
+    features: ['Custom Room', 'UGC', 'VR Simulation'],
+    role: 'Product Designer · UI/UX Designer',
+    period: '2025 — Ongoing',
+    studio: 'Cube Studio',
+    discipline: ['Desktop App', 'VR', 'B2B', 'Architecture'],
+    cover: 'oklch(0.78 0.06 60)',
+    coverDeep: 'oklch(0.50 0.10 55)',
+    summary: 'Desktop specialized lighting design tool made with high precision and VR integration.',
+    metric: '2',
+    metricLabel: 'User types in one product',
+    href: 'Case-Vlux.html',
+    featured: false,
+  },
+  {
+    slug: 'gotechup',
+    title: 'GoTechUp URC',
+    heroImg: 'GTUURC.png',
+    client: 'GoTechUp Malaysia & Singapore',
+    tagline: 'Web · Simulation · Game',
+    platform: 'Web Desktop',
+    features: ['Code Block', 'Leaderboard', 'Class Dashboard'],
+    role: 'UI/UX Designer · Level Designer · 3D Designer',
+    period: '2023 — Ongoing',
+    studio: 'GoTechUp',
+    discipline: ['EdTech', 'Gamification', 'Web App', 'Multi-country'],
+    cover: 'oklch(0.74 0.06 140)',
+    coverDeep: 'oklch(0.52 0.10 135)',
+    summary: 'An annual international kids competition of code block for GoTechUp.',
+    metric: '21',
+    metricLabel: 'Levels across 6 countries',
+    href: 'Case-Edutech.html',
+    featured: false,
+  },
+  {
+    slug: 'metaverse',
+    title: 'Techpolverse',
+    heroImg: 'Techpollandmark.jpg',
+    client: 'Techpolitan',
+    tagline: 'Mobile App · Game',
+    platform: 'Mobile App',
+    features: ['In-app Purchase', 'Character Customization', 'O2O Experience'],
+    role: 'Business Development · Project Manager · 3D Design',
+    period: '2022 — 2023',
+    studio: 'Techpolitan',
+    discipline: ['Mobile', 'Metaverse', 'Social', 'Brand Integration'],
+    cover: 'oklch(0.70 0.08 310)',
+    coverDeep: 'oklch(0.48 0.13 300)',
+    summary: 'A mobile Metaverse integrating brands under PT. Walden Global Service into one social-ecosystem.',
+    metric: '—',
+    metricLabel: 'Brand integration platform',
+    href: 'Case-Metaverse.html',
+    featured: false,
+  },
+  {
+    slug: 'others',
+    title: 'Others',
+    client: 'Scattered Works',
+    tagline: 'Various',
+    platform: 'Various Platforms',
+    features: ['Various Features'],
+    role: 'Various',
+    period: '2020 — Present',
+    studio: '—',
+    discipline: ['Miscellaneous'],
+    cover: 'oklch(0.75 0.04 70)',
+    coverDeep: 'oklch(0.50 0.06 65)',
+    summary: 'A collection of smaller projects, explorations, and freelance work.',
+    metric: '—',
+    metricLabel: '—',
+    href: '#',
+    featured: false,
+  },
+];
+
+// ─── PORTFOLIO APP ────────────────────────────────────────────────────────────
+
+const ROLE_TAGS = ['All', 'Lead', 'Product', 'UI/UX', '3D', 'Game'];
+
+function projectMatchesRole(p, tag) {
+  if (tag === 'All') return true;
+  const blob = (p.role + ' ' + (p.discipline || []).join(' ')).toLowerCase();
+  if (tag === 'Lead')    return /\blead\b|founder/.test(blob);
+  if (tag === 'Product') return /\bproduct\b|saas|tooling/.test(blob);
+  if (tag === 'UI/UX')   return /\bui\/ux|\bux\b|design system|web/.test(blob);
+  if (tag === '3D')      return /\b3d\b|ue5|vr|metaverse|simulation/.test(blob);
+  if (tag === 'Game')    return /\bgame\b|telegram|metaverse|vr/.test(blob);
+  return false;
+}
+
+const CASE_COPY = {
+  parachute: {
+    tools: ['Unreal 5', 'Figma', 'Quest 2', 'Blender'],
+    challenge: 'Live parachute training is expensive, weather-bound, and brutal on first-timers. The academy needed a way for cadets to build muscle memory before ever touching a real chute.',
+    approach: 'Field research at the academy, then a six-phase jump model in Unity, re-built in UE5 for fidelity. Designed an instructor tablet UI so non-VR staff could throw weather and gear failures from a calm panel. Two cadet cohorts tested the rig before delivery.',
+    shots: ['Cabin · pre-jump checks', 'Free-fall · 4,200 ft AGL'],
+    outcome: [
+      { metric: '90%', label: 'cost reduction vs. live training' },
+      { metric: '6 / 6', label: 'training phases supported' },
+      { metric: '2', label: 'cadet cohorts validated pre-ship' },
+    ],
+  },
+  vlux: {
+    tools: ['UE5 SDK', 'Figma', 'TypeScript', 'Cycles'],
+    challenge: 'UE5 lighting artists were ping-ponging between tools to dial in scenes — slow iteration, lost notes, no shared vocabulary across team members.',
+    approach: 'Founded the product. Audited five lighting workflows with practicing artists, designed a node-based color pipeline, and shipped a desktop tool with snapshot/compare and a precision colour picker. Continuous beta with five teams shaping the roadmap.',
+    shots: ['Node-based color pipeline', 'Snapshot diff between two lighting passes'],
+    outcome: [
+      { metric: '5×', label: 'faster lighting iteration' },
+      { metric: '5', label: 'studios in active beta' },
+      { metric: '1', label: 'tool replaces a 3-app workflow' },
+    ],
+  },
+  edutech: {
+    tools: ['Figma', 'Tokens Studio', 'React', 'Storybook'],
+    challenge: 'Three SEA institutions, three apps (LMS, admin, student) — and almost no shared vocabulary. Every screen was bespoke, every release a re-invent.',
+    approach: 'Stood up a single design system: tokens, components, motion. Migrated the three apps to it screen-by-screen. Trained the in-house team on contribution rules so the system kept living after handover.',
+    shots: ['Token foundations', 'LMS dashboard, post-system'],
+    outcome: [
+      { metric: '500%', label: 'asset production lift' },
+      { metric: '83', label: 'institutional accounts onboarded' },
+      { metric: '3', label: 'products on a single system' },
+    ],
+  },
+  pataland: {
+    tools: ['Figma', 'Blender', 'Adobe', 'Unity', 'CorelDraw', 'Trello'],
+    challenge: 'PataLand needed a social-entertainment metaverse where fans and artists share the same room — across VR, desktop, and mobile.',
+    approach: 'As Lead Designer, architected a user-behavior tracking system using custom triggers. Analyzed interaction heatmaps and navigation patterns to refine UX. Managed the full product lifecycle and led technical discussions with developers.',
+    shots: ['Virtual concert — stage view', 'Character customization system'],
+    outcome: [
+      { metric: '836', label: 'registered accounts' },
+      { metric: '4', label: 'collaborated artists' },
+      { metric: '10+', label: 'fun & social activities' },
+    ],
+  },
+  metaverse: {
+    tools: ['Blender', 'Unity', 'Internal PM Tool'],
+    challenge: 'PT. Walden Global Service needed to integrate its brands into one social-ecosystem to promote and sell digital goods and services.',
+    approach: 'Wore three hats — business development, project management, and 3D design. Audited brand ecosystem, defined the business case, designed virtual spaces in Blender, and managed the development pipeline.',
+    shots: ['Brand zone — virtual space', 'Marketplace interface'],
+    outcome: [
+      { metric: '1', label: 'unified social ecosystem' },
+      { metric: '3', label: 'roles held simultaneously' },
+      { metric: '2', label: 'platforms (Android & iOS)' },
+    ],
+  },
+};
+
+function ProjectList({ items, activeIdx, onSelect, roleFilter, onRoleFilter, fontDisplay, fontUI }) {
+  return (
+    <aside className="rsp-project-sidebar" style={{
+      gridColumn: 1, gridRow: '1 / -1',
+      alignSelf: 'stretch',
+      overflowY: 'auto',
+      padding: 18,
+      background: RT.glassFill,
+      backdropFilter: 'blur(20px) saturate(140%)', WebkitBackdropFilter: 'blur(20px) saturate(140%)',
+      border: `2px solid ${RT.glassBorder}`, borderRadius: 22,
+      boxShadow: '0 18px 36px -16px rgba(40,25,10,0.30), inset 0 1px 0 rgba(255,255,255,0.5)',
+    }}>
+      <nav style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+        {items.map((p, i) => {
+          const isActive = i === activeIdx;
+          return (
+            <button key={p.slug} className={`sidebar-item${isActive ? ' sidebar-active' : ''}`} onClick={() => {
+              if (p.slug === 'others') { window.parent.postMessage({ type: 'openSorryModal' }, '*'); return; }
+              onSelect(i);
+            }} style={{
+              all: 'unset', cursor: 'pointer',
+              padding: '10px 12px', borderRadius: 10,
+              background: isActive ? RT.innerFill : 'transparent',
+              border: `1.5px solid ${isActive ? RT.glassBorderHi : 'transparent'}`,
+              transition: 'background 0.2s, border-color 0.2s',
+            }}>
+              <span style={{ fontFamily: fontDisplay, fontSize: 15, fontWeight: 700, color: isActive ? RT.accent : RT.ink, letterSpacing: -0.3, lineHeight: 1.2, display: 'block', transition: 'color 0.2s' }}>
+                {p.title}
+              </span>
+              <span style={{ marginTop: 3, fontFamily: fontUI, fontSize: 11, fontWeight: 600, color: RT.ink2, display: 'block' }}>
+                {p.tagline}
+              </span>
+            </button>
+          );
+        })}
+      </nav>
+    </aside>
+  );
+}
+
+function ProjectHeader({ p, fontDisplay }) {
+  const ref = useReveal();
+  return (
+    <div ref={ref} className="reveal" style={{ gridColumn: 2, gridRow: 1, minWidth: 0 }}>
+      <h1 style={{ margin: 0, fontFamily: fontDisplay, fontSize: 'clamp(36px, 4.8vw, 60px)', fontWeight: 700, color: RT.ink, letterSpacing: -2, lineHeight: 1.05, textWrap: 'balance' }}>
+        {p.title}
+      </h1>
+      <p style={{ marginTop: 14, fontFamily: fontDisplay, fontSize: 18, fontStyle: 'italic', fontWeight: 500, color: RT.accent, letterSpacing: -0.3, lineHeight: 1.4 }}>
+        {p.summary}
+      </p>
+    </div>
+  );
+}
+
+function ProjectHero({ p, fontDisplay }) {
+  const [visible, setVisible] = useState(true);
+  const prevSlug = useRef(p.slug);
+
+  useEffect(() => {
+    if (prevSlug.current !== p.slug) {
+      setVisible(false);
+      const t = setTimeout(() => { prevSlug.current = p.slug; setVisible(true); }, 180);
+      return () => clearTimeout(t);
+    }
+  }, [p.slug]);
+
+  return (
+    <div className="glass" style={{
+      gridColumn: 2, gridRow: '2 / 4', alignSelf: 'stretch', position: 'relative', minHeight: 0,
+      background: `linear-gradient(135deg, ${p.cover} 0%, ${p.coverDeep} 100%)`,
+      border: `2px solid ${RT.glassBorder}`, borderRadius: 18, overflow: 'hidden',
+      boxShadow: '0 22px 44px -20px rgba(40,25,10,0.45)',
+    }}>
+      <div style={{
+        position: 'absolute', inset: 0,
+        opacity: visible ? 1 : 0, transform: visible ? 'scale(1)' : 'scale(1.02)',
+        transition: 'opacity 0.35s cubic-bezier(.2,.8,.2,1), transform 0.35s cubic-bezier(.2,.8,.2,1)',
+      }}>
+        {p.heroImg ? (
+          <img src={p.heroImg} alt={p.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        ) : (
+          <>
+            <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 30% 30%, rgba(255,255,255,0.32), transparent 55%), radial-gradient(circle at 75% 75%, rgba(0,0,0,0.20), transparent 55%)' }} />
+            <div style={{
+              position: 'absolute', inset: '15% 20%',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              background: 'rgba(255,250,235,0.92)', border: `2.5px solid ${RT.ink}`,
+              borderRadius: 14, boxShadow: '0 16px 32px -10px rgba(0,0,0,0.35)',
+              fontFamily: fontDisplay, fontSize: 'clamp(60px, 9vw, 110px)', fontWeight: 700, color: p.coverDeep, letterSpacing: -3,
+            }}>
+              {p.title.split(' ').map(w => w[0]).join('').slice(0, 2)}
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function InfoPanel({ p, fontDisplay, fontUI }) {
+  const c = CASE_COPY[p.slug] || {};
+  const infoItems = [
+    ['Role', p.role],
+    ['Year', p.period],
+    ['Client', p.client],
+    ['Platform', p.platform || '—'],
+    ['Tools', (c.tools || []).join(' · ') || '—'],
+  ];
+  return (
+    <div style={{ gridColumn: 3, gridRow: 2, alignSelf: 'stretch', display: 'flex', flexDirection: 'column' }}>
+      <div style={{
+        flex: 1,
+        background: RT.glassFill, backdropFilter: 'blur(18px) saturate(140%)', WebkitBackdropFilter: 'blur(18px) saturate(140%)',
+        border: `2px solid ${RT.glassBorder}`, borderRadius: 16, overflow: 'hidden',
+      }}>
+        {infoItems.map(([k, v], i) => (
+          <div key={k} style={{ padding: '12px 14px', borderBottom: i < infoItems.length - 1 ? `1.5px solid ${RT.glassBorder}` : 'none' }}>
+            <div style={{ fontFamily: fontUI, fontSize: 10, fontWeight: 700, color: RT.ink3, textTransform: 'uppercase', letterSpacing: 1 }}>{k}</div>
+            <div style={{ marginTop: 4, fontFamily: fontDisplay, fontSize: 13, fontWeight: 600, color: RT.ink, lineHeight: 1.3 }}>{v}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function FullWorkButton({ fontDisplay, fontUI }) {
+  return (
+    <div style={{ gridColumn: 3, gridRow: 3, alignSelf: 'end', marginTop: 12 }}>
+      <a href="https://drive.google.com/file/d/1gSBHp5xk_0T4R7v_0hZoqLNOEgP_BQn3/view?usp=sharing" target="_blank" rel="noopener noreferrer" style={{
+        all: 'unset', cursor: 'pointer', width: '100%', boxSizing: 'border-box',
+        display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+        padding: '11px 15px', borderRadius: 12,
+        background: RT.accent, border: `2px solid ${RT.ink}`,
+        boxShadow: '0 2.5px 0 ' + RT.ink,
+      }}>
+        <div style={{ minWidth: 0 }}>
+          <div style={{ fontFamily: fontUI, fontSize: 10.5, fontWeight: 700, color: RT.ink2, textTransform: 'uppercase', letterSpacing: 1 }}>Project</div>
+          <div style={{ fontFamily: fontUI, fontSize: 13.5, fontWeight: 600, color: RT.ink, marginTop: 2 }}>Go to Full work</div>
+        </div>
+        <span style={{ fontFamily: fontDisplay, fontSize: 20, fontWeight: 700, color: RT.ink }}>↗</span>
+      </a>
+    </div>
+  );
+}
+
+function PortfolioApp() {
+  const [theme, toggleTheme] = useTheme();
+  const fontDisplay = '"Fraunces", Georgia, serif';
+  const fontUI = '"Plus Jakarta Sans", system-ui, sans-serif';
+
+  const [roleFilter, setRoleFilter] = useState('All');
+  const items = useMemo(() => PORTFOLIO_PROJECTS.filter(p => projectMatchesRole(p, roleFilter)), [roleFilter]);
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  useEffect(() => { if (activeIdx >= items.length) setActiveIdx(0); }, [items.length, activeIdx]);
+
+  useEffect(() => {
+    function syncHash() {
+      const h = (window.location.hash || '').replace('#', '');
+      if (!h) return;
+      if (h === 'others') { window.parent.postMessage({ type: 'openSorryModal' }, '*'); return; }
+      const i = items.findIndex(p => p.slug === h);
+      if (i >= 0) setActiveIdx(i);
+    }
+    syncHash();
+    window.addEventListener('hashchange', syncHash);
+    return () => window.removeEventListener('hashchange', syncHash);
+  }, [items]);
+
+  const active = items[activeIdx] || items[0];
+
+  return (
+    <div style={{ minHeight: '100vh', position: 'relative' }}>
+      {theme === 'light' ? <SiteRoom theme={theme} /> : <DarkAmbient />}
+      <CursorSpotlight />
+      <div style={{ position: 'relative', zIndex: 2 }}>
+        <SiteTopBar fontUI={fontUI} theme={theme} toggleTheme={toggleTheme} current="Work" />
+
+        <main className="rsp-main" style={{ maxWidth: 1280, margin: '0 auto', padding: '80px 32px 24px', height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden', boxSizing: 'border-box' }}>
+          <header style={{ marginBottom: 28 }}>
+            <h1 style={{ margin: 0, fontFamily: fontDisplay, fontSize: 'clamp(36px, 4.4vw, 56px)', fontWeight: 700, color: RT.ink, letterSpacing: -1.5, lineHeight: 1.05 }}>
+              Selected work, <span style={{ color: RT.accent, fontStyle: 'italic' }}>one rail at a time</span>.
+            </h1>
+            <p style={{ margin: '12px 0 0', fontFamily: fontUI, fontSize: 14.5, fontWeight: 500, color: RT.ink2, maxWidth: 640 }}>
+              Pick a project — the details open here.
+            </p>
+          </header>
+
+          <div className="rsp-body-cols" style={{ display: 'grid', gridTemplateColumns: '240px 1fr 200px', gridTemplateRows: 'minmax(120px, auto) 1fr auto', gap: 24, alignItems: 'start', flex: 1, minHeight: 0 }}>
+            <ProjectList
+              items={items}
+              activeIdx={activeIdx}
+              onSelect={setActiveIdx}
+              roleFilter={roleFilter}
+              onRoleFilter={setRoleFilter}
+              fontDisplay={fontDisplay}
+              fontUI={fontUI}
+            />
+            {active && (
+              <React.Fragment>
+                <ProjectHeader key={active.slug + '-hdr'} p={active} fontDisplay={fontDisplay} />
+                <ProjectHero p={active} fontDisplay={fontDisplay} />
+                <InfoPanel key={active.slug + '-info'} p={active} fontDisplay={fontDisplay} fontUI={fontUI} />
+                <FullWorkButton fontDisplay={fontDisplay} fontUI={fontUI} />
+              </React.Fragment>
+            )}
+          </div>
+
+        </main>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<PortfolioApp />);
+</script>
+</body>
+</html>

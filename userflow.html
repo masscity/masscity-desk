@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MassCity's Desk — User Flow</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0e1221;
+      font-family: 'Segoe UI', sans-serif;
+      color: #e0e6f0;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+    h1 {
+      text-align: center;
+      font-size: 1.6rem;
+      margin-bottom: 6px;
+      color: #7ec8f0;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .subtitle {
+      text-align: center;
+      color: #6b7a99;
+      font-size: 0.85rem;
+      margin-bottom: 48px;
+    }
+
+    /* ── Flow container ─────────────────────────── */
+    .flow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    /* Sections */
+    .section-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #445;
+      margin-bottom: 8px;
+      margin-top: 32px;
+      align-self: flex-start;
+      margin-left: calc(50% - 340px);
+    }
+
+    /* ── Node types ─────────────────────────────── */
+    .node {
+      border-radius: 10px;
+      padding: 12px 24px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-align: center;
+      position: relative;
+      min-width: 200px;
+    }
+
+    .node-start {
+      background: #1b2c4a;
+      border: 2px solid #4a9ee8;
+      color: #7ec8f0;
+      border-radius: 40px;
+    }
+
+    .node-process {
+      background: #1a2035;
+      border: 2px solid #2e4070;
+      color: #c5d0e8;
+    }
+
+    .node-decision {
+      background: #1e1a35;
+      border: 2px solid #7a5af8;
+      color: #c5b8f8;
+      transform: perspective(200px) rotateX(0deg);
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+      width: 180px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      min-width: unset;
+      font-size: 0.78rem;
+    }
+
+    .node-action {
+      background: #0e2230;
+      border: 2px solid #2b7fbf;
+      color: #a8d4f0;
+    }
+
+    .node-modal {
+      background: #1a2e20;
+      border: 2px solid #3a8f5a;
+      color: #a0d8b0;
+    }
+
+    .node-link {
+      background: #2a1e10;
+      border: 2px solid #c87833;
+      color: #f0b87c;
+    }
+
+    .node-easter {
+      background: #2a1e2a;
+      border: 2px dashed #c87898;
+      color: #f0b8c8;
+      font-style: italic;
+    }
+
+    .node-utility {
+      background: #1e2020;
+      border: 2px solid #557;
+      color: #8899aa;
+    }
+
+    .node-end {
+      background: #2a1a1a;
+      border: 2px solid #e85a5a;
+      color: #f08080;
+      border-radius: 40px;
+    }
+
+    /* ── Arrows ─────────────────────────────────── */
+    .arrow {
+      width: 2px;
+      height: 28px;
+      background: #2e4070;
+      position: relative;
+    }
+    .arrow::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 7px solid #2e4070;
+    }
+    .arrow-label {
+      position: absolute;
+      left: 12px;
+      top: 6px;
+      font-size: 0.65rem;
+      color: #5a6a88;
+      white-space: nowrap;
+    }
+
+    /* ── Branching layout ───────────────────────── */
+    .branch-row {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .branch-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    /* ── The "room" branch box ──────────────────── */
+    .room-hub {
+      background: #1a2035;
+      border: 2px solid #4a5a80;
+      border-radius: 16px;
+      padding: 16px 32px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #a0b4d8;
+      text-align: center;
+      min-width: 240px;
+    }
+
+    .branch-connector {
+      height: 2px;
+      background: #2e4070;
+      width: 100%;
+      position: relative;
+    }
+
+    /* ── Category cards ─────────────────────────── */
+    .category {
+      border-radius: 12px;
+      padding: 14px 18px;
+      min-width: 160px;
+      max-width: 190px;
+    }
+
+    .category h3 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .cat-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      padding: 5px 0;
+      color: inherit;
+    }
+    .cat-item .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .cat-modal { background: #0e1e14; border: 2px solid #3a8f5a; color: #90c8a0; }
+    .cat-modal h3 { color: #60c890; }
+    .cat-modal .dot { background: #60c890; }
+
+    .cat-link { background: #1e1408; border: 2px solid #c87833; color: #d8a070; }
+    .cat-link h3 { color: #e0944a; }
+    .cat-link .dot { background: #e0944a; }
+
+    .cat-util { background: #111820; border: 2px solid #445566; color: #7890a8; }
+    .cat-util h3 { color: #6688aa; }
+    .cat-util .dot { background: #6688aa; }
+
+    .cat-easter { background: #1a1020; border: 2px dashed #9060a8; color: #c090d8; }
+    .cat-easter h3 { color: #b080c8; }
+    .cat-easter .dot { background: #b080c8; }
+
+    /* ── Horizontal divider line through branches ─ */
+    .h-line {
+      height: 2px;
+      background: #2e4070;
+      width: 680px;
+      margin: 0 auto;
+    }
+
+    /* ── Legend ─────────────────────────────────── */
+    .legend {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 48px;
+      padding: 16px 24px;
+      background: #131925;
+      border-radius: 12px;
+      border: 1px solid #1e2e4a;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      color: #7a8aaa;
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+    }
+
+    .note {
+      margin-top: 32px;
+      background: #0e1a2a;
+      border-left: 3px solid #4a9ee8;
+      padding: 14px 20px;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.8rem;
+      color: #7a9ab8;
+      max-width: 700px;
+      text-align: left;
+    }
+    .note strong { color: #7ec8f0; }
+  </style>
+</head>
+<body>
+
+<h1>MassCity's Desk — User Flow</h1>
+<p class="subtitle">Muhamad Andri Saputro · Interactive Portfolio · 2026</p>
+
+<div class="flow">
+
+  <!-- ═══ PHASE 1: ENTRY ═══ -->
+  <div class="section-label">Phase 1 — Entry</div>
+
+  <div class="node node-start">🌐 User Visits masscity-desk.netlify.app</div>
+
+  <div class="arrow"><span class="arrow-label">loads assets</span></div>
+
+  <div class="node node-process">
+    ⏳ Loading Screen<br>
+    <span style="font-size:0.72rem;font-weight:400;color:#6b7a99">"Now Loading…" • background room visible</span>
+  </div>
+
+  <div class="arrow"><span class="arrow-label">assets ready</span></div>
+
+  <div class="node node-process">
+    ✅ "Enter" Button Appears<br>
+    <span style="font-size:0.72rem;font-weight:400;color:#6b7a99">User clicks to enter</span>
+  </div>
+
+  <div class="arrow"></div>
+
+  <!-- ═══ PHASE 2: ORIENTATION ═══ -->
+  <div class="section-label">Phase 2 — Orientation</div>
+
+  <div class="node node-action">
+    🏠 3D Isometric Room Revealed<br>
+    <span style="font-size:0.72rem;font-weight:400;color:#6b7a99">Tutorial overlay fades in</span>
+  </div>
+
+  <div class="arrow"></div>
+
+  <div class="node node-process">
+    📋 Tutorial Hints Shown<br>
+    <span style="font-size:0.72rem;font-weight:400;color:#6b7a99">Rotate · Move · Zoom · Interact</span>
+  </div>
+
+  <div class="arrow"><span class="arrow-label">user explores room</span></div>
+
+  <!-- ═══ PHASE 3: INTERACTION HUB ═══ -->
+  <div class="section-label">Phase 3 — Interaction</div>
+
+  <div class="room-hub">🖱️ User Clicks an Object</div>
+
+  <!-- Horizontal line -->
+  <div style="width:700px;height:2px;background:#2e4070;margin:0 auto;"></div>
+
+  <!-- Branch row -->
+  <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:0;">
+
+    <!-- Modal Content -->
+    <div class="branch-col">
+      <div style="height:28px;width:2px;background:#2e4070;margin:0 auto;"></div>
+      <div class="category cat-modal">
+        <h3>📄 Modal Content</h3>
+        <div class="cat-item"><span class="dot"></span> PC → About Me</div>
+        <div class="cat-item"><span class="dot"></span> PictureFrame → Gallery</div>
+        <div style="font-size:0.68rem;color:#446a54;margin-top:8px;font-style:italic">Opens in-page popup<br>with text + images</div>
+      </div>
+      <div style="height:16px;width:2px;background:#2e4070;margin:0 auto;"></div>
+      <div class="node node-modal" style="font-size:0.75rem;padding:8px 16px;">
+        Modal Opens →<br>Read → Close
+      </div>
+    </div>
+
+    <!-- External Links -->
+    <div class="branch-col">
+      <div style="height:28px;width:2px;background:#c87833;margin:0 auto;"></div>
+      <div class="category cat-link">
+        <h3>🔗 External Links</h3>
+        <div class="cat-item"><span class="dot"></span> LinkedIn</div>
+        <div class="cat-item"><span class="dot"></span> Behance</div>
+        <div class="cat-item"><span class="dot"></span> Instagram</div>
+        <div class="cat-item"><span class="dot"></span> Dribbble</div>
+        <div class="cat-item"><span class="dot"></span> CV / Resume</div>
+        <div class="cat-item"><span class="dot"></span> Phone → Gmail</div>
+        <div style="font-size:0.68rem;color:#7a5028;margin-top:8px;font-style:italic">Opens new tab</div>
+      </div>
+      <div style="height:16px;width:2px;background:#c87833;margin:0 auto;"></div>
+      <div class="node node-link" style="font-size:0.75rem;padding:8px 16px;">
+        New tab opens →<br>User contacts / views
+      </div>
+    </div>
+
+    <!-- Utility -->
+    <div class="branch-col">
+      <div style="height:28px;width:2px;background:#445566;margin:0 auto;"></div>
+      <div class="category cat-util">
+        <h3>⚙️ Utility</h3>
+        <div class="cat-item"><span class="dot"></span> Lamp → Toggle Dark Mode</div>
+        <div class="cat-item"><span class="dot"></span> Switch → Toggle Lights</div>
+        <div class="cat-item"><span class="dot"></span> Speakers → Toggle Audio</div>
+        <div style="font-size:0.68rem;color:#445;margin-top:8px;font-style:italic">Immediate state change<br>no popup</div>
+      </div>
+      <div style="height:16px;width:2px;background:#445566;margin:0 auto;"></div>
+      <div class="node node-utility" style="font-size:0.75rem;padding:8px 16px;">
+        Room state changes →<br>Continue exploring
+      </div>
+    </div>
+
+    <!-- Easter Eggs -->
+    <div class="branch-col">
+      <div style="height:28px;width:2px;background:#9060a8;margin:0 auto;"></div>
+      <div class="category cat-easter">
+        <h3>🎉 Easter Eggs</h3>
+        <div class="cat-item"><span class="dot"></span> Chair → Spin + Sound</div>
+        <div class="cat-item"><span class="dot"></span> Basket → Bounce</div>
+        <div class="cat-item"><span class="dot"></span> Pusheen → Bounce</div>
+        <div style="font-size:0.68rem;color:#7a5080;margin-top:8px;font-style:italic">Fun animations + SFX<br>no info shown</div>
+      </div>
+      <div style="height:16px;width:2px;background:#9060a8;margin:0 auto;"></div>
+      <div class="node node-easter" style="font-size:0.75rem;padding:8px 16px;">
+        Animation plays →<br>User smiles →✨
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══ PHASE 4: CONVERSION ═══ -->
+  <div class="section-label">Phase 4 — Conversion Goal</div>
+
+  <div style="height:32px;width:2px;background:#2e4070;margin:0 auto;"></div>
+
+  <div style="display:flex;gap:24px;justify-content:center;">
+    <div class="node node-end" style="min-width:160px;">
+      📥 CV Downloaded
+    </div>
+    <div class="node node-end" style="min-width:160px;">
+      ✉️ Email Sent
+    </div>
+    <div class="node node-end" style="min-width:160px;">
+      🤝 LinkedIn Connected
+    </div>
+  </div>
+
+</div>
+
+<!-- Legend -->
+<div style="display:flex;justify-content:center;margin-top:40px;">
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#3a8f5a;"></div>
+      Opens modal popup
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#c87833;"></div>
+      Opens external link
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#445566;"></div>
+      Toggles room state
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#9060a8;border-style:dashed;border-width:1px;border-color:#9060a8;"></div>
+      Easter egg / fun
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#e85a5a;"></div>
+      Conversion goal
+    </div>
+  </div>
+</div>
+
+<!-- Notes / Gaps -->
+<div style="display:flex;justify-content:center;">
+  <div class="note">
+    <strong>⚠️ Content Gaps Identified</strong><br><br>
+    • <strong>PC modal</strong> — currently shows "Bella Xu" placeholder text. Needs Andri's real About Me content.<br>
+    • <strong>PictureFrame gallery</strong> — IMG1.png / IMG2.png are placeholders. Replace with real project screenshots.<br>
+    • <strong>Missing project modals</strong> — PataLand, Vlux, GoTechUp, Parachute have no clickable object yet in the GLB.<br>
+    • <strong>Basket / Pusheen</strong> — currently just bounce. Could become project reveal triggers instead.<br>
+    • <strong>loader bug</strong> — <code>loader</code> is called but never declared as <code>new GLTFLoader(manager)</code> — site may not load.
+  </div>
+</div>
+
+</body>
+</html>

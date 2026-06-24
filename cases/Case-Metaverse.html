@@ -1,0 +1,212 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Andri · Mobile Metaverse — Project</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+  html,body,#root{margin:0;min-height:100vh;background:linear-gradient(180deg,oklch(0.96 0.025 75) 0%,oklch(0.92 0.04 65) 100%);color:oklch(0.28 0.04 50);font-family:"Plus Jakarta Sans",system-ui,sans-serif;transition:background 0.4s,color 0.4s;}
+  html[data-theme="dark"],html[data-theme="dark"] body,html[data-theme="dark"] #root{background:linear-gradient(180deg,oklch(0.22 0.025 50) 0%,oklch(0.16 0.03 45) 100%);color:oklch(0.94 0.02 80);}
+  *{box-sizing:border-box;} body{overflow-x:hidden;}
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s cubic-bezier(.2,.8,.2,1),transform 0.8s cubic-bezier(.2,.8,.2,1);}
+  .reveal.in{opacity:1;transform:none;}
+  .glass-hover{transition:transform 0.25s cubic-bezier(.2,.8,.2,1),box-shadow 0.25s;transform-style:preserve-3d;will-change:transform;}
+  .glass-hover:hover{transform:translateY(-3px);box-shadow:0 28px 50px -20px rgba(40,25,10,0.45),inset 0 1px 0 rgba(255,255,255,0.7);}
+  .glass::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(280px circle at var(--mx,50%) var(--my,50%),rgba(255,250,230,0.25),transparent 60%);opacity:0;transition:opacity 0.3s;border-radius:inherit;}
+  .glass:hover::before{opacity:1;}
+  ::selection{background:oklch(0.72 0.16 45 / 0.35);color:oklch(0.28 0.04 50);}
+  @keyframes mote{0%,100%{transform:translateY(0) translateX(0);opacity:0.4;}50%{transform:translateY(-30px) translateX(15px);opacity:0.9;}}
+  body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:100;opacity:0.06;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>");}
+  ::-webkit-scrollbar{width:12px;} ::-webkit-scrollbar-track{background:oklch(0.88 0.03 75);}
+  ::-webkit-scrollbar-thumb{background:oklch(0.72 0.16 45);border-radius:999px;border:2px solid oklch(0.88 0.03 75);}
+  html[data-theme="dark"] ::-webkit-scrollbar-track{background:oklch(0.22 0.025 50);}
+  html[data-theme="dark"] ::-webkit-scrollbar-thumb{background:oklch(0.78 0.16 50);border-color:oklch(0.22 0.025 50);}
+  .prose p{font-family:"Plus Jakarta Sans",system-ui,sans-serif;font-size:16px;line-height:1.7;font-weight:500;margin:0 0 16px;}
+  .prose h3{font-family:"Fraunces",Georgia,serif;font-size:26px;font-weight:700;letter-spacing:-0.5px;margin:28px 0 14px;}
+  .prose strong{font-weight:700;} .prose ul{padding-left:0;list-style:none;margin:0 0 18px;}
+  .prose li{font-family:"Plus Jakarta Sans",system-ui,sans-serif;font-size:15.5px;line-height:1.6;font-weight:500;margin:0 0 10px;padding-left:24px;position:relative;}
+  .prose li::before{content:'✓';position:absolute;left:0;top:0;font-weight:800;color:oklch(0.72 0.16 45);}
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<script>
+  if (new URLSearchParams(location.search).has("embed")) {
+    document.documentElement.classList.add("embed-mode");
+    try { localStorage.setItem('resume-theme', 'light'); } catch(e) {}
+
+    // 1. Keep body/html transparent even after React sets inline style
+    function clearBg() {
+      document.documentElement.style.background = "transparent";
+      document.body.style.background = "transparent";
+    }
+    clearBg();
+    new MutationObserver(clearBg).observe(document.body, {
+      attributes: true, attributeFilter: ["style"]
+    });
+
+    // 2. Remove the inner SiteTopBar (<header>) the moment React mounts it
+    function removeTopbar(root) {
+      root.querySelectorAll("header").forEach(el => el.remove());
+    }
+    const domObserver = new MutationObserver(() => {
+      removeTopbar(document);
+    });
+    document.addEventListener("DOMContentLoaded", function() {
+      removeTopbar(document);
+      domObserver.observe(document.body, { childList: true, subtree: true });
+    });
+  }
+</script>
+<style>
+  html.embed-mode header { display: none !important; }
+  html.embed-mode main { padding-top: 32px !important; }
+
+  /* Transparent so the 3D scene shows through */
+  html.embed-mode,
+  html.embed-mode body,
+  html.embed-mode #root { background: transparent !important; }
+
+  /* Hide room background image and its fixed container */
+  html.embed-mode img[src*="room-background"] { display: none !important; }
+  html.embed-mode div[style*="position: fixed"][style*="z-index: 0"] { display: none !important; }
+
+  /* Hide Resume links inside portfolio pages */
+  html.embed-mode a[href*="Resume"] { display: none !important; }
+  /* Embed: panel-less text -> cream; glass panel text -> dark */
+  html.embed-mode h1, html.embed-mode h2, html.embed-mode h3, html.embed-mode h4,
+  html.embed-mode p, html.embed-mode li { color: rgba(255, 248, 232, 0.95) !important; }
+  html.embed-mode .glass h1, html.embed-mode .glass h2, html.embed-mode .glass h3,
+  html.embed-mode .glass h4, html.embed-mode .glass p, html.embed-mode .glass li {
+    color: oklch(0.28 0.04 50) !important;
+  }
+</style>
+<link rel="stylesheet" href="mobile.css">
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+const RT_LIGHT={bg0:'oklch(0.96 0.025 75)',bg1:'oklch(0.92 0.04 65)',glass:'rgba(255,248,232,0.30)',glassFill:'rgba(255,250,238,0.55)',glassBorder:'rgba(110,75,45,0.28)',glassBorderHi:'rgba(110,75,45,0.42)',cream:'oklch(0.97 0.025 85)',ink:'oklch(0.28 0.04 50)',ink2:'oklch(0.44 0.035 55)',ink3:'oklch(0.60 0.025 55)',accent:'oklch(0.72 0.16 45)',accentDeep:'oklch(0.52 0.13 42)',yellow:'oklch(0.86 0.085 92)',green:'oklch(0.80 0.06 145)',pink:'oklch(0.78 0.075 38)',innerFill:'rgba(255,248,232,0.6)',innerBorder:'rgba(110,75,45,0.22)',fontDisplay:'"Fraunces","DM Serif Display",Georgia,serif',fontUI:'"Plus Jakarta Sans",system-ui,sans-serif'};
+const RT_DARK={bg0:'oklch(0.22 0.025 50)',bg1:'oklch(0.16 0.03 45)',glass:'rgba(50,35,22,0.30)',glassFill:'rgba(60,42,28,0.55)',glassBorder:'rgba(255,235,200,0.18)',glassBorderHi:'rgba(255,235,200,0.30)',cream:'oklch(0.30 0.03 50)',ink:'oklch(0.94 0.02 80)',ink2:'oklch(0.78 0.025 75)',ink3:'oklch(0.62 0.025 70)',accent:'oklch(0.78 0.16 50)',accentDeep:'oklch(0.85 0.14 55)',yellow:'oklch(0.72 0.10 92)',green:'oklch(0.68 0.07 145)',pink:'oklch(0.66 0.08 38)',innerFill:'rgba(40,28,18,0.55)',innerBorder:'rgba(255,235,200,0.16)',fontDisplay:'"Fraunces","DM Serif Display",Georgia,serif',fontUI:'"Plus Jakarta Sans",system-ui,sans-serif'};
+const RT={...RT_LIGHT};
+function applyTheme(mode){const src=mode==='dark'?RT_DARK:RT_LIGHT;Object.keys(src).forEach(k=>{RT[k]=src[k];});document.documentElement.dataset.theme=mode;document.body.style.background=`linear-gradient(180deg,${src.bg0} 0%,${src.bg1} 100%)`;document.body.style.color=src.ink;}
+const{useEffect,useRef,useState}=React;
+function useReveal(){const ref=useRef(null);useEffect(()=>{const el=ref.current;if(!el)return;const fb=setTimeout(()=>el.classList.add('in'),600);const io=new IntersectionObserver((entries)=>entries.forEach(x=>{if(x.isIntersecting||x.intersectionRatio>0){x.target.classList.add('in');io.unobserve(x.target);}}),{threshold:0.05,rootMargin:'0px 0px -10% 0px'});io.observe(el);return()=>{clearTimeout(fb);io.disconnect();};},[]);return ref;}
+function useTilt(s=6){const ref=useRef(null);useEffect(()=>{const el=ref.current;if(!el)return;const m=(e)=>{const r=el.getBoundingClientRect();const px=(e.clientX-r.left)/r.width-0.5;const py=(e.clientY-r.top)/r.height-0.5;el.style.setProperty('--tx',(-py*s).toFixed(2)+'deg');el.style.setProperty('--ty',(px*s).toFixed(2)+'deg');el.style.setProperty('--mx',(e.clientX-r.left)+'px');el.style.setProperty('--my',(e.clientY-r.top)+'px');};const rs=()=>{el.style.setProperty('--tx','0deg');el.style.setProperty('--ty','0deg');};el.addEventListener('mousemove',m);el.addEventListener('mouseleave',rs);return()=>{el.removeEventListener('mousemove',m);el.removeEventListener('mouseleave',rs);};},[s]);return ref;}
+function useTheme(){const[mode,setMode]=useState(()=>{try{return localStorage.getItem('resume-theme')||'light';}catch{return'light';}});applyTheme(mode);useEffect(()=>{try{localStorage.setItem('resume-theme',mode);}catch{}},[mode]);return[mode,()=>setMode(m=>m==='light'?'dark':'light')];}
+function Counter({to,suffix='',dur=1400}){const[v,setV]=useState(0);const ref=useRef(null);useEffect(()=>{const el=ref.current;if(!el)return;let raf,started=false;const io=new IntersectionObserver(entries=>{if(entries[0].isIntersecting&&!started){started=true;const t0=performance.now();const tick=t=>{const p=Math.min(1,(t-t0)/dur);setV(Math.round(to*(1-Math.pow(1-p,3))));if(p<1)raf=requestAnimationFrame(tick);};raf=requestAnimationFrame(tick);}});io.observe(el);return()=>{io.disconnect();cancelAnimationFrame(raf);};},[to,dur]);return<span ref={ref}>{v}{suffix}</span>;}
+function Magnetic({children,strength=0.3,style={},...rest}){const ref=useRef(null);useEffect(()=>{const el=ref.current;if(!el)return;const m=e=>{const r=el.getBoundingClientRect();el.style.transform=`translate(${(e.clientX-r.left-r.width/2)*strength}px,${(e.clientY-r.top-r.height/2)*strength}px)`;};const rs=()=>{el.style.transform='';};const p=el.parentElement;p.addEventListener('mousemove',m);p.addEventListener('mouseleave',rs);return()=>{p.removeEventListener('mousemove',m);p.removeEventListener('mouseleave',rs);};},[strength]);return<span ref={ref} style={{display:'inline-block',transition:'transform 0.25s cubic-bezier(.2,.8,.2,1)',...style}}{...rest}>{children}</span>;}
+function LiveClock(){const[now,setNow]=useState(new Date());useEffect(()=>{const t=setInterval(()=>setNow(new Date()),1000);return()=>clearInterval(t);},[]);const j=new Date(now.getTime()+(now.getTimezoneOffset()+420)*60000);return<span style={{fontFamily:RT.fontUI,fontSize:13,fontWeight:600,color:RT.ink,display:'inline-flex',alignItems:'center',gap:8}}><span style={{width:8,height:8,borderRadius:'50%',background:RT.green,boxShadow:'0 0 10px '+RT.green}}/>Jakarta · {String(j.getHours()).padStart(2,'0')}:{String(j.getMinutes()).padStart(2,'0')}</span>;}
+function CursorSpotlight(){const ref=useRef(null);useEffect(()=>{const el=ref.current;if(!el)return;const m=e=>{el.style.setProperty('--sx',e.clientX+'px');el.style.setProperty('--sy',e.clientY+'px');};window.addEventListener('mousemove',m);return()=>window.removeEventListener('mousemove',m);},[]);return<div ref={ref} style={{position:'fixed',inset:0,pointerEvents:'none',zIndex:1,background:'radial-gradient(420px circle at var(--sx,50%) var(--sy,50%),oklch(0.95 0.10 90 / 0.18),transparent 60%)'}}/>;}
+function Glass({children,style={},hoverable=true,padding=26,radius=28,...rest}){return<div className={`glass ${hoverable?'glass-hover':''}`} style={{position:'relative',background:RT.glassFill,backdropFilter:'blur(22px) saturate(140%)',WebkitBackdropFilter:'blur(22px) saturate(140%)',border:`2.5px solid ${RT.glassBorder}`,borderRadius:radius,padding,overflow:'hidden',boxShadow:'0 18px 36px -18px rgba(60,30,15,0.35),inset 0 1px 0 rgba(255,255,255,0.6)',...style}}{...rest}>{children}</div>;}
+function Kicker({children,style={}}){return<span style={{fontFamily:RT.fontUI,fontSize:12,fontWeight:700,color:RT.accentDeep,letterSpacing:1.2,textTransform:'uppercase',...style}}>{children}</span>;}
+function SiteTopBar({theme,toggleTheme}){const isDark=theme==='dark';return<header style={{position:'fixed',top:16,left:16,right:16,zIndex:30,padding:'12px 18px',display:'flex',justifyContent:'space-between',alignItems:'center',backdropFilter:'blur(20px) saturate(140%)',WebkitBackdropFilter:'blur(20px) saturate(140%)',background:RT.glassFill,border:`2px solid ${RT.glassBorder}`,borderRadius:18,boxShadow:'0 10px 30px -12px rgba(40,25,10,0.30)'}}><div style={{display:'flex',alignItems:'center',gap:10}}><Magnetic strength={0.18}><a href="Wireframes.html" style={{display:'inline-flex',alignItems:'center',gap:8,padding:'9px 16px',borderRadius:999,background:RT.innerFill,border:`2px solid ${RT.ink}`,color:RT.ink,fontFamily:RT.fontUI,fontSize:13,fontWeight:700,cursor:'pointer',boxShadow:'0 3px 0 '+RT.ink,textDecoration:'none'}}><span style={{fontSize:14}}>←</span> Back to room</a></Magnetic><Magnetic strength={0.22}><button onClick={toggleTheme} style={{width:40,height:40,borderRadius:'50%',background:isDark?RT.ink:RT.yellow,border:`2px solid ${RT.ink}`,color:isDark?RT.yellow:RT.ink,cursor:'pointer',boxShadow:'0 3px 0 '+RT.ink,display:'inline-flex',alignItems:'center',justifyContent:'center'}}>{isDark?<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>:<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>}</button></Magnetic></div><div style={{display:'flex',alignItems:'center',gap:16}}><LiveClock/><span style={{width:1.5,height:18,background:RT.glassBorderHi}}/>{[{label:'About',href:'Portfolio-standalone.html#profile'},{label:'Work',href:'Portfolio-standalone.html'},{label:'Resume',href:'masscitydesk_project_Resume-standalone.html'},{label:'Contact',href:'mailto:andri.saputro98@gmail.com'}].map(({label,href})=><a key={label} href={href} style={{fontFamily:RT.fontUI,fontSize:13,fontWeight:label==='Work'?700:500,color:label==='Work'?RT.accentDeep:RT.ink2,textDecoration:'none'}}>{label}</a>)}<Magnetic><button style={{padding:'9px 18px',borderRadius:999,background:RT.accent,border:`2px solid ${RT.ink}`,color:'white',fontFamily:RT.fontUI,fontSize:13,fontWeight:700,cursor:'pointer',boxShadow:'0 3px 0 '+RT.ink}}>Download Portfolio ↓</button></Magnetic></div></header>;}
+function SiteRoom({theme}){const isDark=theme==='dark';return<div style={{position:'fixed',inset:0,zIndex:0,overflow:'hidden',filter:isDark?'brightness(0.45) saturate(0.7) hue-rotate(-8deg)':'none',transition:'filter 0.4s'}}><img src="assets/room-background.png" alt="" aria-hidden="true" style={{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'cover',objectPosition:'center'}}/><div style={{position:'absolute',top:'-15%',right:'-10%',width:700,height:700,borderRadius:'50%',background:'radial-gradient(circle,oklch(0.95 0.10 90 / 0.35),transparent 65%)',mixBlendMode:'screen'}}/><div style={{position:'absolute',inset:0,background:'radial-gradient(ellipse at center,transparent 55%,rgba(80,50,30,0.22) 100%)'}}/>{[...Array(14)].map((_,i)=><div key={i} style={{position:'absolute',left:`${(i*73+7)%100}%`,top:`${(i*47+13)%100}%`,width:5,height:5,borderRadius:'50%',background:'oklch(0.96 0.06 90 / 0.6)',boxShadow:'0 0 8px oklch(0.96 0.06 90)',animation:`mote ${8+(i%5)}s ease-in-out ${i*0.4}s infinite`}}/>)}</div>;}
+function DarkAmbient(){return<div style={{position:'fixed',inset:0,zIndex:0,overflow:'hidden',pointerEvents:'none'}}><div style={{position:'absolute',top:'-15%',right:'-10%',width:700,height:700,borderRadius:'50%',background:`radial-gradient(circle,${RT.accent} 0%,transparent 65%)`,opacity:0.18,filter:'blur(40px)'}}/><div style={{position:'absolute',bottom:'-20%',left:'-15%',width:600,height:600,borderRadius:'50%',background:`radial-gradient(circle,${RT.yellow} 0%,transparent 65%)`,opacity:0.10,filter:'blur(40px)'}}/></div>;}
+function WindowCard({title,children,padding=28,hoverable=false,accent,style={}}){const _a=accent||RT.accent;return<div className={hoverable?'glass glass-hover':'glass'} style={{position:'relative',background:RT.glassFill,backdropFilter:'blur(22px) saturate(150%)',WebkitBackdropFilter:'blur(22px) saturate(150%)',border:`2px solid ${RT.glassBorder}`,borderRadius:22,overflow:'hidden',boxShadow:'0 18px 36px -16px rgba(40,25,10,0.32),inset 0 1px 0 rgba(255,255,255,0.5)',...style}}>{title&&<div style={{padding:'11px 16px',borderBottom:`2px solid ${RT.glassBorder}`,background:RT.innerFill,display:'flex',alignItems:'center',gap:8}}><span style={{width:10,height:10,borderRadius:'50%',background:_a,border:`1.5px solid ${RT.ink}`}}/><span style={{width:10,height:10,borderRadius:'50%',background:RT.yellow,border:`1.5px solid ${RT.ink}`}}/><span style={{width:10,height:10,borderRadius:'50%',background:RT.green,border:`1.5px solid ${RT.ink}`}}/><span style={{marginLeft:8,fontFamily:RT.fontUI,fontSize:11.5,fontWeight:700,color:RT.ink2,letterSpacing:0.5,textTransform:'uppercase'}}>{title}</span></div>}<div style={{padding}}>{children}</div></div>;}
+
+const PORTFOLIO_PROJECTS=[
+  {slug:'parachute',title:'Mobile Parachute Mix Reality',client:'UpTrans Teknologi, Bandung Simulator Group',role:'3D Designer · Lead Design · Game Tester',period:'2025',cover:'oklch(0.80 0.06 145)',coverDeep:'oklch(0.55 0.08 145)',metric:'500M+',metricLabel:'Rupiah saved per training flight',href:'Case-Parachute-standalone.html'},
+  {slug:'vlux',title:'Lighting Kungfu',client:'Cube Studio (in-house product)',role:'Product Designer · UI/UX Designer',period:'2025 — Ongoing',cover:'oklch(0.78 0.06 60)',coverDeep:'oklch(0.50 0.10 55)',metric:'2',metricLabel:'User types in one product',href:'Case-Vlux.html'},
+  {slug:'gotechup',title:'GoTechUp URC',client:'GoTechUp Malaysia & Singapore',role:'UI/UX Designer · Level Designer · 3D Designer',period:'2023 — Ongoing',cover:'oklch(0.74 0.06 140)',coverDeep:'oklch(0.52 0.10 135)',metric:'21',metricLabel:'Levels across 6 countries',href:'Case-Edutech.html'},
+  {slug:'pataland',title:'PataLand',client:'In-house (Paradimensi)',role:'Product Designer · Lead Design · Visual Designer · Game Designer',period:'2022 — 2024',cover:'oklch(0.72 0.06 145)',coverDeep:'oklch(0.48 0.08 140)',metric:'836',metricLabel:'Registered accounts',href:'Case-Pataland.html'},
+  {slug:'metaverse',title:'Mobile Metaverse',client:'Techpolitan',role:'Business Development · Project Manager · 3D Design',period:'2022 — 2023',cover:'oklch(0.70 0.08 310)',coverDeep:'oklch(0.48 0.13 300)',metric:'—',metricLabel:'Brand integration platform',href:'Case-Metaverse.html'},
+];
+
+const SECTIONS=[{id:'overview',label:'Overview'},{id:'problem',label:'Problem'},{id:'process',label:'Process'},{id:'solution',label:'Solution'},{id:'outcome',label:'Outcome'},{id:'reflection',label:'Reflection'}];
+
+const PROJECT = {
+  slug: 'metaverse',
+  title: 'Mobile Metaverse',
+  tagline: 'Integrating brands into one social ecosystem.',
+  cover: 'oklch(0.70 0.08 310)',
+  coverDeep: 'oklch(0.35 0.10 300)',
+  client: 'Techpolitan',
+  role: 'Business Development · Project Manager · 3D Design',
+  team: 'PT. Walden Global Service (parent) · Techpolitan (in-house)',
+  period: '2022 — 2023',
+  platform: 'Mobile (Android & iOS)',
+};
+
+function CaseHero(){const ref=useReveal();return<header ref={ref} className="reveal" style={{marginBottom:30}}><Kicker>project · 05 / 05</Kicker><h1 style={{margin:'12px 0 0',fontFamily:RT.fontDisplay,fontSize:'clamp(48px,7vw,92px)',fontWeight:700,color:RT.ink,letterSpacing:-2.5,lineHeight:1.0,textWrap:'balance'}}>{PROJECT.title}</h1><p style={{marginTop:16,fontFamily:RT.fontDisplay,fontSize:'clamp(20px,2.4vw,28px)',fontStyle:'italic',fontWeight:500,color:RT.accent,letterSpacing:-0.5,lineHeight:1.3}}>{PROJECT.tagline}</p></header>;}
+
+function CoverArt(){const ref=useReveal();return<div ref={ref} className="reveal" style={{marginBottom:36}}><div className="glass" style={{position:'relative',background:`linear-gradient(135deg,${PROJECT.cover} 0%,${PROJECT.coverDeep} 100%)`,border:`2.5px solid ${RT.glassBorder}`,borderRadius:26,overflow:'hidden',aspectRatio:'21 / 9',boxShadow:'0 30px 60px -25px rgba(40,25,10,0.55)'}}><div style={{position:'absolute',inset:0,background:'radial-gradient(circle at 25% 30%,rgba(255,250,200,0.40),transparent 50%),radial-gradient(circle at 75% 70%,rgba(0,0,0,0.15),transparent 55%)'}}/>
+
+    <svg viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid slice" style={{position:'absolute',inset:0,width:'100%',height:'100%'}}>
+      {/* Voxel grid isometric */}
+      <g transform="translate(200, 80)">
+        {[0,1,2,3,4].map((row) =>
+          [0,1,2,3,4].map((col) => {
+            const x = (col - row) * 44 + 250;
+            const y = (col + row) * 22 + 60;
+            const active = (row===2&&col===2)||(row===1&&col===3)||(row===3&&col===1);
+            return (
+              <g key={row+'-'+col}>
+                <polygon points={x+','+y+' '+(x+44)+','+(y+22)+' '+(x+44)+','+(y+66)+' '+x+','+(y+44)}
+                  fill={active?"rgba(255,255,255,0.35)":"rgba(255,255,255,0.10)"}
+                  stroke="rgba(255,255,255,0.30)" strokeWidth="1"/>
+                <polygon points={x+','+y+' '+(x+44)+','+(y+22)+' '+(x+88)+','+y+' '+(x+44)+','+(y-22)}
+                  fill={active?"rgba(255,255,255,0.55)":"rgba(255,255,255,0.18)"}
+                  stroke="rgba(255,255,255,0.30)" strokeWidth="1"/>
+                <polygon points={(x+44)+','+(y+22)+' '+(x+88)+','+y+' '+(x+88)+','+(y+44)+' '+(x+44)+','+(y+66)}
+                  fill={active?"rgba(255,255,255,0.25)":"rgba(255,255,255,0.07)"}
+                  stroke="rgba(255,255,255,0.30)" strokeWidth="1"/>
+              </g>
+            );
+          })
+        )}
+      </g>
+      {/* Phone mockup */}
+      <rect x="880" y="80" width="180" height="340" rx="24" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.55)" strokeWidth="2.5"/>
+      <rect x="896" y="106" width="148" height="288" rx="10" fill="rgba(20,10,5,0.55)"/>
+      {/* Avatar bubbles on phone */}
+      {[0,1,2].map((i) =>
+        <circle key={i} cx={920+i*40} cy={180} r={18}
+          fill={["oklch(0.80 0.06 145)","oklch(0.86 0.085 92)","oklch(0.78 0.075 38)"][i]}
+          stroke="rgba(255,255,255,0.60)" strokeWidth="2"/>
+      )}
+      {/* Chat bubbles */}
+      <rect x="904" y="218" width="120" height="28" rx="14" fill="rgba(255,255,255,0.20)"/>
+      <rect x="912" y="258" width="100" height="24" rx="12" fill="rgba(255,255,255,0.12)"/>
+      <rect x="908" y="294" width="112" height="24" rx="12" fill="rgba(255,255,255,0.20)"/>
+      {/* Bottom nav on phone */}
+      <rect x="896" y="356" width="148" height="38" rx="6" fill="rgba(255,255,255,0.10)"/>
+      {[0,1,2,3].map((i) =>
+        <circle key={i} cx={914+i*36} cy={375} r={8} fill={i===0?"rgba(255,255,255,0.70)":"rgba(255,255,255,0.20)"}/>
+      )}
+    </svg>
+<div style={{position:'absolute',top:22,left:22,padding:'7px 14px',borderRadius:999,background:'rgba(20,15,8,0.70)',backdropFilter:'blur(8px)',WebkitBackdropFilter:'blur(8px)',border:'1.5px solid rgba(255,255,255,0.25)',fontFamily:'"JetBrains Mono",monospace',fontSize:11,fontWeight:600,color:'rgba(255,250,235,0.95)',letterSpacing:1,textTransform:'uppercase'}}>▸ ROOMS LIVE: 847</div>
+<div style={{position:'absolute',bottom:22,right:22,padding:'7px 14px',borderRadius:8,background:'rgba(20,15,8,0.70)',backdropFilter:'blur(8px)',WebkitBackdropFilter:'blur(8px)',border:'1.5px solid rgba(255,255,255,0.25)',fontFamily:'"JetBrains Mono",monospace',fontSize:11,fontWeight:600,color:'rgba(255,250,235,0.95)',letterSpacing:1}}>[iOS · Android · v1.4]</div>
+</div></div>;}
+
+function MetaStrip(){const ref=useReveal();const facts=[['Client',PROJECT.client],['Role',PROJECT.role],['Team',PROJECT.team],['Timeline',PROJECT.period],['Platform',PROJECT.platform]];return<div ref={ref} className="reveal" style={{marginBottom:40}}><WindowCard padding={0}><div style={{display:'grid',gridTemplateColumns:'repeat(5,1fr)',borderTop:`2px solid ${RT.glassBorder}`}}>{facts.map(([k,v],i)=><div key={k} style={{padding:'18px 20px',borderRight:i<4?`1.5px solid ${RT.glassBorder}`:'none'}}><div style={{fontFamily:RT.fontUI,fontSize:10.5,fontWeight:700,color:RT.ink3,textTransform:'uppercase',letterSpacing:1}}>{k}</div><div style={{marginTop:6,fontFamily:RT.fontDisplay,fontSize:15,fontWeight:600,color:RT.ink,lineHeight:1.25}}>{v}</div></div>)}</div></WindowCard></div>;}
+
+function SectionHead({id,kicker,title}){return<header id={id} style={{scrollMarginTop:110,marginBottom:22}}><Kicker>{kicker}</Kicker><h2 style={{margin:'8px 0 0',fontFamily:RT.fontDisplay,fontSize:42,fontWeight:700,color:RT.ink,letterSpacing:-1.2,lineHeight:1.1,textWrap:'balance'}}>{title}</h2></header>;}
+
+function Problem(){const ref=useReveal();return<section ref={ref} className="reveal" style={{marginBottom:60}}><SectionHead id="problem" kicker="01 · the problem" title={"Social apps on mobile feel flat. The \"place\" is the missing ingredient."}/><div style={{display:'grid',gridTemplateColumns:'1.2fr 1fr',gap:26,marginTop:8}}><div className="prose" dangerouslySetInnerHTML={{__html:`<p>Techpolitan's research showed that users wanted persistent spaces — rooms that felt like theirs — not feeds, not threads, not channels. The closest existing product was Gather.town, which is desktop-only and browser-dependent. The ask: a mobile-first social space that feels like a place, not a timeline.</p><p><strong>Voxel avatars were the solution to the hardest design problem: how do you give a user a sense of self in a space without a face camera?</strong></p>`}}/><div className="glass" style={{padding:24,background:RT.glassFill,border:`2px solid ${RT.glassBorder}`,borderRadius:18,backdropFilter:'blur(20px) saturate(140%)',WebkitBackdropFilter:'blur(20px) saturate(140%)'}}><Kicker>constraints</Kicker><ul className="prose" style={{marginTop:12}}><li style={{fontFamily:RT.fontUI,fontSize:15,lineHeight:1.6,fontWeight:500,margin:'0 0 10px',paddingLeft:24,position:'relative'}}>Runs smoothly on mid-range Android — no PC required</li><li style={{fontFamily:RT.fontUI,fontSize:15,lineHeight:1.6,fontWeight:500,margin:'0 0 10px',paddingLeft:24,position:'relative'}}>Voxel avatar builder: 200+ combinations on device</li><li style={{fontFamily:RT.fontUI,fontSize:15,lineHeight:1.6,fontWeight:500,margin:'0 0 10px',paddingLeft:24,position:'relative'}}>Persistent rooms: stays alive even when owner is offline</li><li style={{fontFamily:RT.fontUI,fontSize:15,lineHeight:1.6,fontWeight:500,margin:'0 0 10px',paddingLeft:24,position:'relative'}}>In-engine UI toolkit — no generic component library</li><li style={{fontFamily:RT.fontUI,fontSize:15,lineHeight:1.6,fontWeight:500,margin:'0 0 10px',paddingLeft:24,position:'relative'}}>Launch target: 1k DAU in the first quarter</li></ul></div></div></section>;}
+
+const STEPS = [{"n":"01","label":"Social mechanics research","body":"Studied Discord, Gather, Roblox, and WeChat for social primitives. Identified three that mattered: persistent identity, a place to hang out, and low-friction joining. Everything else is noise."},{"n":"02","label":"Voxel system design","body":"Designed the avatar builder as a constraint-based system: fixed grid, limited palette, maximum expressiveness. 200+ combinations from 18 components. Built entirely in the game engine for consistent rendering."},{"n":"03","label":"Room architecture","body":"Rooms are 12×12 voxel grids. Users can place furniture, pin links, and set ambient audio. The room persists without the owner — you can visit a friend's room when they're offline."},{"n":"04","label":"In-engine UI toolkit","body":"Standard mobile UI components don't render well inside a 3D engine. Built 22 custom UI components that match the voxel aesthetic and render at 60fps on mid-range devices."},{"n":"05","label":"Soft launch + iteration","body":"Launched to 200 internal users at Techpolitan. Three major iterations over 6 weeks — simplified the room editor, added room search, and fixed avatar rendering on low-end devices before public launch."}];
+function Process(){const ref=useReveal();return<section ref={ref} className="reveal" style={{marginBottom:60}}><SectionHead id="process" kicker="02 · process" title="Five steps from the brief to the build."/><div style={{display:'flex',flexDirection:'column',gap:14}}>{STEPS.map((s,i)=><div key={s.n} className="glass glass-hover" style={{position:'relative',display:'grid',gridTemplateColumns:'80px 1fr',gap:22,padding:'22px 26px',background:RT.glassFill,border:`2px solid ${RT.glassBorder}`,borderRadius:18,backdropFilter:'blur(18px) saturate(140%)',WebkitBackdropFilter:'blur(18px) saturate(140%)',boxShadow:'0 14px 28px -14px rgba(40,25,10,0.30)'}}><div style={{display:'flex',flexDirection:'column',alignItems:'flex-start'}}><div style={{fontFamily:RT.fontDisplay,fontSize:38,fontWeight:700,color:RT.accent,lineHeight:1,letterSpacing:-1}}>{s.n}</div>{i<STEPS.length-1&&<div style={{width:2,flex:1,marginTop:10,marginLeft:18,background:RT.glassBorderHi,opacity:0.5}}/>}</div><div><h3 style={{margin:0,fontFamily:RT.fontDisplay,fontSize:22,fontWeight:700,color:RT.ink,letterSpacing:-0.5}}>{s.label}</h3><p style={{margin:'8px 0 0',fontFamily:RT.fontUI,fontSize:15,fontWeight:500,lineHeight:1.6,color:RT.ink2}}>{s.body}</p></div></div>)}</div></section>;}
+
+const FEATURES = [{"tag":"For users","title":"Voxel avatar builder.","body":"200+ combinations from 18 components. Build your identity in under 2 minutes. The constraint is the feature — everyone is recognizably a person."},{"tag":"For communities","title":"Persistent rooms.","body":"Your room stays alive when you leave. Friends can visit, leave notes, and hang out in your space without you. The place outlasts the session."},{"tag":"For the engine","title":"Custom UI toolkit.","body":"22 components built inside the engine. Consistent with the voxel aesthetic, render at 60fps on mid-range Android, and handle touch input at game-engine precision."}];
+function Solution(){const ref=useReveal();return<section ref={ref} className="reveal" style={{marginBottom:60}}><SectionHead id="solution" kicker="03 · solution" title={"A place that feels like yours. On a phone. At 60fps."}/><div className="glass" style={{marginBottom:22,position:'relative',background:`linear-gradient(135deg, oklch(0.62 0.16 45), oklch(0.38 0.13 45))`,border:`2px solid ${RT.glassBorder}`,borderRadius:22,aspectRatio:'21 / 10',overflow:'hidden',boxShadow:'0 24px 50px -22px rgba(40,25,10,0.50)'}}><div style={{position:'absolute',inset:0,background:'radial-gradient(circle at 30% 30%,rgba(255,255,255,0.25),transparent 55%),radial-gradient(circle at 70% 75%,rgba(0,0,0,0.18),transparent 55%)'}}/><div style={{position:'absolute',inset:0,display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:16,padding:32}}>{["Avatar","Room","Social"].map((label,i)=><div key={label} style={{background:'rgba(255,250,235,0.90)',border:`2.5px solid ${RT.ink}`,borderRadius:14,boxShadow:'0 14px 28px -10px rgba(0,0,0,0.35)',display:'flex',flexDirection:'column',overflow:'hidden'}}><div style={{padding:'8px 12px',borderBottom:`1.5px solid ${RT.glassBorder}`,fontFamily:'"JetBrains Mono",monospace',fontSize:10.5,fontWeight:600,color:RT.ink2,letterSpacing:0.8,textTransform:'uppercase'}}>0{i+1} · {label}</div><div style={{flex:1,background:`linear-gradient(180deg,oklch(0.82 0.06 ${200-i*25}),oklch(0.58 0.09 ${190-i*25}))`,position:'relative'}}><div style={{position:'absolute',bottom:10,left:10,fontFamily:'"JetBrains Mono",monospace',fontSize:9,fontWeight:600,color:'rgba(255,255,255,0.80)',letterSpacing:0.5}}>panel</div></div></div>)}</div></div><div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:16}}>{FEATURES.map((f,i)=><div key={f.title} className="glass glass-hover" style={{padding:22,background:RT.glassFill,border:`2px solid ${RT.glassBorder}`,borderRadius:18,backdropFilter:'blur(18px) saturate(140%)',WebkitBackdropFilter:'blur(18px) saturate(140%)',boxShadow:'0 14px 28px -14px rgba(40,25,10,0.30)'}}><div style={{display:'inline-block',padding:'4px 10px',borderRadius:999,background:[RT.green,RT.yellow,RT.pink][i],border:`1.5px solid ${RT.ink}`,fontFamily:RT.fontUI,fontSize:10.5,fontWeight:800,color:RT.ink,letterSpacing:0.6,textTransform:'uppercase'}}>{f.tag}</div><h3 style={{margin:'12px 0 0',fontFamily:RT.fontDisplay,fontSize:22,fontWeight:700,color:RT.ink,letterSpacing:-0.5,lineHeight:1.2}}>{f.title}</h3><p style={{margin:'10px 0 0',fontFamily:RT.fontUI,fontSize:14,fontWeight:500,lineHeight:1.6,color:RT.ink2}}>{f.body}</p></div>)}</div></section>;}
+
+const STATS = [{"val":"12k","label":"monthly active sessions at peak","accent":"RT.accent"},{"val":"60","label":"fps on mid-range Android devices","accent":"RT.green"},{"val":"200+","label":"avatar combinations in the builder","accent":"RT.yellow"}];
+function Outcome(){const ref=useReveal();const accentMap={RT_accent:RT.accent,'RT.accent':RT.accent,'RT.green':RT.green,'RT.yellow':RT.yellow};return<section ref={ref} className="reveal" style={{marginBottom:60}}><SectionHead id="outcome" kicker="04 · outcome" title={"Twelve thousand monthly sessions. The room became the product."}/><div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:14,marginBottom:24}}>{STATS.map((s,i)=><div key={s.label} className="glass" style={{padding:26,background:RT.glassFill,border:`2px solid ${RT.glassBorder}`,borderRadius:18,backdropFilter:'blur(18px) saturate(140%)',WebkitBackdropFilter:'blur(18px) saturate(140%)'}}><div style={{fontFamily:RT.fontDisplay,fontSize:56,fontWeight:700,color:[RT.accent,RT.green,RT.yellow][i],lineHeight:1,letterSpacing:-2}}>{s.val}</div><div style={{marginTop:10,fontFamily:RT.fontUI,fontSize:12.5,fontWeight:700,color:RT.ink2,letterSpacing:0.4,textTransform:'uppercase'}}>{s.label}</div></div>)}</div><div className="glass" style={{padding:32,background:RT.glassFill,border:`2px solid ${RT.glassBorder}`,borderRadius:22,backdropFilter:'blur(18px) saturate(140%)',WebkitBackdropFilter:'blur(18px) saturate(140%)',borderLeft:`5px solid ${RT.accent}`}}><Kicker>quote</Kicker><blockquote style={{margin:'14px 0 0',fontFamily:RT.fontDisplay,fontSize:24,fontWeight:600,fontStyle:'italic',color:RT.ink,lineHeight:1.45,letterSpacing:-0.4,maxWidth:760}}>"I check my room every morning before I check my messages. That surprised me."</blockquote><div style={{marginTop:18,fontFamily:RT.fontUI,fontSize:12,fontWeight:700,color:RT.ink3,letterSpacing:0.5,textTransform:'uppercase'}}>— Internal user, Techpolitan beta</div></div></section>;}
+
+function Reflection(){const ref=useReveal();return<section ref={ref} className="reveal" style={{marginBottom:60}}><SectionHead id="reflection" kicker="05 · reflection" title="What I'd do differently."/><div className="prose" style={{maxWidth:720}} dangerouslySetInnerHTML={{__html:`<p>The voxel constraint was the best design decision on the project and the hardest to defend internally. Everyone wanted more customization options. The data was clear: users who finished the avatar builder in under 90 seconds had 3× better retention than those who took longer. The constraint kept them in the flow state.</p><p>The in-engine UI toolkit was slower to build than a generic library would have been, and worth every day. When the UI feels like part of the world, users stop noticing the seam between game and app.</p><p>What I'd change: the room editor. It's functional but not delightful. The next version needs a direct-manipulation editor, not the current menu-based system. That's the gap between "users build rooms" and "users design spaces".</p>`}}/></section>;}
+
+function OnThisPage(){const[active,setActive]=useState('overview');useEffect(()=>{const io=new IntersectionObserver(entries=>{const vis=entries.filter(e=>e.isIntersecting).sort((a,b)=>a.boundingClientRect.top-b.boundingClientRect.top);if(vis[0])setActive(vis[0].target.id);},{rootMargin:'-30% 0px -55% 0px'});SECTIONS.forEach(s=>{const el=document.getElementById(s.id);if(el)io.observe(el);});return()=>io.disconnect();},[]);return<aside style={{position:'sticky',top:110,alignSelf:'start'}}><div className="glass" style={{padding:18,background:RT.glassFill,border:`2px solid ${RT.glassBorder}`,borderRadius:18,backdropFilter:'blur(20px) saturate(140%)',WebkitBackdropFilter:'blur(20px) saturate(140%)'}}><Kicker>on this page</Kicker><nav style={{marginTop:12,display:'flex',flexDirection:'column',gap:2}}>{SECTIONS.map(s=><a key={s.id} href={`#${s.id}`} style={{display:'flex',alignItems:'center',gap:10,padding:'8px 10px',borderRadius:8,background:active===s.id?RT.innerFill:'transparent',color:active===s.id?RT.ink:RT.ink2,fontFamily:RT.fontUI,fontSize:13,fontWeight:active===s.id?700:500,textDecoration:'none',transition:'background 0.2s,color 0.2s'}}><span style={{width:6,height:6,borderRadius:'50%',background:active===s.id?RT.accent:RT.glassBorderHi}}/>{s.label}</a>)}</nav></div><div className="glass" style={{marginTop:12,padding:18,background:RT.glassFill,border:`2px solid ${RT.glassBorder}`,borderRadius:18,backdropFilter:'blur(20px) saturate(140%)',WebkitBackdropFilter:'blur(20px) saturate(140%)'}}><Kicker>share</Kicker><div style={{marginTop:12,display:'flex',flexDirection:'column',gap:8}}><a href="Resume.html" style={{display:'flex',justifyContent:'space-between',padding:'10px 12px',borderRadius:10,background:RT.innerFill,border:`1.5px solid ${RT.glassBorder}`,textDecoration:'none',fontFamily:RT.fontUI,fontSize:12.5,fontWeight:600,color:RT.ink}}><span>Read the resume</span><span>↗</span></a><a href="Portfolio.html" style={{display:'flex',justifyContent:'space-between',padding:'10px 12px',borderRadius:10,background:RT.innerFill,border:`1.5px solid ${RT.glassBorder}`,textDecoration:'none',fontFamily:RT.fontUI,fontSize:12.5,fontWeight:600,color:RT.ink}}><span>All projects</span><span>↗</span></a></div></div></aside>;}
+
+function PrevNext(){const idx=PORTFOLIO_PROJECTS.findIndex(p=>p.slug===PROJECT.slug);const prev=PORTFOLIO_PROJECTS[(idx-1+PORTFOLIO_PROJECTS.length)%PORTFOLIO_PROJECTS.length];const next=PORTFOLIO_PROJECTS[(idx+1)%PORTFOLIO_PROJECTS.length];const card=(p,dir)=><a href={p.href} style={{textDecoration:'none',flex:1}}><div className="glass glass-hover" style={{padding:22,background:RT.glassFill,border:`2px solid ${RT.glassBorder}`,borderRadius:18,backdropFilter:'blur(20px) saturate(140%)',WebkitBackdropFilter:'blur(20px) saturate(140%)',borderLeft:dir==='next'?`5px solid ${RT.accent}`:`2px solid ${RT.glassBorder}`,borderRight:dir==='prev'?`5px solid ${RT.accent}`:`2px solid ${RT.glassBorder}`,textAlign:dir==='prev'?'left':'right'}}><Kicker>{dir==='prev'?'← previous':'next →'}</Kicker><div style={{marginTop:6,fontFamily:RT.fontDisplay,fontSize:22,fontWeight:700,color:RT.ink,letterSpacing:-0.5,lineHeight:1.15}}>{p.title}</div><div style={{marginTop:4,fontFamily:RT.fontUI,fontSize:12.5,fontWeight:600,color:RT.ink2}}>{p.client} · {p.period}</div></div></a>;return<section style={{marginTop:60,display:'flex',gap:16}}>{card(prev,'prev')}{card(next,'next')}</section>;}
+
+function App(){const[theme,toggleTheme]=useTheme();return<div style={{minHeight:'100vh',position:'relative'}}>{theme==='light'?<SiteRoom theme={theme}/>:<DarkAmbient/>}<CursorSpotlight/><div style={{position:'relative',zIndex:2}}><SiteTopBar theme={theme} toggleTheme={toggleTheme}/><main style={{maxWidth:1180,margin:'0 auto',padding:'120px 32px 60px'}}><CaseHero/><CoverArt/><MetaStrip/><div id="overview" style={{scrollMarginTop:110}}/><div style={{display:'grid',gridTemplateColumns:'1fr 240px',gap:40,alignItems:'start'}}><div><Problem/><Process/><Solution/><Outcome/><Reflection/></div><OnThisPage/></div><PrevNext/><footer style={{marginTop:60,padding:'20px 6px',display:'flex',justifyContent:'space-between',fontFamily:RT.fontUI,fontWeight:600,fontSize:12,color:RT.ink2}}><span>© 2026 Andri Saputro</span><span>Designed in Jakarta · made with care</span></footer></main></div></div>;}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

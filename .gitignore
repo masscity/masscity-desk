@@ -1,0 +1,9 @@
+node_modules/
+.claude/
+.agents/
+.impeccable/
+screenshots/
+uploads/
+masscitydesk_progress.pdf
+masscitydesk_progress.py
+skills-lock.json

@@ -1,0 +1,77 @@
+/* ══════════════════════════════════════════════════════════════
+   Mobile overrides for project pages
+   Uses !important to override React inline styles
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Tablet  ≤ 768px ──────────────────────────────────────── */
+@media (max-width: 768px) {
+
+  /* Tighter horizontal padding */
+  main {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* Hide sticky sidebar ("On This Page") */
+  aside { display: none !important; }
+
+  /* Main 2-col layout (content + 240px sidebar) → single column */
+  [style*="1fr 240px"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Problem section 2-col → single column */
+  [style*="1.2fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* 3-col grids (features, solution panels, stats) → single column */
+  [style*="repeat(3,1fr)"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* 5-col MetaStrip → 2 columns on tablet */
+  [style*="repeat(5,1fr)"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Cover art aspect ratio — taller on mobile, less letterbox */
+  [style*="21 / 9"]  { aspect-ratio: 4 / 3 !important; }
+  [style*="21 / 10"] { aspect-ratio: 4 / 3 !important; }
+
+  /* Hero title scale */
+  h1 {
+    font-size: clamp(36px, 9vw, 56px) !important;
+    letter-spacing: -1.5px !important;
+  }
+  h2 {
+    font-size: 28px !important;
+    letter-spacing: -0.8px !important;
+  }
+
+  /* Tighten section spacing */
+  section { margin-bottom: 40px !important; }
+
+  /* Scrollable body on iOS */
+  body { -webkit-overflow-scrolling: touch; }
+}
+
+/* ── Phone portrait  ≤ 480px ──────────────────────────────── */
+@media (max-width: 480px) {
+
+  main {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  /* MetaStrip → single column on very small screens */
+  [style*="repeat(5,1fr)"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  h1 { font-size: clamp(28px, 8vw, 42px) !important; }
+  h2 { font-size: 24px !important; }
+
+  /* Tighter card padding */
+  .glass { padding: 16px !important; }
+}

@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Andri Saputro · Work</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Nunito:wght@500;600;700&family=Fraunces:wght@500;600;700&display=swap" rel="stylesheet" />
+<style>
+  html, body, #root { margin: 0; min-height: 100vh; background: linear-gradient(180deg, oklch(0.96 0.025 75) 0%, oklch(0.92 0.04 65) 100%); color: oklch(0.28 0.04 50); font-family: "Quicksand", "Nunito", system-ui, sans-serif; transition: background 0.4s, color 0.4s; }
+  html[data-theme="dark"], html[data-theme="dark"] body, html[data-theme="dark"] #root { background: linear-gradient(180deg, oklch(0.22 0.025 50) 0%, oklch(0.16 0.03 45) 100%); color: oklch(0.94 0.02 80); }
+  * { box-sizing: border-box; }
+  body { overflow-x: hidden; }
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s cubic-bezier(.2,.8,.2,1), transform 0.8s cubic-bezier(.2,.8,.2,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  .glass-hover { transition: transform 0.25s cubic-bezier(.2,.8,.2,1), border-color 0.25s, background 0.25s, box-shadow 0.25s; transform-style: preserve-3d; will-change: transform; }
+  .glass-hover:hover { transform: translateY(-4px); box-shadow: 0 30px 50px -20px rgba(40,25,10,0.50), inset 0 1px 0 rgba(255,255,255,0.7); }
+  .glass::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(280px circle at var(--mx, 50%) var(--my, 50%), rgba(255,250,230,0.25), transparent 60%); opacity: 0; transition: opacity 0.3s; border-radius: inherit; }
+  .glass:hover::before { opacity: 1; }
+  ::selection { background: oklch(0.72 0.16 45 / 0.35); color: oklch(0.28 0.04 50); }
+  @keyframes mote { 0%,100% { transform: translateY(0) translateX(0); opacity: 0.4; } 50% { transform: translateY(-30px) translateX(15px); opacity: 0.9; } }
+  body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 100; opacity: 0.06; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>"); }
+  ::-webkit-scrollbar { width: 12px; height: 12px; }
+  ::-webkit-scrollbar-track { background: oklch(0.88 0.03 75); }
+  ::-webkit-scrollbar-thumb { background: oklch(0.72 0.16 45); border-radius: 999px; border: 2px solid oklch(0.88 0.03 75); }
+  html[data-theme="dark"] ::-webkit-scrollbar-track { background: oklch(0.22 0.025 50); }
+  html[data-theme="dark"] ::-webkit-scrollbar-thumb { background: oklch(0.78 0.16 50); border-color: oklch(0.22 0.025 50); }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+// ─── RESUME-SHARED: tokens, hooks, primitives ─────────────────────────────────
+
+const RT_LIGHT = {
+  bg0: 'oklch(0.96 0.025 75)',
+  bg1: 'oklch(0.92 0.04 65)',
+  glass: 'rgba(255, 248, 232, 0.30)',
+  glassFill: 'rgba(255, 250, 238, 0.55)',
+  glassBorder: 'rgba(110, 75, 45, 0.28)',
+  glassBorderHi: 'rgba(110, 75, 45, 0.42)',
+  cream: 'oklch(0.97 0.025 85)',
+  ink: 'oklch(0.28 0.04 50)',
+  ink2: 'oklch(0.44 0.035 55)',
+  ink3: 'oklch(0.60 0.025 55)',
+  accent: 'oklch(0.72 0.16 45)',
+  accentDeep: 'oklch(0.52 0.13 42)',
+  yellow: 'oklch(0.86 0.085 92)',
+  green: 'oklch(0.80 0.06 145)',
+  pink: 'oklch(0.78 0.075 38)',
+  wall: 'oklch(0.82 0.04 70)',
+  wood: 'oklch(0.78 0.06 75)',
+  innerFill: 'rgba(255, 248, 232, 0.6)',
+  innerBorder: 'rgba(110, 75, 45, 0.22)',
+  fontDisplay: '"Fraunces", "Cooper", Georgia, serif',
+  fontUI: '"Quicksand", "Nunito", system-ui, sans-serif',
+  fontLabel: '"Nunito", "Quicksand", system-ui, sans-serif',
+};
+
+const RT_DARK = {
+  bg0: 'oklch(0.22 0.025 50)',
+  bg1: 'oklch(0.16 0.03 45)',
+  glass: 'rgba(50, 35, 22, 0.30)',
+  glassFill: 'rgba(60, 42, 28, 0.55)',
+  glassBorder: 'rgba(255, 235, 200, 0.18)',
+  glassBorderHi: 'rgba(255, 235, 200, 0.30)',
+  cream: 'oklch(0.30 0.03 50)',
+  ink: 'oklch(0.94 0.02 80)',
+  ink2: 'oklch(0.78 0.025 75)',
+  ink3: 'oklch(0.62 0.025 70)',
+  accent: 'oklch(0.78 0.16 50)',
+  accentDeep: 'oklch(0.85 0.14 55)',
+  yellow: 'oklch(0.72 0.10 92)',
+  green: 'oklch(0.68 0.07 145)',
+  pink: 'oklch(0.66 0.08 38)',
+  wall: 'oklch(0.30 0.03 50)',
+  wood: 'oklch(0.32 0.04 55)',
+  innerFill: 'rgba(40, 28, 18, 0.55)',
+  innerBorder: 'rgba(255, 235, 200, 0.16)',
+  fontDisplay: '"Fraunces", "Cooper", Georgia, serif',
+  fontUI: '"Quicksand", "Nunito", system-ui, sans-serif',
+  fontLabel: '"Nunito", "Quicksand", system-ui, sans-serif',
+};
+
+const RT = { ...RT_LIGHT };
+
+function applyTheme(mode) {
+  const src = mode === 'dark' ? RT_DARK : RT_LIGHT;
+  Object.keys(src).forEach(k => { RT[k] = src[k]; });
+  document.documentElement.dataset.theme = mode;
+  document.body.style.background = `linear-gradient(180deg, ${src.bg0} 0%, ${src.bg1} 100%)`;
+  document.body.style.color = src.ink;
+}
+
+const { useEffect, useRef, useState, useMemo } = React;
+
+function useReveal() {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current; if (!el) return;
+    const fallback = setTimeout(() => el.classList.add('in'), 600);
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((x) => {
+        if (x.isIntersecting || x.intersectionRatio > 0) {
+          x.target.classList.add('in');
+          io.unobserve(x.target);
+        }
+      }),
+      { threshold: 0.05, rootMargin: '0px 0px -10% 0px' }
+    );
+    io.observe(el);
+    return () => { clearTimeout(fallback); io.disconnect(); };
+  }, []);
+  return ref;
+}
+
+function Magnetic({ children, strength = 0.3, style = {}, ...rest }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current; if (!el) return;
+    const onMove = (e) => {
+      const r = el.getBoundingClientRect();
+      const cx = r.left + r.width/2, cy = r.top + r.height/2;
+      el.style.transform = `translate(${(e.clientX - cx) * strength}px, ${(e.clientY - cy) * strength}px)`;
+    };
+    const reset = () => { el.style.transform = ''; };
+    const parent = el.parentElement;
+    parent.addEventListener('mousemove', onMove); parent.addEventListener('mouseleave', reset);
+    return () => { parent.removeEventListener('mousemove', onMove); parent.removeEventListener('mouseleave', reset); };
+  }, [strength]);
+  return <span ref={ref} style={{ display: 'inline-block', transition: 'transform 0.25s cubic-bezier(.2,.8,.2,1)', ...style }} {...rest}>{children}</span>;
+}
+
+function LiveClock() {
+  const [now, setNow] = useState(new Date());
+  useEffect(() => { const t = setInterval(() => setNow(new Date()), 1000); return () => clearInterval(t); }, []);
+  const jakarta = new Date(now.getTime() + (now.getTimezoneOffset() + 420) * 60000);
+  const hh = String(jakarta.getHours()).padStart(2, '0');
+  const mm = String(jakarta.getMinutes()).padStart(2, '0');
+  return (
+    <span style={{ fontFamily: RT.fontUI, fontSize: 13, fontWeight: 600, color: RT.ink, display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+      <span style={{ width: 8, height: 8, borderRadius: '50%', background: RT.green, boxShadow: '0 0 10px ' + RT.green }} />
+      Jakarta · {hh}:{mm}
+    </span>
+  );
+}
+
+function CursorSpotlight() {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current; if (!el) return;
+    const move = (e) => { el.style.setProperty('--sx', e.clientX + 'px'); el.style.setProperty('--sy', e.clientY + 'px'); };
+    window.addEventListener('mousemove', move);
+    return () => window.removeEventListener('mousemove', move);
+  }, []);
+  return <div ref={ref} style={{
+    position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 1,
+    background: `radial-gradient(420px circle at var(--sx,50%) var(--sy,50%), oklch(0.95 0.10 90 / 0.18), transparent 60%)`,
+  }} />;
+}
+
+function Kicker({ children, style = {} }) {
+  return <span style={{ fontFamily: RT.fontUI, fontSize: 12, fontWeight: 700, color: RT.accentDeep, letterSpacing: 1.2, textTransform: 'uppercase', ...style }}>{children}</span>;
+}
+
+function useTheme() {
+  const [mode, setMode] = useState(() => {
+    try { return localStorage.getItem('resume-theme') || 'light'; } catch { return 'light'; }
+  });
+  applyTheme(mode);
+  useEffect(() => {
+    try { localStorage.setItem('resume-theme', mode); } catch {}
+  }, [mode]);
+  const toggle = () => setMode(m => m === 'light' ? 'dark' : 'light');
+  return [mode, toggle];
+}
+
+function SiteTopBar({ fontUI, theme, toggleTheme, current = 'Resume' }) {
+  const isDark = theme === 'dark';
+  return (
+    <header style={{ position: 'fixed', top: 16, left: 16, right: 16, zIndex: 30, padding: '12px 18px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backdropFilter: 'blur(20px) saturate(140%)', WebkitBackdropFilter: 'blur(20px) saturate(140%)', background: RT.glassFill, border: `2px solid ${RT.glassBorder}`, borderRadius: 18, boxShadow: '0 10px 30px -12px rgba(40,25,10,0.30)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <Magnetic strength={0.18}>
+          <a href="Wireframes.html" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '9px 16px', borderRadius: 999, background: RT.innerFill, border: `2px solid ${RT.ink}`, color: RT.ink, fontFamily: fontUI, fontSize: 13, fontWeight: 700, cursor: 'pointer', boxShadow: '0 3px 0 ' + RT.ink, textDecoration: 'none' }}>
+            <span style={{ fontSize: 14 }}>←</span> Back to room
+          </a>
+        </Magnetic>
+        <Magnetic strength={0.22}>
+          <button onClick={toggleTheme} aria-label="Toggle dark mode" title={isDark ? 'Switch to light' : 'Switch to dark'} style={{
+            width: 40, height: 40, borderRadius: '50%',
+            background: isDark ? RT.ink : RT.yellow,
+            border: `2px solid ${RT.ink}`,
+            color: isDark ? RT.yellow : RT.ink,
+            cursor: 'pointer', boxShadow: '0 3px 0 ' + RT.ink,
+            display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+            transition: 'background 0.3s, color 0.3s, transform 0.3s',
+          }}>
+            {isDark ? (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            ) : (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            )}
+          </button>
+        </Magnetic>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+        <LiveClock />
+        <span style={{ width: 1.5, height: 18, background: RT.glassBorderHi }} />
+        {[
+          { label: 'About', href: 'Wireframes.html' },
+          { label: 'Work', href: 'Portfolio-standalone.html' },
+          { label: 'Resume', href: 'Resume-standalone.html' },
+          { label: 'Contact', href: 'Wireframes.html' },
+        ].map(({ label, href }) => (
+          <a key={label} href={href} style={{ fontFamily: fontUI, fontSize: 13, fontWeight: label === current ? 700 : 500, color: label === current ? RT.accentDeep : RT.ink2, textDecoration: 'none' }}>{label}</a>
+        ))}
+        <Magnetic>
+          <button style={{ padding: '9px 18px', borderRadius: 999, background: RT.accent, border: `2px solid ${RT.ink}`, color: 'white', fontFamily: fontUI, fontSize: 13, fontWeight: 700, cursor: 'pointer', boxShadow: '0 3px 0 ' + RT.ink }}>Download CV ↓</button>
+        </Magnetic>
+      </div>
+    </header>
+  );
+}
+
+function SiteRoom({ theme = 'light' }) {
+  const isDark = theme === 'dark';
+  return (
+    <div style={{ position: 'fixed', inset: 0, zIndex: 0, overflow: 'hidden', filter: isDark ? 'brightness(0.45) saturate(0.7) hue-rotate(-8deg)' : 'none', transition: 'filter 0.4s' }}>
+      <img src="assets/room-background.png" alt="" aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
+      <div style={{ position: 'absolute', top: '-15%', right: '-10%', width: 700, height: 700, borderRadius: '50%', background: 'radial-gradient(circle, oklch(0.95 0.10 90 / 0.35), transparent 65%)', mixBlendMode: 'screen' }} />
+      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center, transparent 55%, rgba(80,50,30,0.22) 100%)' }} />
+      {[...Array(14)].map((_, i) => (
+        <div key={i} style={{
+          position: 'absolute', left: `${(i * 73 + 7) % 100}%`, top: `${(i * 47 + 13) % 100}%`,
+          width: 5, height: 5, borderRadius: '50%',
+          background: 'oklch(0.96 0.06 90 / 0.6)', boxShadow: '0 0 8px oklch(0.96 0.06 90)',
+          animation: `mote ${8 + (i % 5)}s ease-in-out ${i * 0.4}s infinite`,
+        }} />
+      ))}
+    </div>
+  );
+}
+
+function DarkAmbient() {
+  return (
+    <div style={{ position: 'fixed', inset: 0, zIndex: 0, overflow: 'hidden', pointerEvents: 'none' }}>
+      <div style={{ position: 'absolute', top: '-15%', right: '-10%', width: 700, height: 700, borderRadius: '50%', background: `radial-gradient(circle, ${RT.accent} 0%, transparent 65%)`, opacity: 0.18, filter: 'blur(40px)' }} />
+      <div style={{ position: 'absolute', bottom: '-20%', left: '-15%', width: 600, height: 600, borderRadius: '50%', background: `radial-gradient(circle, ${RT.yellow} 0%, transparent 65%)`, opacity: 0.10, filter: 'blur(40px)' }} />
+    </div>
+  );
+}
+
+function WindowCard({ title, children, padding = 28, hoverable = false, accent = RT.accent, style = {} }) {
+  return (
+    <div className={hoverable ? 'glass glass-hover' : 'glass'} style={{
+      position: 'relative',
+      background: RT.glassFill,
+      backdropFilter: 'blur(22px) saturate(150%)',
+      WebkitBackdropFilter: 'blur(22px) saturate(150%)',
+      border: `2px solid ${RT.glassBorder}`,
+      borderRadius: 22,
+      overflow: 'hidden',
+      boxShadow: '0 18px 36px -16px rgba(40,25,10,0.32), inset 0 1px 0 rgba(255,255,255,0.5)',
+      ...style,
+    }}>
+      {title && (
+        <div style={{ padding: '11px 16px', borderBottom: `2px solid ${RT.glassBorder}`, background: RT.innerFill, display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ width: 10, height: 10, borderRadius: '50%', background: accent, border: `1.5px solid ${RT.ink}` }} />
+          <span style={{ width: 10, height: 10, borderRadius: '50%', background: RT.yellow, border: `1.5px solid ${RT.ink}` }} />
+          <span style={{ width: 10, height: 10, borderRadius: '50%', background: RT.green, border: `1.5px solid ${RT.ink}` }} />
+          <span style={{ marginLeft: 8, fontFamily: RT.fontUI, fontSize: 11.5, fontWeight: 700, color: RT.ink2, letterSpacing: 0.5, textTransform: 'uppercase' }}>{title}</span>
+        </div>
+      )}
+      <div style={{ padding }}>{children}</div>
+    </div>
+  );
+}
+
+// ─── PORTFOLIO DATA ───────────────────────────────────────────────────────────
+
+const PORTFOLIO_PROJECTS = [
+  {
+    slug: 'parachute',
+    title: 'Mobile Parachute Mix Reality',
+    client: 'UpTrans Teknologi, Bandung Simulator Group',
+    role: '3D Designer · Lead Design · Game Tester',
+    period: '2025',
+    studio: 'Cube Studio',
+    discipline: ['3D', 'VR', 'Mixed Reality', 'Simulation'],
+    cover: 'oklch(0.80 0.06 145)',
+    coverDeep: 'oklch(0.55 0.08 145)',
+    summary: 'A mixed-reality parachute simulation system with physical motion rig, VR headset, and instructor control station — saving the Air Force 500M+ Rupiah per training flight.',
+    metric: '500M+',
+    metricLabel: 'Rupiah saved per training flight',
+    href: 'Case-Parachute-standalone.html',
+    featured: true,
+  },
+  {
+    slug: 'vlux',
+    title: 'Lighting Kungfu',
+    client: 'Cube Studio (in-house product)',
+    role: 'Product Designer · UI/UX Designer',
+    period: '2025 — Ongoing',
+    studio: 'Cube Studio',
+    discipline: ['Desktop App', 'VR', 'B2B', 'Architecture'],
+    cover: 'oklch(0.78 0.06 60)',
+    coverDeep: 'oklch(0.50 0.10 55)',
+    summary: 'Desktop lighting design tool built on Unreal Engine 5 with real-time render and VR walkthrough.',
+    metric: '2',
+    metricLabel: 'User types in one product',
+    href: 'Case-Parachute-standalone.html#vlux',
+    featured: false,
+  },
+  {
+    slug: 'gotechup',
+    title: 'GoTechUp URC',
+    client: 'GoTechUp Malaysia & Singapore',
+    role: 'UI/UX Designer · Level Designer · 3D Designer',
+    period: '2023 — Ongoing',
+    studio: 'GoTechUp',
+    discipline: ['EdTech', 'Gamification', 'Web App', 'Multi-country'],
+    cover: 'oklch(0.74 0.06 140)',
+    coverDeep: 'oklch(0.52 0.10 135)',
+    summary: 'A gamified web-based robotics competition platform — 21 levels across 6 countries, no hardware required.',
+    metric: '21',
+    metricLabel: 'Levels across 6 countries',
+    href: 'Case-Parachute-standalone.html#edutech',
+    featured: false,
+  },
+  {
+    slug: 'pataland',
+    title: 'PataLand',
+    client: 'In-house (Paradimensi)',
+    role: 'Product Designer · Lead Design · Visual Designer · Game Designer',
+    period: '2022 — 2024',
+    studio: 'Cube Studio',
+    discipline: ['Metaverse', 'Social', 'Entertainment', 'Cross-platform'],
+    cover: 'oklch(0.72 0.06 145)',
+    coverDeep: 'oklch(0.48 0.08 140)',
+    summary: 'A web-based social-entertainment metaverse — virtual concerts, avatar identity, and persistent social spaces.',
+    metric: '836',
+    metricLabel: 'Registered accounts',
+    href: 'Case-Parachute-standalone.html#pataland',
+    featured: false,
+  },
+  {
+    slug: 'metaverse',
+    title: 'Mobile Metaverse',
+    client: 'Techpolitan',
+    role: 'Business Development · Project Manager · 3D Design',
+    period: '2022 — 2023',
+    studio: 'Techpolitan',
+    discipline: ['Mobile', 'Metaverse', 'Social', 'Brand Integration'],
+    cover: 'oklch(0.70 0.08 310)',
+    coverDeep: 'oklch(0.48 0.13 300)',
+    summary: 'A mobile Metaverse integrating brands under PT. Walden Global Service into one social-ecosystem.',
+    metric: '—',
+    metricLabel: 'Brand integration platform',
+    href: 'Case-Parachute-standalone.html#metaverse',
+    featured: false,
+  },
+];
+
+// ─── PORTFOLIO APP ────────────────────────────────────────────────────────────
+
+const ROLE_TAGS = ['All', 'Lead', 'Product', 'UI/UX', '3D', 'Game'];
+
+function projectMatchesRole(p, tag) {
+  if (tag === 'All') return true;
+  const blob = (p.role + ' ' + (p.discipline || []).join(' ')).toLowerCase();
+  if (tag === 'Lead')    return /\blead\b|founder/.test(blob);
+  if (tag === 'Product') return /\bproduct\b|saas|tooling/.test(blob);
+  if (tag === 'UI/UX')   return /\bui\/ux|\bux\b|design system|web/.test(blob);
+  if (tag === '3D')      return /\b3d\b|ue5|vr|metaverse|simulation/.test(blob);
+  if (tag === 'Game')    return /\bgame\b|telegram|metaverse|vr/.test(blob);
+  return false;
+}
+
+const CASE_COPY = {
+  parachute: {
+    tools: ['Unreal 5', 'Figma', 'Quest 2', 'Blender'],
+    challenge: 'Live parachute training is expensive, weather-bound, and brutal on first-timers. The academy needed a way for cadets to build muscle memory before ever touching a real chute.',
+    approach: 'Field research at the academy, then a six-phase jump model in Unity, re-built in UE5 for fidelity. Designed an instructor tablet UI so non-VR staff could throw weather and gear failures from a calm panel. Two cadet cohorts tested the rig before delivery.',
+    shots: ['Cabin · pre-jump checks', 'Free-fall · 4,200 ft AGL'],
+    outcome: [
+      { metric: '90%', label: 'cost reduction vs. live training' },
+      { metric: '6 / 6', label: 'training phases supported' },
+      { metric: '2', label: 'cadet cohorts validated pre-ship' },
+    ],
+  },
+  vlux: {
+    tools: ['UE5 SDK', 'Figma', 'TypeScript', 'Cycles'],
+    challenge: 'UE5 lighting artists were ping-ponging between tools to dial in scenes — slow iteration, lost notes, no shared vocabulary across team members.',
+    approach: 'Founded the product. Audited five lighting workflows with practicing artists, designed a node-based color pipeline, and shipped a desktop tool with snapshot/compare and a precision colour picker. Continuous beta with five teams shaping the roadmap.',
+    shots: ['Node-based color pipeline', 'Snapshot diff between two lighting passes'],
+    outcome: [
+      { metric: '5×', label: 'faster lighting iteration' },
+      { metric: '5', label: 'studios in active beta' },
+      { metric: '1', label: 'tool replaces a 3-app workflow' },
+    ],
+  },
+  edutech: {
+    tools: ['Figma', 'Tokens Studio', 'React', 'Storybook'],
+    challenge: 'Three SEA institutions, three apps (LMS, admin, student) — and almost no shared vocabulary. Every screen was bespoke, every release a re-invent.',
+    approach: 'Stood up a single design system: tokens, components, motion. Migrated the three apps to it screen-by-screen. Trained the in-house team on contribution rules so the system kept living after handover.',
+    shots: ['Token foundations', 'LMS dashboard, post-system'],
+    outcome: [
+      { metric: '500%', label: 'asset production lift' },
+      { metric: '83', label: 'institutional accounts onboarded' },
+      { metric: '3', label: 'products on a single system' },
+    ],
+  },
+  pataland: {
+    tools: ['Figma', 'Blender', 'Adobe', 'Unity', 'CorelDraw', 'Trello'],
+    challenge: 'PataLand needed a social-entertainment metaverse where fans and artists share the same room — across VR, desktop, and mobile.',
+    approach: 'As Lead Designer, architected a user-behavior tracking system using custom triggers. Analyzed interaction heatmaps and navigation patterns to refine UX. Managed the full product lifecycle and led technical discussions with developers.',
+    shots: ['Virtual concert — stage view', 'Character customization system'],
+    outcome: [
+      { metric: '836', label: 'registered accounts' },
+      { metric: '4', label: 'collaborated artists' },
+      { metric: '10+', label: 'fun & social activities' },
+    ],
+  },
+  metaverse: {
+    tools: ['Blender', 'Unity', 'Internal PM Tool'],
+    challenge: 'PT. Walden Global Service needed to integrate its brands into one social-ecosystem to promote and sell digital goods and services.',
+    approach: 'Wore three hats — business development, project management, and 3D design. Audited brand ecosystem, defined the business case, designed virtual spaces in Blender, and managed the development pipeline.',
+    shots: ['Brand zone — virtual space', 'Marketplace interface'],
+    outcome: [
+      { metric: '1', label: 'unified social ecosystem' },
+      { metric: '3', label: 'roles held simultaneously' },
+      { metric: '2', label: 'platforms (Android & iOS)' },
+    ],
+  },
+};
+
+function ProjectList({ items, activeIdx, onSelect, roleFilter, onRoleFilter, fontDisplay, fontUI }) {
+  return (
+    <aside style={{
+      position: 'sticky', top: 96, alignSelf: 'start',
+      maxHeight: 'calc(100vh - 120px)', overflowY: 'auto',
+      padding: 18,
+      background: RT.glassFill,
+      backdropFilter: 'blur(20px) saturate(140%)', WebkitBackdropFilter: 'blur(20px) saturate(140%)',
+      border: `2px solid ${RT.glassBorder}`, borderRadius: 22,
+      boxShadow: '0 18px 36px -16px rgba(40,25,10,0.30), inset 0 1px 0 rgba(255,255,255,0.5)',
+    }}>
+      <Kicker>projects · {String(items.length).padStart(2, '0')}</Kicker>
+      <nav style={{ marginTop: 14, display: 'flex', flexDirection: 'column', gap: 4 }}>
+        {items.map((p, i) => {
+          const isActive = i === activeIdx;
+          return (
+            <button key={p.slug} onClick={() => onSelect(i)} style={{
+              all: 'unset', cursor: 'pointer',
+              padding: '10px 12px', borderRadius: 10,
+              display: 'grid', gridTemplateColumns: '24px 1fr', gap: 8, alignItems: 'baseline',
+              background: isActive ? RT.innerFill : 'transparent',
+              border: `1.5px solid ${isActive ? RT.glassBorderHi : 'transparent'}`,
+              transition: 'background 0.2s, border-color 0.2s',
+            }}>
+              <span style={{ fontFamily: '"JetBrains Mono", "Roboto Mono", monospace', fontSize: 11, fontWeight: 700, color: isActive ? RT.accent : RT.ink3 }}>
+                {String(i + 1).padStart(2, '0')}.
+              </span>
+              <span style={{ display: 'block' }}>
+                <span style={{ display: 'block', fontFamily: fontDisplay, fontSize: 15, fontWeight: 700, color: RT.ink, letterSpacing: -0.3, lineHeight: 1.2 }}>
+                  {p.title}
+                </span>
+                <span style={{ display: 'block', marginTop: 3, fontFamily: fontUI, fontSize: 11, fontWeight: 600, color: RT.ink2 }}>
+                  {p.client}
+                </span>
+              </span>
+            </button>
+          );
+        })}
+      </nav>
+
+      <hr style={{ margin: '18px -4px 14px', border: 'none', borderTop: `1.5px dashed ${RT.glassBorderHi}` }} />
+
+      <Kicker>filter by role</Kicker>
+      <div style={{ marginTop: 10, display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+        {ROLE_TAGS.map(t => {
+          const sel = t === roleFilter;
+          return (
+            <button key={t} onClick={() => onRoleFilter(t)} style={{
+              padding: '6px 11px', borderRadius: 999, cursor: 'pointer',
+              border: `1.5px solid ${sel ? RT.ink : RT.glassBorder}`,
+              background: sel ? RT.ink : 'transparent',
+              color: sel ? RT.cream : RT.ink2,
+              fontFamily: fontUI, fontSize: 11.5, fontWeight: 700, letterSpacing: 0.3,
+              transition: 'all 0.2s',
+            }}>{t}</button>
+          );
+        })}
+      </div>
+    </aside>
+  );
+}
+
+function ProjectPane({ p, idx, total, onPrev, onNext, fontDisplay, fontUI }) {
+  const ref = useReveal();
+  const c = CASE_COPY[p.slug] || {};
+  return (
+    <article ref={ref} className="reveal" style={{ minWidth: 0 }}>
+      <Kicker>project · {String(idx + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}</Kicker>
+      <h1 style={{ margin: '10px 0 0', fontFamily: fontDisplay, fontSize: 'clamp(40px, 5.4vw, 68px)', fontWeight: 700, color: RT.ink, letterSpacing: -2, lineHeight: 1.05, textWrap: 'balance' }}>
+        {p.title}
+      </h1>
+      <p style={{ marginTop: 14, fontFamily: fontDisplay, fontSize: 20, fontStyle: 'italic', fontWeight: 500, color: RT.accent, letterSpacing: -0.4, lineHeight: 1.35, maxWidth: 640 }}>
+        {p.summary}
+      </p>
+
+      <div style={{ marginTop: 22, display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0, border: `2px solid ${RT.glassBorder}`, borderRadius: 14, overflow: 'hidden', background: RT.glassFill, backdropFilter: 'blur(18px) saturate(140%)', WebkitBackdropFilter: 'blur(18px) saturate(140%)' }}>
+        {[
+          ['Role', p.role],
+          ['Year', p.period],
+          ['Client', p.client],
+          ['Tools', (c.tools || []).join(' · ') || '—'],
+        ].map(([k, v], i) => (
+          <div key={k} style={{ padding: '14px 16px', borderRight: i < 3 ? `1.5px solid ${RT.glassBorder}` : 'none' }}>
+            <div style={{ fontFamily: fontUI, fontSize: 10, fontWeight: 700, color: RT.ink3, textTransform: 'uppercase', letterSpacing: 1 }}>{k}</div>
+            <div style={{ marginTop: 6, fontFamily: fontDisplay, fontSize: 14, fontWeight: 600, color: RT.ink, lineHeight: 1.3 }}>{v}</div>
+          </div>
+        ))}
+      </div>
+
+      <div className="glass" style={{
+        marginTop: 22, position: 'relative',
+        background: `linear-gradient(135deg, ${p.cover} 0%, ${p.coverDeep} 100%)`,
+        border: `2px solid ${RT.glassBorder}`, borderRadius: 18, overflow: 'hidden',
+        aspectRatio: '21 / 9', boxShadow: '0 22px 44px -20px rgba(40,25,10,0.45)',
+      }}>
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 30% 30%, rgba(255,255,255,0.32), transparent 55%), radial-gradient(circle at 75% 75%, rgba(0,0,0,0.20), transparent 55%)' }} />
+        <div style={{
+          position: 'absolute', inset: '15% 20%',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          background: 'rgba(255,250,235,0.92)', border: `2.5px solid ${RT.ink}`,
+          borderRadius: 14, boxShadow: '0 16px 32px -10px rgba(0,0,0,0.35)',
+          fontFamily: fontDisplay, fontSize: 'clamp(60px, 9vw, 110px)', fontWeight: 700, color: p.coverDeep, letterSpacing: -3,
+        }}>
+          {p.title.split(' ').map(w => w[0]).join('').slice(0, 2)}
+        </div>
+        <div style={{ position: 'absolute', top: 16, left: 16, padding: '5px 11px', borderRadius: 999, background: 'rgba(20,15,8,0.7)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', border: `1.5px solid rgba(255,255,255,0.25)`, fontFamily: '"Roboto Mono", monospace', fontSize: 10.5, fontWeight: 600, color: 'rgba(255,250,235,0.95)', letterSpacing: 0.8, textTransform: 'uppercase' }}>
+          ▸ hero · video loop
+        </div>
+      </div>
+
+      <h2 style={{ margin: '34px 0 8px', fontFamily: fontDisplay, fontSize: 26, fontWeight: 700, color: RT.ink, letterSpacing: -0.6 }}>Challenge</h2>
+      <p style={{ margin: 0, fontFamily: fontUI, fontSize: 15.5, fontWeight: 500, lineHeight: 1.65, color: RT.ink2, maxWidth: 720 }}>
+        {c.challenge}
+      </p>
+
+      <h2 style={{ margin: '28px 0 8px', fontFamily: fontDisplay, fontSize: 26, fontWeight: 700, color: RT.ink, letterSpacing: -0.6 }}>Approach</h2>
+      <p style={{ margin: 0, fontFamily: fontUI, fontSize: 15.5, fontWeight: 500, lineHeight: 1.65, color: RT.ink2, maxWidth: 720 }}>
+        {c.approach}
+      </p>
+
+      <h2 style={{ margin: '28px 0 12px', fontFamily: fontDisplay, fontSize: 26, fontWeight: 700, color: RT.ink, letterSpacing: -0.6 }}>Highlights</h2>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+        {(c.shots || []).map((label, i) => (
+          <div key={i} className="glass" style={{
+            position: 'relative', aspectRatio: '4 / 3',
+            background: `linear-gradient(155deg, ${i === 0 ? p.cover : p.coverDeep} 0%, ${i === 0 ? p.coverDeep : p.cover} 100%)`,
+            border: `2px solid ${RT.glassBorder}`, borderRadius: 16, overflow: 'hidden',
+            boxShadow: '0 14px 28px -14px rgba(40,25,10,0.30)',
+          }}>
+            <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 35% 30%, rgba(255,255,255,0.30), transparent 55%), radial-gradient(circle at 70% 75%, rgba(0,0,0,0.18), transparent 55%)' }} />
+            <div style={{ position: 'absolute', inset: '12% 14%', background: 'rgba(255,250,235,0.88)', border: `2px solid ${RT.ink}`, borderRadius: 10 }} />
+            <div style={{ position: 'absolute', bottom: 12, left: 14, padding: '4px 10px', borderRadius: 999, background: 'rgba(20,15,8,0.72)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)', fontFamily: '"Roboto Mono", monospace', fontSize: 10, fontWeight: 600, color: 'rgba(255,250,235,0.95)', letterSpacing: 0.6, textTransform: 'uppercase' }}>
+              0{i + 1} · {label}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <h2 style={{ margin: '28px 0 12px', fontFamily: fontDisplay, fontSize: 26, fontWeight: 700, color: RT.ink, letterSpacing: -0.6 }}>Outcome</h2>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+        {(c.outcome || []).map(({ metric, label }, i) => (
+          <div key={i} className="glass" style={{ padding: 18, background: RT.glassFill, border: `2px solid ${RT.glassBorder}`, borderRadius: 14, backdropFilter: 'blur(18px) saturate(140%)', WebkitBackdropFilter: 'blur(18px) saturate(140%)' }}>
+            <div style={{ fontFamily: fontDisplay, fontSize: 38, fontWeight: 700, color: i === 0 ? RT.accent : i === 1 ? RT.green : RT.yellow, lineHeight: 1, letterSpacing: -1.5 }}>{metric}</div>
+            <div style={{ marginTop: 8, fontFamily: fontUI, fontSize: 11.5, fontWeight: 700, color: RT.ink2, letterSpacing: 0.4, textTransform: 'uppercase', lineHeight: 1.35 }}>{label}</div>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ marginTop: 28, paddingTop: 20, borderTop: `1.5px dashed ${RT.glassBorderHi}`, display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
+        <button onClick={onPrev} style={{
+          padding: '10px 16px', borderRadius: 999, cursor: 'pointer',
+          border: `1.5px solid ${RT.ink}`, background: RT.ink, color: RT.cream,
+          fontFamily: fontUI, fontSize: 13, fontWeight: 700, letterSpacing: 0.3,
+          boxShadow: '0 3px 0 ' + RT.ink2,
+        }}>← Prev project</button>
+        <button onClick={onNext} style={{
+          padding: '10px 16px', borderRadius: 999, cursor: 'pointer',
+          border: `1.5px solid ${RT.ink}`, background: 'transparent', color: RT.ink,
+          fontFamily: fontUI, fontSize: 13, fontWeight: 700, letterSpacing: 0.3,
+        }}>Next project →</button>
+        <a href={p.href} style={{
+          marginLeft: 'auto', textDecoration: 'none',
+          padding: '10px 16px', borderRadius: 999,
+          border: `1.5px solid ${RT.glassBorder}`, background: RT.innerFill, color: RT.ink,
+          fontFamily: fontUI, fontSize: 13, fontWeight: 700, letterSpacing: 0.3,
+          display: 'inline-flex', alignItems: 'center', gap: 6,
+        }}>View project <span aria-hidden>↗</span></a>
+      </div>
+    </article>
+  );
+}
+
+function PortfolioApp() {
+  const [theme, toggleTheme] = useTheme();
+  const fontDisplay = '"DM Serif Display", "Fraunces", Georgia, serif';
+  const fontUI = '"Plus Jakarta Sans", "Quicksand", system-ui, sans-serif';
+
+  const [roleFilter, setRoleFilter] = useState('All');
+  const items = useMemo(() => PORTFOLIO_PROJECTS.filter(p => projectMatchesRole(p, roleFilter)), [roleFilter]);
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  useEffect(() => { if (activeIdx >= items.length) setActiveIdx(0); }, [items.length, activeIdx]);
+
+  useEffect(() => {
+    const h = (window.location.hash || '').replace('#', '');
+    if (!h) return;
+    const i = items.findIndex(p => p.slug === h);
+    if (i >= 0) setActiveIdx(i);
+  }, []);
+
+  const active = items[activeIdx] || items[0];
+  const total = items.length;
+  const goPrev = () => setActiveIdx((i) => (i - 1 + total) % total);
+  const goNext = () => setActiveIdx((i) => (i + 1) % total);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [activeIdx]);
+
+  return (
+    <div style={{ minHeight: '100vh', position: 'relative' }}>
+      {theme === 'light' ? <SiteRoom theme={theme} /> : <DarkAmbient />}
+      <CursorSpotlight />
+      <div style={{ position: 'relative', zIndex: 2 }}>
+        <SiteTopBar fontUI={fontUI} theme={theme} toggleTheme={toggleTheme} current="Work" />
+
+        <main style={{ maxWidth: 1280, margin: '0 auto', padding: '110px 32px 60px' }}>
+          <header style={{ marginBottom: 28 }}>
+            <Kicker>portfolio · /work</Kicker>
+            <h1 style={{ margin: '10px 0 0', fontFamily: fontDisplay, fontSize: 'clamp(36px, 4.4vw, 56px)', fontWeight: 700, color: RT.ink, letterSpacing: -1.5, lineHeight: 1.05 }}>
+              Five projects, <span style={{ color: RT.accent, fontStyle: 'italic' }}>one rail at a time</span>.
+            </h1>
+            <p style={{ margin: '12px 0 0', fontFamily: fontUI, fontSize: 14.5, fontWeight: 500, color: RT.ink2, maxWidth: 640 }}>
+              Pick a project on the left — the project opens here. Filter by role to narrow the list.
+            </p>
+          </header>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '280px 1fr', gap: 28, alignItems: 'start' }}>
+            <ProjectList
+              items={items}
+              activeIdx={activeIdx}
+              onSelect={setActiveIdx}
+              roleFilter={roleFilter}
+              onRoleFilter={setRoleFilter}
+              fontDisplay={fontDisplay}
+              fontUI={fontUI}
+            />
+            {active ? (
+              <CaseStudyPane
+                key={active.slug}
+                p={active}
+                idx={activeIdx}
+                total={total}
+                onPrev={goPrev}
+                onNext={goNext}
+                fontDisplay={fontDisplay}
+                fontUI={fontUI}
+              />
+            ) : (
+              <div style={{ padding: '48px 24px', textAlign: 'center', fontFamily: fontUI, fontSize: 14, fontWeight: 600, color: RT.ink2, background: RT.innerFill, border: `2px dashed ${RT.glassBorderHi}`, borderRadius: 18 }}>
+                No projects match <strong>{roleFilter}</strong>. <button onClick={() => setRoleFilter('All')} style={{ background: 'none', border: 'none', color: RT.accent, fontFamily: fontUI, fontWeight: 700, cursor: 'pointer', textDecoration: 'underline', fontSize: 14 }}>Show all</button>.
+              </div>
+            )}
+          </div>
+
+          <footer style={{ marginTop: 60, padding: '20px 6px', display: 'flex', justifyContent: 'space-between', fontFamily: fontUI, fontWeight: 600, fontSize: 12, color: RT.ink2 }}>
+            <span>© 2026 Andri Saputro</span>
+            <span><a href="Resume-standalone.html" style={{ color: RT.ink2, textDecoration: 'none', borderBottom: `1.5px solid ${RT.glassBorderHi}` }}>Read the resume →</a></span>
+          </footer>
+        </main>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<PortfolioApp />);
+</script>
+</body>
+</html>
