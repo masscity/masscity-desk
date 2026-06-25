@@ -202,8 +202,13 @@
     <div class="modal hidden">
       <div class="modal-wrapper">
         <div class="modal-header">
+          <div class="modal-header-dots">
+            <span class="dot dot-accent"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
           <h1 class="modal-title">Project One</h1>
-          <button class="modal-exit-button">X</button>
+          <button class="modal-exit-button">✕</button>
         </div>
         <div class="modal-content">
           <div class="modal-content-wrapper">
@@ -213,6 +218,7 @@
           <img id="modalImage" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Project Image">
           <button id="prevImage" class="gallery-btn">⟨</button>
           <button id="nextImage" class="gallery-btn">⟩</button>
+          <p id="imageCaption" class="gallery-caption"></p>
         </div>
         
             <p class="modal-project-description">
@@ -233,17 +239,11 @@
               Dolorum, aliquid eveniet?
             </p>
 
-            <a
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="modal-project-visit-button hidden"
-              >View Project</a
-            >
           </div>
         </div>
       </div>
     </div>
+    <span class="modal-hint hidden">Click anywhere to close</span>
 
     <!-- ── Page curtain transition ──────────────────────────────── -->
     <div class="curtain" id="curtain"></div>

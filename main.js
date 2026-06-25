@@ -117,6 +117,7 @@ const modalExitButton = document.querySelector(".modal-exit-button");
 const modalVisitProjectButton = document.querySelector(
   ".modal-project-visit-button"
 );
+const modalHint = document.querySelector(".modal-hint");
 const themeToggleButton = document.querySelector(".theme-mode-toggle-button");
 const firstIcon = document.querySelector(".first-icon");
 const secondIcon = document.querySelector(".second-icon");
@@ -163,11 +164,21 @@ const modalContent = {
     link: "Case-Parachute.html",
   },
   PictureFrame: {
-    title: "Gallery",
+    title: "gallery.png",
     backgroundColor: "#ea7b36ff",
     images: [
-        "./media/IMG1.png",
-        "./media/IMG2.png"
+        "./media/IMG_01.png",
+        "./media/IMG_02.png",
+        "./media/IMG_03.png",
+        "./media/IMG_04.png",
+        "./media/IMG_05.png"
+    ],
+    captions: [
+        "Visiting Hong Kong",
+        "Presenting Cube Studio to Teten Masduki, former Indonesia Minister of Cooperatives and SMEs",
+        "Eno Bening visiting Paradimensi's booth at Comicon 2023",
+        "In front of Simulation Building in Indonesia Air Force Academy",
+        "Teaching Korean interns from Hanbat University"
     ]
   },
 };
@@ -188,24 +199,35 @@ function showModal(id) {
 
     if (content.images && content.images.length > 0) {
       document.getElementById('modalImage').src = content.images[currentImageIndex];
+      var cap = document.getElementById('imageCaption');
+      if (cap) cap.textContent = (content.captions && content.captions[currentImageIndex]) || '';
       document.querySelector('.modal-image-container').classList.remove('hidden');
     } else {
       document.querySelector('.modal-image-container').classList.add('hidden');
     }
 
-    if (content.link) {
-      modalVisitProjectButton.href = content.link;
-      modalVisitProjectButton.classList.remove("hidden");
-    } else {
-      modalVisitProjectButton.classList.add("hidden");
+    if (modalVisitProjectButton) {
+      if (content.link) {
+        modalVisitProjectButton.href = content.link;
+        modalVisitProjectButton.classList.remove("hidden");
+      } else {
+        modalVisitProjectButton.classList.add("hidden");
+      }
     }
+
+    // Kill any in-flight animations from a previous open/close
+    gsap.killTweensOf(modal);
+    gsap.killTweensOf(modalbgOverlay);
 
     // Remove hidden so elements are in the DOM but invisible
     modal.classList.remove("hidden");
     modalbgOverlay.classList.remove("hidden");
+    if (modalHint) modalHint.classList.remove("hidden");
     isModalOpen = true;
 
     // Set initial state: backdrop invisible, modal below viewport
+    gsap.set(modal, { clearProps: "transform" });
+    gsap.set(modalbgOverlay, { clearProps: "opacity" });
     gsap.set(modalbgOverlay, { opacity: 0 });
     gsap.set(modal, { y: window.innerHeight + 100 });
 
@@ -224,6 +246,8 @@ function showModal(id) {
 function hideModal() {
   if (!isModalOpen) return;
   isModalOpen = false;
+
+  if (modalHint) modalHint.classList.add("hidden");
 
   if (prefersReducedMotion) {
     modal.classList.add("hidden");
@@ -248,17 +272,21 @@ function hideModal() {
 }
 
 document.getElementById('prevImage').addEventListener('click', () => {
-    const images = modalContent[currentModalId]?.images;
-    if (!images || images.length === 0) return;
-    currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
-    document.getElementById('modalImage').src = images[currentImageIndex];
+    const content = modalContent[currentModalId];
+    if (!content?.images || content.images.length === 0) return;
+    currentImageIndex = (currentImageIndex - 1 + content.images.length) % content.images.length;
+    document.getElementById('modalImage').src = content.images[currentImageIndex];
+    var cap = document.getElementById('imageCaption');
+    if (cap) cap.textContent = (content.captions && content.captions[currentImageIndex]) || '';
 });
 
 document.getElementById('nextImage').addEventListener('click', () => {
-    const images = modalContent[currentModalId]?.images;
-    if (!images || images.length === 0) return;
-    currentImageIndex = (currentImageIndex + 1) % images.length;
-    document.getElementById('modalImage').src = images[currentImageIndex];
+    const content = modalContent[currentModalId];
+    if (!content?.images || content.images.length === 0) return;
+    currentImageIndex = (currentImageIndex + 1) % content.images.length;
+    document.getElementById('modalImage').src = content.images[currentImageIndex];
+    var cap = document.getElementById('imageCaption');
+    if (cap) cap.textContent = (content.captions && content.captions[currentImageIndex]) || '';
 });
 
 // Our Intersecting objects
