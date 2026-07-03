@@ -575,7 +575,7 @@ function ProjectHeader({ p, fontDisplay }) {
   );
 }
 
-function ProjectHero({ p, fontDisplay, onNext, onPrev }) {
+function ProjectHero({ p, fontDisplay }) {
   const [visible, setVisible] = useState(true);
   const prevSlug = useRef(p.slug);
 
@@ -590,23 +590,10 @@ function ProjectHero({ p, fontDisplay, onNext, onPrev }) {
   return (
     <div className="glass" style={{
       gridColumn: 2, gridRow: 2, alignSelf: 'stretch', position: 'relative', minHeight: 0,
-      display: 'flex', flexDirection: 'column',
       background: `linear-gradient(135deg, ${p.cover} 0%, ${p.coverDeep} 100%)`,
       border: `2px solid ${RT.glassBorder}`, borderRadius: 18, overflow: 'hidden',
       boxShadow: '0 22px 44px -20px rgba(40,25,10,0.45)',
     }}>
-      {/* gallery.png title bar */}
-      <div style={{ padding: '11px 16px', borderBottom: `2px solid ${RT.glassBorder}`, background: 'rgba(255,250,238,0.4)', display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
-        <span style={{ width: 10, height: 10, borderRadius: '50%', background: RT.accent, border: `1.5px solid ${RT.ink}` }} />
-        <span style={{ width: 10, height: 10, borderRadius: '50%', background: RT.yellow, border: `1.5px solid ${RT.ink}` }} />
-        <span style={{ width: 10, height: 10, borderRadius: '50%', background: RT.green, border: `1.5px solid ${RT.ink}` }} />
-        <span style={{ marginLeft: 8, fontFamily: RT.fontUI, fontSize: 11.5, fontWeight: 700, color: RT.ink2, letterSpacing: 0.5, textTransform: 'uppercase' }}>gallery.png</span>
-        <div style={{ marginLeft: 'auto', display: 'flex', gap: 6 }}>
-          <button onClick={onPrev} style={{ all: 'unset', cursor: 'pointer', width: 26, height: 26, borderRadius: 8, background: RT.innerFill, border: `1.5px solid ${RT.glassBorder}`, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontFamily: RT.fontUI, fontSize: 13, fontWeight: 700, color: RT.ink2 }}>←</button>
-          <button onClick={onNext} style={{ all: 'unset', cursor: 'pointer', width: 26, height: 26, borderRadius: 8, background: RT.innerFill, border: `1.5px solid ${RT.glassBorder}`, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontFamily: RT.fontUI, fontSize: 13, fontWeight: 700, color: RT.ink2 }}>→</button>
-        </div>
-      </div>
-      <div style={{ position: 'relative', flex: 1, minHeight: 0 }}>
       <div style={{
         position: 'absolute', inset: 0,
         opacity: visible ? 1 : 0, transform: visible ? 'scale(1)' : 'scale(1.02)',
@@ -628,7 +615,6 @@ function ProjectHero({ p, fontDisplay, onNext, onPrev }) {
             </div>
           </>
         )}
-      </div>
       </div>
     </div>
   );
@@ -718,9 +704,7 @@ function PortfolioApp() {
             {active && (
               <React.Fragment>
                 <ProjectHeader key={active.slug + '-hdr'} p={active} fontDisplay={fontDisplay} />
-                <ProjectHero p={active} fontDisplay={fontDisplay}
-                  onPrev={() => setActiveIdx(i => (i - 1 + items.length) % items.length)}
-                  onNext={() => setActiveIdx(i => (i + 1) % items.length)} />
+                <ProjectHero p={active} fontDisplay={fontDisplay} />
                 <InfoPanel key={active.slug + '-info'} p={active} fontDisplay={fontDisplay} fontUI={fontUI} />
               </React.Fragment>
             )}
